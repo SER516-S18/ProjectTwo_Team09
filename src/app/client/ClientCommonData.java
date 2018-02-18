@@ -6,14 +6,28 @@ import java.util.Observable;
 
 /**
  * @author Manish Tandon This class is responsible for providing data to various
- *         UI elements of the  client application. Eg. Graphs etc.
- *         Follows observer pattern.
+ *         UI elements of the client application. Eg. Graphs etc. Follows
+ *         observer pattern.
  */
 public class ClientCommonData extends Observable {
 	// data structure for various channels, Format eg.:
 	// [[channel_num_1,channel_num_2,...],[channel2_num1,chnnale2_num2...],...]
 	private List<ArrayList<Integer>> dataFromServer;
 	
+	private List<String> logs;
+
+	private static ClientCommonData instance;
+
+	private ClientCommonData() {
+		// so only one instance of this object exists.
+	}
+
+	public static ClientCommonData getInstance() {
+		if (instance == null) {
+			instance = new ClientCommonData();
+		}
+		return instance;
+	}
 
 	public List<ArrayList<Integer>> getDataFromServer() {
 		return dataFromServer;
@@ -24,4 +38,12 @@ public class ClientCommonData extends Observable {
 		setChanged();
 	}
 
+	public List<String> getLogs() {
+		return logs;
+	}
+
+	public void setLogs(List<String> logs) {
+		this.logs = logs;
+	}
+	
 }
