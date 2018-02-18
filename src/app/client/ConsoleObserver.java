@@ -7,7 +7,7 @@ public class ConsoleObserver implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+		// casting the observable object to consoledata obj
 		ConsoleData consoleDataObject=(ConsoleData)o;
 		System.out.println(consoleDataObject.getMessageForConsole());
 	}
