@@ -14,7 +14,8 @@ public class CommonDataTesting {
 		GraphObserver graphObject=new GraphObserver();
 		dataObject.addObserver(graphObject);
 		dataObject.setDataFromServer(listOLists);
-		dataObject.notifyObservers();
 		//on calling notify observer GraphObserver update object gets called
+		dataObject.notifyObservers();
+		
 	}
 }
