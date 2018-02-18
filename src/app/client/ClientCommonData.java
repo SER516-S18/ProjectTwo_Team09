@@ -13,7 +13,7 @@ public class ClientCommonData extends Observable {
 	// data structure for various channels, Format eg.:
 	// [[channel_num_1,channel_num_2,...],[channel2_num1,chnnale2_num2...],...]
 	private List<ArrayList<Integer>> dataFromServer;
-	
+
 	private List<String> logs;
 
 	private static ClientCommonData instance;
@@ -45,5 +45,5 @@ public class ClientCommonData extends Observable {
 	public void setLogs(List<String> logs) {
 		this.logs = logs;
 	}
-	
+
 }
