@@ -1,3 +1,5 @@
+package app.client;
+
 import java.io.*;
 import java.net.*; 
 
