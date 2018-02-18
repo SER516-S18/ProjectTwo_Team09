@@ -10,12 +10,10 @@ public class CommonDataTesting {
 		singleList.add(2);
 		listOLists.add(singleList);
 		
-		ClientCommonData dataObject=new ClientCommonData();
 		GraphObserver graphObject=new GraphObserver();
-		dataObject.addObserver(graphObject);
-		dataObject.setDataFromServer(listOLists);
+		ClientCommonData.getInstance().addObserver(graphObject);
+		ClientCommonData.getInstance().setDataFromServer(listOLists);
 		//on calling notify observer GraphObserver update object gets called
-		dataObject.notifyObservers();
-		
+		ClientCommonData.getInstance().notifyObservers();
 	}
 }
