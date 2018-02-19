@@ -15,6 +15,8 @@ public class Server1 implements Runnable{
 //		
 //	}
 	static HashMap<String, ServerSocket> serverMap = new HashMap<String, ServerSocket>();
+	static HashMap<String, PrintStream> osMap = new HashMap<String, PrintStream>();
+
 
 	ServerSocket echoServer = null;
 	Socket clientSocket = null;
@@ -33,6 +35,8 @@ public class Server1 implements Runnable{
 		try {
 			ServerSocket soc = serverMap.get("os");
 			soc.close();
+			PrintStream os = osMap.get("os");
+			os.close();
 			System.out.println( "Server is closing" );
 
 		} catch (IOException e) {
@@ -92,6 +96,8 @@ class Server1Connection {
 		try {
 			is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			os = new PrintStream(clientSocket.getOutputStream());
+			Server1.osMap.put("os", os);
+			
 		} catch (IOException e) {
 			System.out.println(e);
 		}
