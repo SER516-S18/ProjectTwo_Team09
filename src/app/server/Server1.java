@@ -2,14 +2,19 @@ package app.server;
 
 import java.io.*;
 import java.net.*;
+import java.util.HashMap;
 
 
-public class Server1 {
-	public static void main(String args[]) {
-		int port = 6789;
-		Server1 server = new Server1( port );
-		server.startServer();
-	}
+public class Server1 implements Runnable{
+//	public static void main(String args[]) {
+//		int port = 6789;
+//		
+////		Server1 obj = new Server1(port);
+////		Thread t1 = new Thread(obj);
+////		t1.start();
+//		
+//	}
+	static HashMap<String, ServerSocket> serverMap = new HashMap<String, ServerSocket>();
 
 	ServerSocket echoServer = null;
 	Socket clientSocket = null;
@@ -23,11 +28,25 @@ public class Server1 {
 		System.out.println( "Server cleaning up." );
 		System.exit(0);
 	}
+	
+	public void tempStop() {
+		try {
+			ServerSocket soc = serverMap.get("os");
+			soc.close();
+			System.out.println( "Server is closing" );
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public void startServer() {
 
 		try {
 			echoServer = new ServerSocket(port);
+			Server1.serverMap.put("os", echoServer);
+
 		}
 		catch (IOException e) {
 			System.out.println(e);
@@ -41,11 +60,22 @@ public class Server1 {
 				clientSocket = echoServer.accept();
 				Server1Connection oneconnection = new Server1Connection(clientSocket, this);
 				oneconnection.run();
+				Thread.sleep(2000);
 			}   
 			catch (IOException e) {
-				System.out.println(e);
+				//System.out.println(e);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		Server1 server = new Server1( port );
+		server.startServer();
 	}
 }
 
@@ -65,6 +95,11 @@ class Server1Connection {
 		} catch (IOException e) {
 			System.out.println(e);
 		}
+	}
+	
+	public void stopPrintStream() {
+		os.close();
+		System.out.println("Printstream is closed");
 	}
 
 	public void run() {
@@ -105,4 +140,5 @@ class Server1Connection {
 			e.printStackTrace();
 		}
 	}
+	
 }
