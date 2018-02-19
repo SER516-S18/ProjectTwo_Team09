@@ -39,6 +39,10 @@ public class ServerController {
                 view.log("Error: Invalid server options (must have integer values).");
                 this.status = false;
             }
+            catch (Exception e) {
+                view.log("Error: " + e.getMessage());
+                this.status = false;
+            }
         }
         else {
             this.status = false;

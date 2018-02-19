@@ -46,12 +46,16 @@ public class ServerView {
     }
 
     /**
-     * Get options.
+     * Parse the server option text fields and return the options.
      */
-    public ServerOptions getOptions() {
+    public ServerOptions getOptions() throws Exception {
         int minimum = Integer.parseInt(minValueField.getText());
         int maximum = Integer.parseInt(maxValueField.getText());
-        int frequency = Integer.parseInt(frequencyField.getText());
+		int frequency = Integer.parseInt(frequencyField.getText());
+		
+		if (minimum > maximum) {
+			throw new Exception("The highest value must be greater than or equal to the lowest value.");
+		}
 
         return new ServerOptions(minimum, maximum, frequency);
     }
