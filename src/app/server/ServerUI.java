@@ -1,11 +1,12 @@
 package app.server;
 
-
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,7 +32,9 @@ public class ServerUI {
 	private JTextField txtHighestValue;
 	private JTextField txtLowestValue;
 	private JTextField txtFrequency;
-
+	private  JTextArea txtrConsole;
+	private boolean serverStatus;
+	public static HashMap<String, Integer> userInputs = new HashMap<String, Integer>();
 	/**
 	 * Launch the application.
 	 */
@@ -48,6 +51,8 @@ public class ServerUI {
 		});
 	}
 
+	
+	 
 	/**
 	 * Create the application.
 	 */
@@ -67,19 +72,6 @@ public class ServerUI {
 				new Color(240, 248, 255));
 		serverFrame.getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("Start / Stop");
-		btnNewButton.setBorder(new LineBorder(new Color(0, 0, 0)));
-		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnNewButton.setFont(new Font("Courier New", Font.BOLD, 17));
-		btnNewButton.setBounds(578, 6, 187, 40);
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setBackground(new Color(255, 228, 225));
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-			}
-		});
-		serverFrame.getContentPane().add(btnNewButton);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(245, 245, 245));
@@ -154,16 +146,56 @@ public class ServerUI {
 		txtFrequency.setBounds(620, 202, 117, 68);
 		panel.add(txtFrequency);
 		
-		JTextArea txtrConsole = new JTextArea();
+		 txtrConsole = new JTextArea();
 		txtrConsole.setFont(new Font("Courier New", Font.PLAIN, 15));
 		txtrConsole.setBorder(new TitledBorder(null, "Console", 
 				TitledBorder.LEADING, TitledBorder.TOP, 
 				new Font("Courier New", Font.BOLD, 17), null));
 		txtrConsole.setBackground(new Color(245, 245, 245));
 		txtrConsole.setBounds(10, 445, 758, 138);
+		//txtrConsole.setText("hey");
 		serverFrame.getContentPane().add(txtrConsole);
 		serverFrame.setTitle("Server");
 		serverFrame.setBounds(100, 100, 800, 629);
 		serverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//txtrConsole.setText("hello");
+
+		JButton btnNewButton = new JButton("Start / Stop");
+		btnNewButton.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setFont(new Font("Courier New", Font.BOLD, 17));
+		btnNewButton.setBounds(578, 6, 187, 40);
+		btnNewButton.setForeground(new Color(0, 0, 0));
+		btnNewButton.setBackground(new Color(255, 228, 225));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Server1 sv1= new Server1(2001);
+				Thread t1=new Thread(sv1);
+				if(!serverStatus)
+				{
+					int max = Integer.parseInt(txtHighestValue.getText());
+					int min = Integer.parseInt(txtLowestValue.getText());
+					int frequency = Integer.parseInt(txtFrequency.getText());
+					userInputs.put("min",min);
+					userInputs.put("max", max);
+					userInputs.put("frequency", frequency);
+					t1.start();
+					txtrConsole.setText("Server started");		
+					serverStatus=true;
+				}
+				else
+				{
+					sv1.tempStop();
+					t1.interrupt();
+					txtrConsole.setText("Server stopped");	
+					serverStatus=false;
+				}
+			
+			}
+		});
+		serverFrame.getContentPane().add(btnNewButton);
 	}
+	
+	
 }
+
