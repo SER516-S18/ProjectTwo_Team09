@@ -26,6 +26,11 @@ public class ServerController {
         view.log("The server has been stopped...");
     }
 
+    /**
+     * Event handler for the Start/Stop button. If the server has not been started,
+     * request for the server options (lowest value, highest value, and frequency)
+     * and start the server. Otherwise, stop the server.
+     */
     public void toggleButtonClickHandler() {
         if (!this.status) {
             try {
@@ -48,6 +53,22 @@ public class ServerController {
             this.status = false;
             stopServer();
         }
+    }
+
+    /**
+     * Generate a random integer between min and max, inclusive.
+     */
+    private int generateValue() {
+        return options.minimumValue + (int)(Math.random() * (options.maximumValue - options.minimumValue));
+    }
+
+    /**
+     * Compute the period of time associated with a frequency (in Hz)
+     * given by F = 1 / T.
+     */
+    private int computeFrequencyTime(int hertz) {
+        final int MILLI_IN_SECONDS = 1000;
+        return MILLI_IN_SECONDS / hertz;
     }
 
 }
