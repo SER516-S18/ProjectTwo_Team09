@@ -2,21 +2,26 @@ package app.client;
 
 import java.io.*;
 import java.net.*;
+import java.util.HashMap; 
+
 
 public class Client {
+	
+	static HashMap<String, DataOutputStream> osmap = new HashMap<String, DataOutputStream>();
+
 	public static void main(String[] args) {
 
 		String hostname = "localhost";
 		int port = 6789;
 
-		Socket clientSocket = null;
+		Socket clientSocket = null;  
 		DataOutputStream os = null;
 		BufferedReader is = null;
-
 		try {
 			clientSocket = new Socket(hostname, port);
 			os = new DataOutputStream(clientSocket.getOutputStream());
 			is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			osmap.put("os", os);
 		} catch (UnknownHostException e) {
 			System.err.println("Unknown host: " + hostname);
 		} catch (IOException e) {
@@ -24,22 +29,23 @@ public class Client {
 		}
 
 		if (clientSocket == null || os == null || is == null) {
-			System.err.println("Unknown Error.");
+			System.err.println( "Unknown Error." );
 			return;
 		}
 
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-			System.out.print("Enter 5 to start sending values: ");
+			System.out.print( "Enter 5 to start sending values: " );
 			String userInp = br.readLine();
 
-			os.writeBytes(userInp + "\n");
-			int n = Integer.parseInt(userInp);
+			os.writeBytes( userInp + "\n" );
+			int n = Integer.parseInt( userInp );
 
-			while (true) {
+			while ( true ) {
 
-				if (n == 0 || n == -1) {
+
+				if ( n == 0 || n == -1 ) {
 					break;
 				}
 
@@ -49,11 +55,11 @@ public class Client {
 
 			os.close();
 			is.close();
-			clientSocket.close();
+			clientSocket.close();   
 		} catch (UnknownHostException e) {
 			System.err.println("Trying to connect to unknown host: " + e);
 		} catch (IOException e) {
 			System.err.println("IOException:  " + e);
 		}
-	}
+	}           
 }
