@@ -12,7 +12,7 @@ public class Client {
 	public static void main(String[] args) {
 
 		String hostname = "localhost";
-		int port = 6789;
+		int port = 2001;
 
 		Socket clientSocket = null;  
 		DataOutputStream os = null;
@@ -35,7 +35,7 @@ public class Client {
 
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+			
 			System.out.print( "Enter 5 to start sending values: " );
 			String userInp = br.readLine();
 
@@ -50,7 +50,13 @@ public class Client {
 				}
 
 				String responseLine = is.readLine();
-				System.out.println(responseLine);
+				if(responseLine != null)
+					System.out.println(responseLine);
+				else
+				{
+					System.out.println("Server Stopped sending values");
+					break;
+				}
 			}
 
 			os.close();
