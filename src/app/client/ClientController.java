@@ -95,7 +95,7 @@ public class ClientController {
 	}
 	
 	public static void main(String... args) {
-		ClientController cont = new ClientController(1516);
+		ClientController cont = new ClientController(2001);
 		cont.startClient();
 		cont.updateChannelCount(2);
 	}
