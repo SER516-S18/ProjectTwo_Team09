@@ -1,3 +1,5 @@
+package app.client;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +26,14 @@ public class ClientGui extends JFrame {
 	    toggle.setBackground(PINK);
 	    toggle.setBounds(580, 10, 190, 30);
 	    toggle.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+	    toggle.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	    client.add(toggle);
 	    
 	    JPanel dataPanel = new JPanel();
