@@ -19,11 +19,13 @@ public class ServerController {
     }
 
     public void startServer() {
-        view.log("The server has been started...");
+        view.log("Info: The server has been started.");
+        view.setStatus(true);
     }
 
     public void stopServer() {
-        view.log("The server has been stopped...");
+        view.log("Info: The server has been stopped.");
+        view.setStatus(false);
     }
 
     /**

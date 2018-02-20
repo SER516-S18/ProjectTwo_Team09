@@ -31,6 +31,7 @@ public class ServerView {
 
     // Graphical User Interface Components.
 	private JFrame mainFrame;
+	private StatusPanel statusPanel;
 	private JTextField maxValueField;
 	private JTextField minValueField;
 	private JTextField frequencyField;
@@ -58,7 +59,7 @@ public class ServerView {
 		}
 
         return new ServerOptions(minimum, maximum, frequency);
-    }
+	}
 
     /**
      * Appends a message to the console output TextArea.
@@ -67,7 +68,14 @@ public class ServerView {
         consoleOutput.append(message);
         consoleOutput.append("\n");
     }
-    
+	
+	/**
+	 * Set the server status indicator.
+	 */
+	public void setStatus(boolean status) {
+		statusPanel.setBlinking(status);
+	}
+
     /**
      * Set the reference to the ServerController.
      */
@@ -92,11 +100,10 @@ public class ServerView {
 		mainFrame.getContentPane().add(mainPanel);
 		mainPanel.setLayout(null);
 		
-		JPanel signalPanel = new JPanel();
-		signalPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		signalPanel.setBackground(new Color(255, 228, 225));
-		signalPanel.setBounds(23, 22, 414, 335);
-		mainPanel.add(signalPanel);
+		statusPanel = new StatusPanel();
+		statusPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		statusPanel.setBounds(23, 22, 414, 335);
+		mainPanel.add(statusPanel);
 		
 		JLabel maxValueLabel = new JLabel("<html>Highest<br>Value:</html>");
 		maxValueLabel.setBackground(new Color(240, 248, 255));
