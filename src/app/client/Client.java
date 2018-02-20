@@ -2,13 +2,9 @@ package app.client;
 
 import java.io.*;
 import java.net.*;
-import java.util.HashMap; 
-
 
 public class Client {
 	
-	static HashMap<String, DataOutputStream> osmap = new HashMap<String, DataOutputStream>();
-
 	public static void main(String[] args) {
 
 		String hostname = "localhost";
@@ -21,7 +17,6 @@ public class Client {
 			clientSocket = new Socket(hostname, port);
 			os = new DataOutputStream(clientSocket.getOutputStream());
 			is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			osmap.put("os", os);
 		} catch (UnknownHostException e) {
 			System.err.println("Unknown host: " + hostname);
 		} catch (IOException e) {
