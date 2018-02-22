@@ -12,7 +12,7 @@ public class CommonDataTesting {
 		
 		GraphObserver graphObject=new GraphObserver();
 		ClientCommonData.getInstance().addObserver(graphObject);
-		ClientCommonData.getInstance().setDataFromServer(listOLists);
+//		ClientCommonData.getInstance().setDataFromServer(listOLists);
 		//on calling notify observer GraphObserver update object gets called
 		ClientCommonData.getInstance().notifyObservers();
 	}

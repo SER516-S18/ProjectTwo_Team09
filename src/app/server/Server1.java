@@ -87,7 +87,7 @@ class Server1Connection {
 				StringBuilder builder = new StringBuilder();
 				for(int i = 0; i < 3; i++) {
 					builder.append(min + (int)(Math.random()*(max - min))).append(",").append((min + (int)(Math.random()*(max - min)))).append(";");        	
-					Thread.sleep(10);	
+					Thread.sleep(1000/n);	//Making the server sleep for 1 second / frequency
 				}
 				builder.setLength(builder.length() - 1);
 				os.println(builder.toString());

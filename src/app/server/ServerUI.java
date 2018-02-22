@@ -67,19 +67,19 @@ public class ServerUI {
 				new Color(240, 248, 255));
 		serverFrame.getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("Start / Stop");
-		btnNewButton.setBorder(new LineBorder(new Color(0, 0, 0)));
-		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnNewButton.setFont(new Font("Courier New", Font.BOLD, 17));
-		btnNewButton.setBounds(578, 6, 187, 40);
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setBackground(new Color(255, 228, 225));
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton toggleButton = new JButton("Start / Stop");
+		toggleButton.setBorder(new LineBorder(new Color(0, 0, 0)));
+		toggleButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		toggleButton.setFont(new Font("Courier New", Font.BOLD, 17));
+		toggleButton.setBounds(578, 6, 187, 40);
+		toggleButton.setForeground(new Color(0, 0, 0));
+		toggleButton.setBackground(new Color(255, 228, 225));
+		toggleButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
 			}
 		});
-		serverFrame.getContentPane().add(btnNewButton);
+		serverFrame.getContentPane().add(toggleButton);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(245, 245, 245));
