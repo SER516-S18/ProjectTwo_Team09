@@ -25,41 +25,47 @@ import javax.swing.border.TitledBorder;
  */
 public class ServerView {
 	
-	// The view needs a reference to the controller in order to attach
-    // controller event handlers to GUI events.
+	/* The view needs a reference to the controller in order to attach
+    	 * controller event handlers to GUI events.
+	 */
 	private ServerController controller;
 
-    // Graphical User Interface Components.
+    	// Graphical User Interface Components.
 	private JFrame mainFrame;
 	private StatusPanel statusPanel;
 	private JTextField maxValueField;
 	private JTextField minValueField;
 	private JTextField frequencyField;
-    private JTextArea consoleOutput;
-    private JButton toggleButton;
+    	private JTextArea consoleOutput;
+    	private JButton toggleButton;
+	
+	Font FONT = new Font("Courier New", Font.BOLD, 17);
+	Color LIGHTPINK = new Color(255, 228, 225);
+    	Color LIGHTBLUE = new Color(240, 248, 255);
+    	Color LIGHTGREY = new Color(245, 245, 245);
 
 	/**
 	 * ServerView constructor.
 	 */
 	public ServerView() {
-        initialize();
-        register();
-    }
+        	initialize();
+        	register();
+    	}
 
-    /**
-     * Parse the server option text fields and return the options.
-     */
+    	/*
+     	* Parse the server option text fields and return the options.
+     	*/
     public ServerOptions getOptions() throws Exception {
         int minimum = Integer.parseInt(minValueField.getText());
         int maximum = Integer.parseInt(maxValueField.getText());
-		int frequency = Integer.parseInt(frequencyField.getText());
+	int frequency = Integer.parseInt(frequencyField.getText());
 		
-		if (minimum > maximum) {
-			throw new Exception("The highest value must be greater than or equal to the lowest value.");
-		}
+	if (minimum > maximum) {
+		throw new Exception("The highest value must be greater than or equal to the lowest value.");
+	}
 
         return new ServerOptions(minimum, maximum, frequency);
-	}
+    }
 
     /**
      * Appends a message to the console output TextArea.
@@ -69,17 +75,17 @@ public class ServerView {
         consoleOutput.append("\n");
     }
 	
-	/**
-	 * Set the server status indicator.
-	 */
-	public void setStatus(boolean status) {
-		statusPanel.setBlinking(status);
-	}
+    /*
+     * Set the server status indicator.
+     */
+    public void setStatus(boolean status) {
+	statusPanel.setBlinking(status);
+    }
 
     /**
      * Set the reference to the ServerController.
      */
-	public void setController(ServerController controller) {
+    public void setController(ServerController controller) {
 		this.controller = controller;
 	}
 
@@ -89,12 +95,12 @@ public class ServerView {
 	private void initialize() {
 		mainFrame = new JFrame();
 		mainFrame.setFont(new Font("Courier New", Font.PLAIN, 17));
-		mainFrame.getContentPane().setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		mainFrame.getContentPane().setBackground(new Color(240, 248, 255));
+		mainFrame.getContentPane().setFont(new Font("Courier New", Font.PLAIN, 10));
+		mainFrame.getContentPane().setBackground(LIGHTBLUE);
 		mainFrame.getContentPane().setLayout(null);
 		
 		JPanel mainPanel = new JPanel();
-		mainPanel.setBackground(new Color(245, 245, 245));
+		mainPanel.setBackground(LIGHTGREY);
 		mainPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		mainPanel.setBounds(10, 56, 758, 379);
 		mainFrame.getContentPane().add(mainPanel);
@@ -106,7 +112,7 @@ public class ServerView {
 		mainPanel.add(statusPanel);
 		
 		JLabel maxValueLabel = new JLabel("<html>Highest<br>Value:</html>");
-		maxValueLabel.setBackground(new Color(240, 248, 255));
+		maxValueLabel.setBackground(LIGHTBLUE);
 		maxValueLabel.setOpaque(true);
 		maxValueLabel.setHorizontalTextPosition(SwingConstants.CENTER);
 		maxValueLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -118,25 +124,25 @@ public class ServerView {
 		JLabel minValueLabel = new JLabel("<html>Lowest<br>Value:</html>");
 		minValueLabel.setHorizontalTextPosition(SwingConstants.CENTER);
 		minValueLabel.setOpaque(true);
-		minValueLabel.setBackground(new Color(255, 228, 225));
+		minValueLabel.setBackground(LIGHTPINK);
 		minValueLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		minValueLabel.setFont(new Font("Courier New", Font.BOLD, 17));
+		minValueLabel.setFont(FONT);
 		minValueLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		minValueLabel.setBounds(462, 119, 131, 68);
 		mainPanel.add(minValueLabel);
 		
 		JLabel frequencyLabel = new JLabel("<html>Frequency<br>(Hz):</html>");
 		frequencyLabel.setOpaque(true);
-		frequencyLabel.setBackground(new Color(240, 248, 255));
+		frequencyLabel.setBackground(LIGHTBLUE);
 		frequencyLabel.setHorizontalTextPosition(SwingConstants.CENTER);
 		frequencyLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		frequencyLabel.setFont(new Font("Courier New", Font.BOLD, 17));
+		frequencyLabel.setFont(FONT);
 		frequencyLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		frequencyLabel.setBounds(462, 202, 131, 68);
 		mainPanel.add(frequencyLabel);
 		
 		maxValueField = new JTextField();
-		maxValueField.setBackground(new Color(255, 228, 225));
+		maxValueField.setBackground(LIGHTPINK);
 		maxValueField.setHorizontalAlignment(SwingConstants.CENTER);
 		maxValueField.setFont(new Font("Courier New", Font.BOLD, 17));
 		maxValueField.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -145,47 +151,47 @@ public class ServerView {
 		maxValueField.setColumns(10);
 		
 		minValueField = new JTextField();
-		minValueField.setBackground(new Color(240, 248, 255));
+		minValueField.setBackground(LIGHTBLUE);
 		minValueField.setHorizontalAlignment(SwingConstants.CENTER);
-		minValueField.setFont(new Font("Courier New", Font.BOLD, 17));
+		minValueField.setFont(FONT);
 		minValueField.setColumns(10);
 		minValueField.setBorder(new LineBorder(new Color(0, 0, 0)));
 		minValueField.setBounds(620, 119, 117, 68);
 		mainPanel.add(minValueField);
 		
 		frequencyField = new JTextField();
-		frequencyField.setBackground(new Color(255, 228, 225));
+		frequencyField.setBackground(LIGHTPINK);
 		frequencyField.setHorizontalAlignment(SwingConstants.CENTER);
-		frequencyField.setFont(new Font("Courier New", Font.BOLD, 17));
+		frequencyField.setFont(FONT);
 		frequencyField.setColumns(10);
 		frequencyField.setBorder(new LineBorder(new Color(0, 0, 0)));
 		frequencyField.setBounds(620, 202, 117, 68);
 		mainPanel.add(frequencyField);
         
-        consoleOutput = new JTextArea();
-        consoleOutput.setEditable(false);
-        consoleOutput.setBackground(new Color(245, 245, 245));
-        consoleOutput.setFont(new Font("Courier New", Font.PLAIN, 15));
-
-        JScrollPane consolePane = new JScrollPane(consoleOutput);
-		consolePane.setBorder(new TitledBorder(null, "Console", 
-        TitledBorder.LEADING, TitledBorder.TOP, 
-        new Font("Courier New", Font.BOLD, 17), null));
-		consolePane.setBackground(new Color(245, 245, 245));
-        consolePane.setBounds(10, 445, 758, 138);
-		mainFrame.getContentPane().add(consolePane);
-		mainFrame.setTitle("Server");
-		mainFrame.setBounds(100, 100, 800, 629);
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        	consoleOutput = new JTextArea();
+        	consoleOutput.setEditable(false);
+        	consoleOutput.setBackground(LIGHTGREY);
+        	consoleOutput.setFont(new Font("Courier New", Font.PLAIN, 15));
+		
 		toggleButton = new JButton("Start / Stop");
 		toggleButton.setBorder(new LineBorder(new Color(0, 0, 0)));
 		toggleButton.setHorizontalTextPosition(SwingConstants.CENTER);
-		toggleButton.setFont(new Font("Courier New", Font.BOLD, 17));
+		toggleButton.setFont(FONT);
 		toggleButton.setBounds(578, 6, 187, 40);
 		toggleButton.setForeground(new Color(0, 0, 0));
-		toggleButton.setBackground(new Color(255, 228, 225));
+		toggleButton.setBackground(LIGHTPINK);
 
+        	JScrollPane consolePane = new JScrollPane(consoleOutput);
+		consolePane.setBorder(new TitledBorder(null, "Console", 
+        		TitledBorder.LEADING, TitledBorder.TOP, 
+        		FONT, null));
+		consolePane.setBackground(LIGHTGREY);
+        	consolePane.setBounds(10, 445, 758, 138);
+		mainFrame.getContentPane().add(consolePane);
+		
+		mainFrame.setTitle("Server");
+		mainFrame.setBounds(100, 100, 800, 629);
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.getContentPane().add(toggleButton);
 		mainFrame.setVisible(true);
     }
