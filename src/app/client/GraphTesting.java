@@ -23,7 +23,7 @@ public class GraphTesting {
 		singleList.add(4);
 		singleList.add(5);
 		listOLists.add(singleList);
-		ClientCommonData.getInstance().setDataFromServer(listOLists);
+		ClientCommonData.getInstance().getDataFromServer().addAll(listOLists);
 	}
 	
 	public static void main(String[] args) {

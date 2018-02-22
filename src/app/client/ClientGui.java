@@ -3,7 +3,16 @@ package app.client;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -15,11 +24,17 @@ public class ClientGui extends JFrame {
 	public static final Color BLUE = new Color(222, 235, 252);
 	private String[] channelSize = new String[] { "1", "2", "3", "4", "5" };
 	private JComboBox<String> channelChoice;
+	JTextArea consoleOutput = new JTextArea(5, 30);
+	
+	 static Thread clientThread = null;
 
 	/**
 	 * GUI constructor for client. Adds all components
 	 */
 	public ClientGui() {
+		Client runner = new Client();
+		
+		
 		JFrame client = new JFrame();
 		// Saving the value of this frame object to manipulate in future
 		ClientCommonData.getInstance().setClientFrame(client);
@@ -39,12 +54,16 @@ public class ClientGui extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(ClientCommonData.getInstance().isStarted()) {
 					ClientCommonData.getInstance().setStarted(false);
-					Client.stopClient();
+					toggle.setBackground(PINK);
+					clientThread.interrupt();
+					runner.stopClient();
 					
 				} else {
 					ClientCommonData.getInstance().setStarted(true);
+					toggle.setBackground(BLUE);
+					clientThread = new Thread(runner);
 					validateValues();
-					Client.startClient("localhost", 6789);
+					clientThread.start();
 				}
 				
 			}
@@ -62,7 +81,7 @@ public class ClientGui extends JFrame {
 		console.setBorder(BorderFactory.createLineBorder(Color.black));
 		console.setBackground(LIGHTPINK);
 		console.setBounds(10, 550, 760, 150);
-		client.add(console);
+		
 		console.setLayout(null);
 
 		JLabel consoleHeading = new JLabel("<html>Console:</html>");
@@ -186,7 +205,7 @@ public class ClientGui extends JFrame {
 			}
 
 			private void updateFrequencyValue() {
-				if(freqNumber.getText() != "" && freqNumber.getText() != null) {
+				if(freqNumber.getText() != null && freqNumber.getText() != "") {
 					int freq = Integer.parseInt(freqNumber.getText());
 					ClientCommonData.getInstance().setFrequency(freq);
 				}

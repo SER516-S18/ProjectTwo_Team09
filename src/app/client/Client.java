@@ -1,19 +1,22 @@
 package app.client;
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
-public class Client {
+public class Client implements Runnable{
 	
 	private static Socket clientSocket;
+	private static final String hostname = "localhost";
+	private static final int port = 1516;
 	
 	// This method is for testing only
 	public static void main(String[] args) {
-
-		String hostname = "localhost";
-		int port = 2001;
 		
-		startClient(hostname, port);
+//		startClient();
 	}
 	
 	/**
@@ -21,7 +24,7 @@ public class Client {
 	 * @param hostname
 	 * @param port
 	 */
-	public static void startClient(String hostname, int port) {
+	public void startClient() {
 //		Socket clientSocket = null;
 		DataOutputStream os = null;
 		BufferedReader is = null;
@@ -45,13 +48,9 @@ public class Client {
 		}
 
 		try {
-			/*BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-			System.out.print("Enter 5 to start sending values: ");
-			String userInp = br.readLine();
-
-			os.writeBytes(userInp + "\n");*/
+			
 			int freq = ClientCommonData.getInstance().getFrequency();
+			@SuppressWarnings("unused")
 			int channel = ClientCommonData.getInstance().getChannels();
 			os.writeBytes(freq + "\n");
 
@@ -82,12 +81,21 @@ public class Client {
 	 * method which closes the connection
 	 * @throws IOException
 	 */
-	public static void stopClient() {
+	public void stopClient() {
 		try {
-			clientSocket.close();
+			if(clientSocket != null) {
+				clientSocket.close();
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			ClientCommonData.getInstance().getLogs().add("Exception while stopping client::::" + e);
 		}
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		Client client = new Client();
+		client.startClient();
 	}
 }
