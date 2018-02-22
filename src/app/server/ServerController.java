@@ -1,6 +1,6 @@
 package app.server;
 
-import java.net.ServerSocket;
+import java.util.HashMap;
 
 import app.server.ServerView;
 
@@ -8,9 +8,11 @@ public class ServerController {
 
     private ServerOptions options;
     private ServerView view;
-    private ServerSocket listener;
     private boolean status;
     private int port;
+    HashMap<String, Thread> threadMap = new HashMap<String, Thread>();
+    static  ServerSocketImpl socketImpl = null;
+    static Thread t = null;
 
     public ServerController(int port, ServerView view) {
         this.status = false;
@@ -21,11 +23,16 @@ public class ServerController {
     public void startServer() {
         view.log("Info: The server has been started.");
         view.setStatus(true);
+        socketImpl = new ServerSocketImpl(port);
+        t = new Thread(socketImpl);
+		t.start();
     }
 
     public void stopServer() {
         view.log("Info: The server has been stopped.");
         view.setStatus(false);
+        t.interrupt();
+        socketImpl.stopServer();
     }
 
     /**
