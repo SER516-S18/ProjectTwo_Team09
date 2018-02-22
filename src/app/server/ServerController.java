@@ -25,7 +25,7 @@ public class ServerController {
         view.setStatus(true);
         socketImpl = new ServerSocketImpl(port);
         t = new Thread(socketImpl);
-		t.start();
+	t.start();
     }
 
     public void stopServer() {
