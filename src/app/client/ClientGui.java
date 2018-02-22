@@ -138,6 +138,7 @@ public class ClientGui extends JFrame {
 		channelChoice.setBackground(BLUE);
 		channelChoice.setBounds(655, 245, 85, 60);
 
+
 		channelChoice.addActionListener(new ActionListener() {
 
 			@Override

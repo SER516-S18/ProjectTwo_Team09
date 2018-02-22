@@ -1,0 +1,3 @@
+This folder contains the dependencies for creating the graph.
+
+In order to test the graph these jars need to be added to the build path.

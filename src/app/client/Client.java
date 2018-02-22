@@ -11,7 +11,7 @@ public class Client {
 	public static void main(String[] args) {
 
 		String hostname = "localhost";
-		int port = 6789;
+		int port = 2001;
 		
 		startClient(hostname, port);
 	}
@@ -25,7 +25,6 @@ public class Client {
 //		Socket clientSocket = null;
 		DataOutputStream os = null;
 		BufferedReader is = null;
-
 		try {
 			clientSocket = new Socket(hostname, port);
 			os = new DataOutputStream(clientSocket.getOutputStream());
