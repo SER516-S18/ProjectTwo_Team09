@@ -90,6 +90,8 @@ public class ClientGui extends JFrame {
 		consoleHeading.setHorizontalAlignment(SwingConstants.CENTER);
 		consoleHeading.setOpaque(true);
 		console.add(consoleHeading);
+		// adding the console to GUI
+		client.add(console);
 
 		JLabel highestValue = new JLabel("<html>Highest<br>value:</html>");
 		highestValue.setBorder(BorderFactory.createLineBorder(Color.black));
