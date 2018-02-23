@@ -48,7 +48,7 @@ public class ServerController {
         }
         catch (IOException e) {
             // TODO: Log this error in the console.
-            e.printStackTrace();
+            new ServerException(e.toString());
         }
     }
 
@@ -67,11 +67,11 @@ public class ServerController {
             catch (NumberFormatException e) {
                 // This exception is thrown if the text fields do not
                 // contain valid integer values.
-                view.log("Error: Invalid server options (must have integer values).");
+                new ServerException("NumberFormatException");
                 this.status = false;
             }
             catch (Exception e) {
-                view.log("Error: " + e.getMessage());
+                new ServerException(e.getMessage());
                 this.status = false;
             }
         }
