@@ -1,30 +1,37 @@
 package app.server;
+
+import java.util.HashMap;
+
 /* Entire exception from server is handled here */
 public class ServerException {
 	
-	ServerView view = null;
-	
+	private static ServerView view = null;
+	private static HashMap<String, String> errorDescriptionHash = new HashMap<String, String>();
+	// Error with error codes
 
-	public void getView() {
-		this.view = ServerController.getView();
+	static {
+		errorDescriptionHash.put("NumberFormatException", "INFO: Please enter a valid number");
+		errorDescriptionHash.put("MinMaxException", "INFO: The highest value must be greater than or equal to the lowest value.");
+	}	
+
+	public static void getView() {
+		view = ServerController.getView();
 	}
-	ServerException(String exception)
-	{
+	
+	public static void printErrorMessage(String errorCode) {
 		if(view == null) {
 			getView();
 		}
-		else if(exception == "NumberFormatException")
+		if(errorDescriptionHash.containsKey(errorCode))
 		{
-			view.log("Exception: Please enter valid number in the textbox");
-		}
-		else if(exception == "Min higher than Max")
-		{
-			view.log("Exception:The highest value must be greater than or equal to the lowest value.");
+			view.log((String) errorDescriptionHash.get(errorCode));
 		}
 		else
 		{
-			view.log(exception);
+			view.log("Error: "+errorCode);
 		}
+
+		
 	}
 
 }
