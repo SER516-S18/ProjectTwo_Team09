@@ -29,6 +29,7 @@ import javax.swing.event.DocumentListener;
 
 import app.client.controller.ClientSocketController;
 import app.client.model.ClientCommonData;
+import app.client.model.LogConstants;
 
 public class ClientView extends JFrame {
 
@@ -75,17 +76,19 @@ public class ClientView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				ClientCommonData.getInstance().logInfo("Channels::"+ClientCommonData.getInstance().getChannels());
+				ClientCommonData.getInstance().logInfo("Channels: "+ClientCommonData.getInstance().getChannels());
 
 				if (ClientCommonData.getInstance().isStarted()) {
 					ClientCommonData.getInstance().logInfo("Clicked stopped");
 					ClientCommonData.getInstance().setStarted(false);
 					buttonToggle.setBackground(PINK);
 					clientSocketController.stopServer();
+					ClientCommonData.getInstance().logInfo(LogConstants.STOPCLIENT);
 				} else {
-					System.out.println("Clicked started");
+					//System.out.println("Clicked started");
 					ClientCommonData.getInstance().setStarted(true);
-					ClientCommonData.getInstance().logInfo("Server started");
+					ClientCommonData.getInstance().logInfo(LogConstants.STARTCLIENT);
+					//ClientCommonData.getInstance().logInfo("Server started");
 					clientSocketController.startServer(ClientCommonData.getInstance().getChannels());
 					buttonToggle.setBackground(BLUE);
 				}

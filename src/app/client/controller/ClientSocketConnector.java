@@ -14,6 +14,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import app.client.gui.CoordinatesModel;
 import app.client.model.ClientCommonData;
+import app.client.model.LogConstants;
 import app.server.ServerSocketImpl;
 
 public class ClientSocketConnector implements Runnable {
@@ -60,13 +61,14 @@ public class ClientSocketConnector implements Runnable {
 			inputReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			outputStream = new PrintWriter(this.clientSocket.getOutputStream(), true);
 		} catch (IOException e) {
-			ClientCommonData.getInstance().logError("Connection Issue");
-			e.printStackTrace();
+			ClientCommonData.getInstance().logError(LogConstants.CONNECTIONERROR);
+			//e.printStackTrace();
 		}
 		try {
 			outputStream.println(channelNumber);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			ClientCommonData.getInstance().logError(LogConstants.GENRICERROR);
 			e.printStackTrace();
 		}
 		clientStatus = true;
@@ -94,15 +96,18 @@ public class ClientSocketConnector implements Runnable {
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				ClientCommonData.getInstance().logError(LogConstants.IOERROR);
+				//e.printStackTrace();
 			}
 
 		}
 		try {
 			clientSocket.close();
+			ClientCommonData.getInstance().logInfo(LogConstants.SERVERDISCONNECT);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			ClientCommonData.getInstance().logError(LogConstants.IOERROR);
 		}
 
 	}
