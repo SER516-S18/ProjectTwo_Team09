@@ -41,6 +41,7 @@ public class ClientView extends JFrame {
 	private static final Color BLACK = new Color(0, 0, 0);
 	JButton buttonToggle;
 	ClientSocketController clientSocketController;
+	
 
 	/**
 	 * GUI constructor for client. Adds all components
@@ -229,10 +230,11 @@ public class ClientView extends JFrame {
 	}
 
 	private JPanel generateGraphView() {
-		JPanel graphPanel = new Graph();
+		Graph graphPanel = new Graph();
 		graphPanel.setLayout(new BorderLayout());
 		graphPanel.setOpaque(false);
 		graphPanel.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
+		clientSocketController.startGraph(graphPanel);
 		return graphPanel;
 	}
 

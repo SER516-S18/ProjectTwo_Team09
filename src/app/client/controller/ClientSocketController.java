@@ -1,11 +1,15 @@
 package app.client.controller;
 
+import app.client.gui.Graph;
 
 public class ClientSocketController {
 	
 	public static final int PORT_NUM=1516;
 	public static final String HOSTNAME="localhost";
 	private ClientSocketConnector clientSocketConnector ;
+	public void startGraph(Graph graphObj) {
+		new Thread(new GraphUpdateThread(graphObj)).start();
+	}
 	
 	public ClientSocketConnector getClientSocketConnector() {
 		return clientSocketConnector;
