@@ -23,11 +23,16 @@ public class ServerController {
         this.view = view;
     }
 
-    public void startServer() {
+    public void startServer(){
         // Update the view.
         view.log("Info: The server has been started.");
         view.setStatus(true);
-        
+        try {
+			this.serverSocket = new ServerSocket(port);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			new ServerException(e.toString());
+		}
         this.networkThread = new ServerNetworkThread(this.serverSocket, this.clientSocket, this.port, this);
         this.networkThread.start();
     }
