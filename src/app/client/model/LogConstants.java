@@ -1,6 +1,6 @@
 package app.client.model;
 
-/*
+/**
  * Class to instantiate values to
  * all the constants used for error messages.
  */
