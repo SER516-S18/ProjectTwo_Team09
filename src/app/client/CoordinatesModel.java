@@ -1,6 +1,11 @@
 package app.client;
 
 public class CoordinatesModel {
+	public CoordinatesModel(int xCoordinate, int yCoordinate) {
+		super();
+		this.xCoordinate = xCoordinate;
+		this.yCoordinate = yCoordinate;
+	}
 	int xCoordinate;
 	int yCoordinate;
 	

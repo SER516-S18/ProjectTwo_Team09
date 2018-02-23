@@ -7,16 +7,19 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ClientController {
 
 	public ArrayList<String> dataSetFromServer;
-	
+	private int clientFrequency;
 	Socket clientSocket;
 	private int portNo;
 	private String hostName;
 	private PrintWriter outputStream;
 	private BufferedReader inputReader;
+	private ClientDataHandler clientDataHandlerObj;
 
 	public ClientController(int portNo) {
 		this.portNo = portNo;
@@ -25,9 +28,12 @@ public class ClientController {
 		outputStream = null;
 		inputReader = null;
 		this.dataSetFromServer = new ArrayList<String>();
+		clientDataHandlerObj=new ClientDataHandler();
 	}
 
-	
+	public ArrayList<String> getDataSetFromServer() {
+		return dataSetFromServer;
+	}
 	public void clearDataInArrayList() {
 		synchronized(this) {
 			this.dataSetFromServer.clear();
@@ -39,6 +45,7 @@ public class ClientController {
 		try {
 			while ((inputLine = this.inputReader.readLine()) != null) {
 				this.dataSetFromServer.add(inputLine);
+				System.out.println(inputLine);
 			}
 			return true;
 		} catch (IOException e) {
@@ -56,9 +63,23 @@ public class ClientController {
 			this.inputReader = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
 			this.outputStream.println(channelNo);
 			boolean didReadSuccess = true;
+			System.out.println("starting clien");
+			clientDataHandlerObj.setDataSetFromServer(this.dataSetFromServer);
+			
+			clientDataHandlerObj.start();
+			/*Timer timer = new Timer();
+			TimerTask myTask = new TimerTask() {
+			    @Override
+			    public void run() {
+			    		
+			    }
+			};*/
+
+			//timer.schedule(myTask, 1000, 1000);
 			while(didReadSuccess) {
 				didReadSuccess = this.readFromServer();
 			}
+			
 		} catch (UnknownHostException e) {
 			// Print on console
 			System.err.println("Unknown host: " + hostName);

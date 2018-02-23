@@ -15,7 +15,9 @@ public class ClientCommonData extends Observable {
 	// data structure for various channels, Format eg.:
 	// [[channel_num_1,channel_num_2,...],[channel2_num1,chnnale2_num2...],...]
 
-	private List<ArrayList<Integer>> dataFromServer;
+	private List<ArrayList<CoordinatesModel>> dataFromServer;
+	
+
 	private List<String> logs;
 	private int frequency;
 	private int channels;
@@ -31,7 +33,7 @@ public class ClientCommonData extends Observable {
 	private ClientCommonData() {
 		// so only one instance of this object exists.
 		logs = new ArrayList<String>();
-		dataFromServer = new ArrayList<ArrayList<Integer>>();
+		dataFromServer = new ArrayList<ArrayList<CoordinatesModel>>();
 	}
 
 	public static ClientCommonData getInstance() {
@@ -40,8 +42,11 @@ public class ClientCommonData extends Observable {
 		}
 		return instance;
 	}
-
-	public List<ArrayList<Integer>> getDataFromServer() {
+	
+	public void setDataFromServer(List<ArrayList<CoordinatesModel>> dataFromServer) {
+		this.dataFromServer = dataFromServer;
+	}
+	public List<ArrayList<CoordinatesModel>> getDataFromServer() {
 		return dataFromServer;
 	}
 
