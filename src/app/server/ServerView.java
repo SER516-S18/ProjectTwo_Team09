@@ -98,6 +98,7 @@ public class ServerView {
 		mainFrame.getContentPane().setFont(new Font("Courier New", Font.PLAIN, 10));
 		mainFrame.getContentPane().setBackground(LIGHTBLUE);
 		mainFrame.getContentPane().setLayout(null);
+		mainFrame.setResizable(false);
 		
 		JPanel mainPanel = new JPanel();
 		mainPanel.setBackground(LIGHTGREY);
