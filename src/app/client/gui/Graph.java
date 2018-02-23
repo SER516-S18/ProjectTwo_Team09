@@ -18,25 +18,36 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import app.client.model.ClientCommonData;
 
+/**
+ * This class Graph consists of methods to help with initializing, updating and creating a graph 
+ * based on the data residing in ClientCommonData.
+ * @author Adhiraj Tikku
+ * @version 1.0
+ * @since 2018-02-23
+ *
+ */
 @SuppressWarnings("serial")
 public class Graph extends JPanel {
 
 	XYDataset dataset;
 	JFreeChart chart;
 	ChartPanel chartPanel;
-
+	
+	/**
+	 * This constructor initializes a graph instance and creates a default empty graph.
+	 * @param None
+	 */
 	public Graph() {
 		initializeGraph();
 		add(chartPanel);
 		setVisible(true);
 	}
-
-	public void initializeGraph() {
-		XYSeriesCollection dataset = new XYSeriesCollection();
-		chart = createChart(dataset);
-		chartPanel = new ChartPanel(chart);
-	}
-
+	
+	/**
+	 * Updates the graph using the latest data present in ClientCommonData.
+	 * @param None
+	 * @return Void
+	 */
 	public void updateGraph() {
 		remove(chartPanel);
 		dataset = createDataset();
@@ -44,6 +55,13 @@ public class Graph extends JPanel {
 		chartPanel = new ChartPanel(chart);
 		add(chartPanel);
 		setVisible(true);
+	}
+	
+
+	private void initializeGraph() {
+		XYSeriesCollection dataset = new XYSeriesCollection();
+		chart = createChart(dataset);
+		chartPanel = new ChartPanel(chart);
 	}
 	
 	private XYDataset createDataset() {
