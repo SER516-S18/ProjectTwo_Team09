@@ -173,6 +173,7 @@ public class ClientView extends JFrame {
 		channelChoice.setVisible(true);
 		channelChoice.setBorder(BorderFactory.createLineBorder(Color.black));
 		channelChoice.setBackground(BLUE);
+		ClientCommonData.getInstance().setChannels(Integer.parseInt("1"));
 		channelChoice.addActionListener(new ActionListener() {
 
 			@Override
