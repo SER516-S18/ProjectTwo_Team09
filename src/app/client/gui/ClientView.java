@@ -27,6 +27,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import app.client.controller.ClientSocketController;
 import app.client.model.ClientCommonData;
 
 public class ClientView extends JFrame {
@@ -39,25 +40,27 @@ public class ClientView extends JFrame {
 	private static final Font FONT = new Font("Courier New", Font.BOLD, 17);
 	private static final Color BLACK = new Color(0, 0, 0);
 	JButton buttonToggle;
+	ClientSocketController clientSocketController;
 
 	/**
 	 * GUI constructor for client. Adds all components
 	 */
 	public ClientView() {
+		clientSocketController = new ClientSocketController();
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setTitle("Client");
 		setMinimumSize(new Dimension(800, 600));
 		setLayout(new BorderLayout(8, 8));
 		setBackground(BLUE);
-		createMainToolBar();
+		createToolBar();
 		createMainBody();
 		createConsole();
 		setVisible(true);
 	}
 
-	private void createMainToolBar() {
+	private void createToolBar() {
 		JToolBar mainToolbar = new JToolBar();
-		mainToolbar.setBackground(BLUE);
+		mainToolbar.setBackground(LIGHTGREY);
 		mainToolbar.setBorder(new EmptyBorder(8, 8, 8, 8));
 		mainToolbar.setFloatable(false);
 		mainToolbar.add(Box.createHorizontalGlue());
@@ -74,9 +77,12 @@ public class ClientView extends JFrame {
 				if (ClientCommonData.getInstance().isStarted()) {
 					System.out.println("Clicked stopped");
 					ClientCommonData.getInstance().setStarted(false);
+					buttonToggle.setBackground(PINK);
 				} else {
 					System.out.println("Clicked started");
 					ClientCommonData.getInstance().setStarted(true);
+					clientSocketController.startServer(ClientCommonData.getInstance().getChannels());
+					buttonToggle.setBackground(BLUE);
 				}
 			}
 		});

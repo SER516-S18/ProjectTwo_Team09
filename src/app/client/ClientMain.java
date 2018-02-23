@@ -1,6 +1,5 @@
 package app.client;
 
-import app.client.controller.ClientController;
 import app.client.gui.ClientView;
 
 public class ClientMain {
@@ -10,6 +9,5 @@ public class ClientMain {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ClientView client = new ClientView();
-		ClientController clientController = new ClientController(PORT);
 	}
 }
