@@ -25,14 +25,11 @@ public class ClientGui extends JFrame {
 	private String[] channelSize = new String[] { "1", "2", "3", "4", "5" };
 	private JComboBox<String> channelChoice;
 	JTextArea consoleOutput = new JTextArea(5, 30);
-	
-	 static Thread clientThread = null;
-
+		
 	/**
 	 * GUI constructor for client. Adds all components
 	 */
 	public ClientGui() {
-		Client runner = new Client();
 		
 		
 		JFrame client = new JFrame();
@@ -52,20 +49,15 @@ public class ClientGui extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(ClientCommonData.getInstance().isStarted()) {
-					ClientCommonData.getInstance().setStarted(false);
-					toggle.setBackground(PINK);
-					clientThread.interrupt();
-					runner.stopClient();
-					
-				} else {
-					ClientCommonData.getInstance().setStarted(true);
-					toggle.setBackground(BLUE);
-					clientThread = new Thread(runner);
-					validateValues();
-					clientThread.start();
-				}
 				
+				if (ClientCommonData.getInstance().isStarted()) {
+					ClientCommonData.getInstance().toggleClientStatus();
+
+				} else {
+					if (	validateValues()) {
+						ClientCommonData.getInstance().toggleClientStatus();
+					}
+				}
 			}
 		});
 		client.add(toggle);
@@ -218,20 +210,26 @@ public class ClientGui extends JFrame {
 		console.repaint();
 	}
 
-	protected void validateValues() {
+	protected boolean validateValues() {
 		// TODO Auto-generated method stub
 		if (ClientCommonData.getInstance().getFrequency() < 1) {
 			ClientCommonData.getInstance().getLogs().add("Frequency value invalid");
+			return false;
 		}
 
 		if (ClientCommonData.getInstance().getChannels() < 1) {
 			ClientCommonData.getInstance().getLogs().add("Channel value invalid");
+			return false;
 		}
+		return true;
 
+	}
+	
+	public void setPortNo(int portNo) {
+		ClientCommonData.getInstance().setPortNo(portNo);
 	}
 
 	public static void main(String[] args) {
 		// Starting GUI using constructor
-		new ClientGui();
 	}
 }

@@ -21,6 +21,10 @@ public class ClientCommonData extends Observable {
 	private int channels;
 	private JFrame clientFrame;
 	private boolean started;
+	private int portNo;
+	
+	private ClientController clientControllerObj;
+	static Thread clientThread = null;
 
 	private static ClientCommonData instance;
 
@@ -78,5 +82,24 @@ public class ClientCommonData extends Observable {
 		this.started = started;
 	}
 	
+	public void setPortNo(int portNo) {
+		this.portNo = portNo;
+		this.clientControllerObj = new ClientController(portNo);
+	}
+	
+	public void toggleClientStatus() {
+		
+		if(this.isStarted()) {
+			this.setStarted(false);
+			clientThread.interrupt();
+			this.clientControllerObj.stopClient();
+			
+		} else {
+			ClientCommonData.getInstance().setStarted(true);
+			//clientThread = new Thread(this.clientControllerObj);
+			//clientThread.start();
+			this.clientControllerObj.startClient(channels);
+		}
+	}
 	
 }
