@@ -11,11 +11,5 @@ public class CommonDataTesting {
 		singleList.add(1);
 		singleList.add(2);
 		listOLists.add(singleList);
-		
-		GraphObserver graphObject=new GraphObserver();
-		ClientCommonData.getInstance().addObserver(graphObject);
-//		ClientCommonData.getInstance().setDataFromServer(listOLists);
-		//on calling notify observer GraphObserver update object gets called
-		ClientCommonData.getInstance().notifyObservers();
 	}
 }
