@@ -1,18 +1,21 @@
 package app.server;
 
-import java.util.HashMap;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
+import app.server.ServerNetworkThread;
 import app.server.ServerView;
 
 public class ServerController {
 
+    private ServerNetworkThread networkThread;
+    private ServerSocket serverSocket;
+    private Socket clientSocket;
     private ServerOptions options;
     private ServerView view;
     private boolean status;
     private int port;
-    HashMap<String, Thread> threadMap = new HashMap<String, Thread>();
-    static  ServerSocketImpl socketImpl = null;
-    static Thread t = null;
 
     public ServerController(int port, ServerView view) {
         this.status = false;
@@ -21,18 +24,32 @@ public class ServerController {
     }
 
     public void startServer() {
+        // Update the view.
         view.log("Info: The server has been started.");
         view.setStatus(true);
-        socketImpl = new ServerSocketImpl(port);
-        t = new Thread(socketImpl);
-	t.start();
+        
+        this.networkThread = new ServerNetworkThread(this.serverSocket, this.clientSocket, this.port, this);
+        this.networkThread.start();
     }
 
     public void stopServer() {
+        // Update the view.
         view.log("Info: The server has been stopped.");
         view.setStatus(false);
-        t.interrupt();
-        socketImpl.stopServer();
+        
+        try {
+            if (networkThread != null) {
+                networkThread.interrupt();
+            }
+    
+            if (serverSocket != null) {
+                serverSocket.close();
+            }
+        }
+        catch (IOException e) {
+            // TODO: Log this error in the console.
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -64,20 +81,8 @@ public class ServerController {
         }
     }
 
-    /**
-     * Generate a random integer between min and max, inclusive.
-     */
-    private int generateValue() {
-        return options.minimumValue + (int)(Math.random() * (options.maximumValue - options.minimumValue));
-    }
-
-    /**
-     * Compute the period of time associated with a frequency (in Hz)
-     * given by F = 1 / T.
-     */
-    private int computeFrequencyTime(int hertz) {
-        final int MILLI_IN_SECONDS = 1000;
-        return MILLI_IN_SECONDS / hertz;
+    public ServerOptions getOptions() {
+        return this.options;
     }
 
 }
