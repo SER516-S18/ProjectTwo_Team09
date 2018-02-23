@@ -57,8 +57,8 @@ public class Graph extends JPanel {
 
 		for (int i = 0; i < ClientCommonData.getInstance().getDataFromServer().size(); i++) {
 			for (int j = 0; j < ClientCommonData.getInstance().getChannels(); j++) {
-				series[j].add(ClientCommonData.getInstance().getDataFromServer().get(i).get(j).xCoordinate,
-						ClientCommonData.getInstance().getDataFromServer().get(i).get(j).yCoordinate);
+				series[j].add(ClientCommonData.getInstance().getDataFromServer().get(i).get(j).getxCoordinate(),
+						ClientCommonData.getInstance().getDataFromServer().get(i).get(j).getyCoordinate());
 			}
 		}
 
@@ -73,7 +73,7 @@ public class Graph extends JPanel {
 
 		Color colorList[] = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE };
 
-		JFreeChart chart = ChartFactory.createXYLineChart("", "Time (s)", "Numbers", dataset, PlotOrientation.VERTICAL,
+		JFreeChart chart = ChartFactory.createXYLineChart("", "Time (milliseconds)", "Numbers", dataset, PlotOrientation.VERTICAL,
 				true, true, false);
 
 		XYPlot plot = chart.getXYPlot();

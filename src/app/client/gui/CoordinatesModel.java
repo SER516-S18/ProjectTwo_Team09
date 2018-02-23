@@ -1,24 +1,24 @@
 package app.client.gui;
 
 public class CoordinatesModel {
-	public CoordinatesModel(int xCoordinate, int yCoordinate) {
+	public CoordinatesModel(double xCoordinate, double yCoordinate) {
 		super();
 		this.xCoordinate = xCoordinate;
 		this.yCoordinate = yCoordinate;
 	}
-	int xCoordinate;
-	int yCoordinate;
+	private double xCoordinate;
+	private double yCoordinate;
 	
-	public int getxCoordinate() {
+	public double getxCoordinate() {
 		return xCoordinate;
 	}
-	public void setxCoordinate(int xCoordinate) {
+	public void setxCoordinate(double xCoordinate) {
 		this.xCoordinate = xCoordinate;
 	}
-	public int getyCoordinate() {
+	public double getyCoordinate() {
 		return yCoordinate;
 	}
-	public void setyCoordinate(int yCoordinate) {
+	public void setyCoordinate(double yCoordinate) {
 		this.yCoordinate = yCoordinate;
 	}
 	@Override

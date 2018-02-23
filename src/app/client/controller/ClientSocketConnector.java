@@ -68,17 +68,17 @@ public class ClientSocketConnector implements Runnable {
 		clientStatus = true;
 		while (clientStatus) {
 			String inputLine = null;
-			int currentXCoordinate = 1;
+			double currentXCoordinate = 0.0;
 			try {
 				while ((inputLine = inputReader.readLine()) != null) {
 					this.serverData.add(inputLine);
 					ArrayList<CoordinatesModel> coordinatesArray = new ArrayList<CoordinatesModel>();
 					String[] arrayOfValues = inputLine.split(",");
 					int clientFrequency = ClientCommonData.getInstance().getFrequency();
-					int frequencyOffset = 1 / clientFrequency;
+					int frequencyOffset = 1000 / clientFrequency;
 					for (String eachArrayValue : arrayOfValues) {
 						CoordinatesModel coordinatesModel = new CoordinatesModel(currentXCoordinate,
-								Integer.parseInt(eachArrayValue));
+								Double.parseDouble(eachArrayValue));
 						coordinatesArray.add(coordinatesModel);
 						ClientCommonData.getInstance().logInfo("Received: " + coordinatesModel);
 					}
