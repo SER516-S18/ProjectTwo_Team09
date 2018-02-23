@@ -60,9 +60,10 @@ public class ServerNetworkThread extends Thread {
         catch (IOException e) {
             // TODO: Log this error in the console.
         	if(e.getMessage().equals("socket closed")) {
-        		new ServerException(e.getMessage());
-        	}else
-            new ServerException(e.toString());
+        		new ServerException("Info :"+e.getMessage());
+        	}else {
+        		new ServerException(e.toString());
+        	}
         }
         catch (InterruptedException e) {
             // TODO: Log this error in the console.
