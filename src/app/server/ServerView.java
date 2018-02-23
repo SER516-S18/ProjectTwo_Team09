@@ -71,7 +71,7 @@ public class ServerView {
 		int frequency = Integer.parseInt(frequencyField.getText());
 
 		if (minimum > maximum) {
-			new ServerException("Min higher than Max");
+			ServerException.printErrorMessage("MinMaxException");
 		}
 
 		return new ServerOptions(minimum, maximum, frequency);
