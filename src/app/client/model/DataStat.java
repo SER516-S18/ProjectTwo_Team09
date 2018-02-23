@@ -4,7 +4,7 @@
 package app.client.model;
 
 /**
- * @author spdpr
+ * @author Pratik Suryawanshi
  *
  */
 public class DataStat {
@@ -89,11 +89,5 @@ public class DataStat {
 		this.average = average;
 	}
 
-
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
 
 }

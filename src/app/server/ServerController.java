@@ -13,7 +13,7 @@ public class ServerController {
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private ServerOptions options;
-    private ServerView view;
+    private static ServerView view;
     private boolean status;
     private int port;
 
@@ -35,6 +35,10 @@ public class ServerController {
 		}
         this.networkThread = new ServerNetworkThread(this.serverSocket, this.clientSocket, this.port, this);
         this.networkThread.start();
+    }
+    
+    public static ServerView getView() {
+    	return view;
     }
 
     public void stopServer() {

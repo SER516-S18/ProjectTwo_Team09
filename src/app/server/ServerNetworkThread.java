@@ -13,7 +13,7 @@ import app.server.ServerController;
 
 public class ServerNetworkThread extends Thread {
 
-    private ServerController controller;
+	private ServerController controller;
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private BufferedReader inputStream;
@@ -59,7 +59,11 @@ public class ServerNetworkThread extends Thread {
         }
         catch (IOException e) {
             // TODO: Log this error in the console.
-            new ServerException(e.toString());
+        	if(e.getMessage().equalsIgnoreCase("socket closed")) {
+        		new ServerException("Info: "+e.getMessage());
+        	}else {
+        		new ServerException(e.toString());
+        	}
         }
         catch (InterruptedException e) {
             // TODO: Log this error in the console.
