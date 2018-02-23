@@ -29,7 +29,7 @@ public class ServerSocketImpl implements Runnable{
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new ServerException(e.toString());
 		}
 	}
 
@@ -41,7 +41,7 @@ public class ServerSocketImpl implements Runnable{
 
 		}
 		catch (IOException e) {
-			System.out.println(e);
+			new ServerException(e.toString());
 		}   
 
 		System.out.println( "Server is ready..." );
@@ -55,10 +55,10 @@ public class ServerSocketImpl implements Runnable{
 				Thread.sleep(2000);
 			}   
 			catch (IOException e) {
-				//System.out.println(e);
+				new ServerException(e.toString());
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				new ServerException(e.toString());
 			}
 		}
 	}
@@ -87,7 +87,7 @@ class Server1Connection {
 			ServerSocketImpl.osMap.put("os", os);
 			
 		} catch (IOException e) {
-			System.out.println(e);
+			new ServerException(e.toString());
 		}
 	}
 	
@@ -129,9 +129,9 @@ class Server1Connection {
 
 			if ( serverStop ) server.stopServer();
 		} catch (IOException e) {
-			System.out.println(e);
+			new ServerException(e.toString());
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			new ServerException(e.toString());
 		}
 	}
 	
