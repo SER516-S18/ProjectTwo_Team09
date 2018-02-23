@@ -78,6 +78,7 @@ public class ClientView extends JFrame {
 					System.out.println("Clicked stopped");
 					ClientCommonData.getInstance().setStarted(false);
 					buttonToggle.setBackground(PINK);
+					clientSocketController.stopServer();
 				} else {
 					System.out.println("Clicked started");
 					ClientCommonData.getInstance().setStarted(true);
@@ -228,7 +229,7 @@ public class ClientView extends JFrame {
 	}
 
 	private JPanel generateGraphView() {
-		JPanel graphPanel = new JPanel();
+		JPanel graphPanel = new Graph();
 		graphPanel.setLayout(new BorderLayout());
 		graphPanel.setOpaque(false);
 		graphPanel.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
