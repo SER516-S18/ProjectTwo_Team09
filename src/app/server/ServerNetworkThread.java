@@ -59,15 +59,14 @@ public class ServerNetworkThread extends Thread {
         }
         catch (IOException e) {
             // TODO: Log this error in the console.
-        	if(e.getMessage().equalsIgnoreCase("socket closed")) {
-        		new ServerException("Info: "+e.getMessage());
-        	}else {
-        		new ServerException(e.toString());
-        	}
+        if(!(e.getMessage().equalsIgnoreCase("socket closed")))
+        		{
+        		ServerException.printErrorMessage(e.toString());
+        		}
         }
         catch (InterruptedException e) {
             // TODO: Log this error in the console.
-            new ServerException(e.toString());
+        	ServerException.printErrorMessage(e.toString());
         }
     }
 
@@ -78,11 +77,11 @@ public class ServerNetworkThread extends Thread {
         }
         catch (IOException e) {
             // TODO: Log this error in the console.
-            new ServerException(e.toString());
+        		ServerException.printErrorMessage(e.toString());
         }
         catch (Exception e) {
             // TODO: Log this error in the console.
-            new ServerException(e.toString());
+        		ServerException.printErrorMessage(e.toString());
         }
     }
 
