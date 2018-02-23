@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import app.client.model.ClientCommonData;
+import app.client.model.LogConstants;
 
 public class Client implements Runnable{
 	
@@ -36,11 +37,11 @@ public class Client implements Runnable{
 			is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		} catch (UnknownHostException e) {
 			System.err.println("Unknown host: " + hostname);
-			ClientCommonData.getInstance().getLogs().add("Unknown host: " + hostname);
+			ClientCommonData.getInstance().getLogs().add(LogConstants.HOSTERROR + hostname);
 			
 		} catch (IOException e) {
 			System.err.println("Connection Exception " + hostname);
-			ClientCommonData.getInstance().getLogs().add("Connection Exception " + hostname);
+			ClientCommonData.getInstance().getLogs().add(LogConstants.CONNECTIONERROR + hostname);
 		}
 
 		if (clientSocket == null || os == null || is == null) {

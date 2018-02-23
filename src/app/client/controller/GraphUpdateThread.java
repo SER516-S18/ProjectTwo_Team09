@@ -1,6 +1,8 @@
 package app.client.controller;
 
 import app.client.gui.Graph;
+import app.client.model.ClientCommonData;
+import app.client.model.LogConstants;
 
 public class GraphUpdateThread implements Runnable{
 	Graph graphObj;
@@ -20,7 +22,8 @@ public GraphUpdateThread(Graph graphObj) {
 				
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
+				ClientCommonData.getInstance().logError(LogConstants.GENRICERROR);
 			}
 			
 		}

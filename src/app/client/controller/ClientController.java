@@ -8,6 +8,9 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
+import app.client.model.ClientCommonData;
+import app.client.model.LogConstants;
+
 public class ClientController {
 
 	public ArrayList<String> dataSetFromServer;
@@ -47,7 +50,8 @@ public class ClientController {
 			return true;
 		} catch (IOException e) {
 			// Print on console
-			System.err.println("IO Exception: " + hostName);
+			//System.err.println("IO Exception: " + hostName);
+			ClientCommonData.getInstance().logError(LogConstants.IOERROR + hostName);
 			return false;
 		}
 		
@@ -79,11 +83,13 @@ public class ClientController {
 			
 		} catch (UnknownHostException e) {
 			// Print on console
-			System.err.println("Unknown host: " + hostName);
+			//System.err.println("Unknown host: " + hostName);
+			ClientCommonData.getInstance().logError(LogConstants.HOSTERROR + hostName);
 		} catch (IOException e) {
 			// Print on console
 			e.printStackTrace();
-			System.err.println("IO Exception: " + hostName);
+			//System.err.println("IO Exception: " + hostName);
+			ClientCommonData.getInstance().logError(LogConstants.IOERROR + hostName);
 		}
 
 		if (this.clientSocket == null || this.outputStream == null || this.inputReader == null) {
@@ -99,7 +105,7 @@ public class ClientController {
 			this.clientSocket.close();
 		} catch (Exception e) {
 			// Print on console
-
+			ClientCommonData.getInstance().logError(LogConstants.ERRORSTOPCLIENT + hostName);
 		}
 	}
 
