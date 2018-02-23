@@ -15,7 +15,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import app.client.gui.CoordinatesModel;
 import app.client.model.ClientCommonData;
 import app.client.model.LogConstants;
-import app.server.ServerSocketImpl;
+
 
 public class ClientSocketConnector implements Runnable {
 
