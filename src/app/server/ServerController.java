@@ -31,7 +31,7 @@ public class ServerController {
 			this.serverSocket = new ServerSocket(port);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			new ServerException(e.toString());
+			ServerException.printErrorMessage(e.toString());
 		}
         this.networkThread = new ServerNetworkThread(this.serverSocket, this.clientSocket, this.port, this);
         this.networkThread.start();
@@ -57,7 +57,7 @@ public class ServerController {
         }
         catch (IOException e) {
             // TODO: Log this error in the console.
-            new ServerException(e.toString());
+            ServerException.printErrorMessage(e.toString());
         }
     }
 
@@ -76,11 +76,11 @@ public class ServerController {
             catch (NumberFormatException e) {
                 // This exception is thrown if the text fields do not
                 // contain valid integer values.
-                new ServerException("NumberFormatException");
+            		ServerException.printErrorMessage("NumberFormatException");
                 this.status = false;
             }
             catch (Exception e) {
-                new ServerException(e.getMessage());
+            		ServerException.printErrorMessage(e.getMessage());
                 this.status = false;
             }
         }
