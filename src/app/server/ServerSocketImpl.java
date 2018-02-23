@@ -114,7 +114,7 @@ class Server1Connection {
 
 				if ( n == 0 ) break;
 				StringBuilder builder = new StringBuilder();
-				for(int i = 0; i < 3; i++) {
+				for(int i = 0; i < n; i++) {
 					builder.append(min + (int)(Math.random()*(max - min))).append(",");        	
 					Thread.sleep(1000/n);	//Making the server sleep for 1 second / frequency
 				}
