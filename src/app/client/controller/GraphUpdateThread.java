@@ -19,6 +19,8 @@ public GraphUpdateThread(Graph graphObj) {
 			try {
 				Thread.sleep(1000);
 				graphObj.updateGraph();
+				ClientCommonData.getInstance().getParentFrame().revalidate();
+				ClientCommonData.getInstance().getParentFrame().repaint();
 				
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

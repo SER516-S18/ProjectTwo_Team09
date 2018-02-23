@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
 import app.client.controller.ClientController;
+import app.client.gui.ClientView;
 import app.client.gui.CoordinatesModel;
 
 /**
@@ -105,6 +106,15 @@ public class ClientCommonData extends Observable {
 	
 	public void logError(String logs) {
 		consoleArea.append("Error: "+logs+"\n");
+	}
+
+	public void setParentFrame(ClientView client) {
+		this.clientFrame = client;
+		
+	}
+	
+	public JFrame getParentFrame() {
+		return clientFrame;
 	}
 	
 }

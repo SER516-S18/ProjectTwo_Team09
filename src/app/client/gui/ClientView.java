@@ -41,6 +41,7 @@ public class ClientView extends JFrame {
 	private static final Font FONT = new Font("Courier New", Font.BOLD, 17);
 	private static final Color BLACK = new Color(0, 0, 0);
 	JButton buttonToggle;
+	Graph graphPanel;
 	ClientSocketController clientSocketController;
 	
 
@@ -90,6 +91,7 @@ public class ClientView extends JFrame {
 					ClientCommonData.getInstance().logInfo(LogConstants.STARTCLIENT);
 					//ClientCommonData.getInstance().logInfo("Server started");
 					clientSocketController.startServer(ClientCommonData.getInstance().getChannels());
+					clientSocketController.startGraph(graphPanel);
 					buttonToggle.setBackground(BLUE);
 				}
 			}
@@ -237,11 +239,11 @@ public class ClientView extends JFrame {
 	}
 
 	private JPanel generateGraphView() {
-		Graph graphPanel = new Graph();
+		graphPanel = new Graph();
 		graphPanel.setLayout(new BorderLayout());
 		graphPanel.setOpaque(false);
 		graphPanel.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
-		clientSocketController.startGraph(graphPanel);
+		
 		return graphPanel;
 	}
 
