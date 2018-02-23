@@ -42,7 +42,7 @@ public class ServerUI {
 					ServerUI window = new ServerUI();
 					window.serverFrame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					new ServerException(e.toString());
 				}
 			}
 		});

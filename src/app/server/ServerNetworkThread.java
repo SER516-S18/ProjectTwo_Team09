@@ -60,11 +60,11 @@ public class ServerNetworkThread extends Thread {
         }
         catch (IOException e) {
             // TODO: Log this error in the console.
-            e.printStackTrace();
+            new ServerException(e.toString());
         }
         catch (InterruptedException e) {
             // TODO: Log this error in the console.
-            e.printStackTrace();
+            new ServerException(e.toString());
         }
     }
 
@@ -75,11 +75,11 @@ public class ServerNetworkThread extends Thread {
         }
         catch (IOException e) {
             // TODO: Log this error in the console.
-            e.printStackTrace();
+            new ServerException(e.toString());
         }
         catch (Exception e) {
             // TODO: Log this error in the console.
-            e.printStackTrace();
+            new ServerException(e.toString());
         }
     }
 
