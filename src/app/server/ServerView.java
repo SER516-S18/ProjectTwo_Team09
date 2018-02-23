@@ -4,6 +4,8 @@ import app.server.ServerController;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -198,10 +200,20 @@ public class ServerView {
 
 		mainFrame.setTitle("Server");
 		mainFrame.setBounds(100, 100, 800, 629);
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.getContentPane().add(toggleButton);
 		mainFrame.setVisible(true);
+		mainFrame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e){
+				controller.stopServer();				
+			}
+			public void windowClosed(WindowEvent we){
+				System.out.println("Closed");
+			}			
+		});
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 	}
+	
+	
 
 	/**
 	 * Register the event handlers.
