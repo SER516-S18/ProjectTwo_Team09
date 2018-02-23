@@ -1,18 +1,13 @@
-/**
- * 
- */
+
 package app.client.model;
 
 /**
  * @author Pratik Suryawanshi
- *
+ * 
  */
 public class DataStat {
 
-	/**
-	 * @param args
-	 */
-	 
+
 	private int highest;
 	private int lowest;
 	private float average;
