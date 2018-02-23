@@ -43,7 +43,6 @@ public class ClientView extends JFrame {
 	JButton buttonToggle;
 	Graph graphPanel;
 	ClientSocketController clientSocketController;
-	
 
 	/**
 	 * GUI constructor for client. Adds all components
@@ -76,20 +75,19 @@ public class ClientView extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				ClientCommonData.getInstance().logInfo("Channels: "+ClientCommonData.getInstance().getChannels());
+
+				ClientCommonData.getInstance().logInfo("Channels: " + ClientCommonData.getInstance().getChannels());
 
 				if (ClientCommonData.getInstance().isStarted()) {
 					ClientCommonData.getInstance().logInfo("Clicked stopped");
 					ClientCommonData.getInstance().setStarted(false);
 					buttonToggle.setBackground(PINK);
 					clientSocketController.stopServer();
+					clientSocketController.stopGraph();
 					ClientCommonData.getInstance().logInfo(LogConstants.STOPCLIENT);
 				} else {
-					//System.out.println("Clicked started");
 					ClientCommonData.getInstance().setStarted(true);
 					ClientCommonData.getInstance().logInfo(LogConstants.STARTCLIENT);
-					//ClientCommonData.getInstance().logInfo("Server started");
 					clientSocketController.startServer(ClientCommonData.getInstance().getChannels());
 					clientSocketController.startGraph(graphPanel);
 					buttonToggle.setBackground(BLUE);
@@ -243,7 +241,7 @@ public class ClientView extends JFrame {
 		graphPanel.setLayout(new BorderLayout());
 		graphPanel.setOpaque(false);
 		graphPanel.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
-		
+
 		return graphPanel;
 	}
 
@@ -253,7 +251,7 @@ public class ClientView extends JFrame {
 		consoleView.setBackground(LIGHTGREY);
 		consoleView.setFont(new Font("Courier New", Font.PLAIN, 15));
 		ClientCommonData.getInstance().setConsoleArea(consoleView);
-		
+
 		JScrollPane consolePane = new JScrollPane(consoleView);
 		consolePane.setBorder(new TitledBorder(null, "Console", TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
 		consolePane.setBackground(LIGHTGREY);

@@ -45,7 +45,7 @@ public class Graph extends JPanel {
 		add(chartPanel);
 		setVisible(true);
 	}
-
+	
 	private XYDataset createDataset() {
 
 		XYSeries series[] = new XYSeries[ClientCommonData.getInstance().getChannels()];
