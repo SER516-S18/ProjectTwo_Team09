@@ -73,7 +73,7 @@ public class Graph extends JPanel {
 
 		Color colorList[] = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE };
 
-		JFreeChart chart = ChartFactory.createXYLineChart("", "Time (ms)", "Numbers", dataset, PlotOrientation.VERTICAL,
+		JFreeChart chart = ChartFactory.createXYLineChart("", "Time (s)", "Numbers", dataset, PlotOrientation.VERTICAL,
 				true, true, false);
 
 		XYPlot plot = chart.getXYPlot();

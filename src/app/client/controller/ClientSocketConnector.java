@@ -62,7 +62,7 @@ public class ClientSocketConnector implements Runnable {
 			outputStream = new PrintWriter(this.clientSocket.getOutputStream(), true);
 		} catch (IOException e) {
 			ClientCommonData.getInstance().logError(LogConstants.CONNECTIONERROR);
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
 		try {
 			outputStream.println(channelNumber);
@@ -74,19 +74,19 @@ public class ClientSocketConnector implements Runnable {
 		clientStatus = true;
 		while (clientStatus) {
 			String inputLine = null;
-			int currentXCoordinate = 0;
+			int currentXCoordinate = 1;
 			try {
 				while ((inputLine = inputReader.readLine()) != null) {
 					this.serverData.add(inputLine);
 					ArrayList<CoordinatesModel> coordinatesArray = new ArrayList<CoordinatesModel>();
 					String[] arrayOfValues = inputLine.split(",");
 					int clientFrequency = ClientCommonData.getInstance().getFrequency();
-					int frequencyOffset = 1000 / clientFrequency;
+					int frequencyOffset = 1 / clientFrequency;
 					for (String eachArrayValue : arrayOfValues) {
 						CoordinatesModel coordinatesModel = new CoordinatesModel(currentXCoordinate,
 								Integer.parseInt(eachArrayValue));
 						coordinatesArray.add(coordinatesModel);
-						ClientCommonData.getInstance().logInfo("Received: "+coordinatesModel);
+						ClientCommonData.getInstance().logInfo("Received: " + coordinatesModel);
 					}
 					currentXCoordinate = currentXCoordinate + frequencyOffset;
 					ClientCommonData.getInstance().getDataFromServer().add(coordinatesArray);
@@ -97,7 +97,7 @@ public class ClientSocketConnector implements Runnable {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				ClientCommonData.getInstance().logError(LogConstants.IOERROR);
-				//e.printStackTrace();
+				// e.printStackTrace();
 			}
 
 		}
@@ -106,7 +106,7 @@ public class ClientSocketConnector implements Runnable {
 			ClientCommonData.getInstance().logInfo(LogConstants.SERVERDISCONNECT);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
+			// e.printStackTrace();
 			ClientCommonData.getInstance().logError(LogConstants.IOERROR);
 		}
 
