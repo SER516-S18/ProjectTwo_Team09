@@ -5,6 +5,10 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import app.client.gui.CoordinatesModel;
+import app.client.gui.Graph;
+import app.client.model.ClientCommonData;
+
 public class GraphTesting {
 	public JFrame testFrame;
 	public void Test(Graph graph) {

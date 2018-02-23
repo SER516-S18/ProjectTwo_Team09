@@ -1,6 +1,8 @@
-package app.client;
+package app.client.model;
 
 import java.util.ArrayList;
+
+import app.client.gui.CoordinatesModel;
 
 public class DataModel {
 	

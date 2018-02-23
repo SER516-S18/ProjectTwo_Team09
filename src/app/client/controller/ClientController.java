@@ -1,4 +1,4 @@
-package app.client;
+package app.client.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,19 +7,19 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import app.client.gui.ClientGui;
 
 public class ClientController {
 
 	public ArrayList<String> dataSetFromServer;
-	private int clientFrequency;
 	Socket clientSocket;
 	private int portNo;
 	private String hostName;
 	private PrintWriter outputStream;
 	private BufferedReader inputReader;
 	private ClientDataHandler clientDataHandlerObj;
+	private ClientGui client;
 
 	public ClientController(int portNo) {
 		this.portNo = portNo;

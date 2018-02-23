@@ -1,7 +1,7 @@
 /**
  * 
  */
-package app.client;
+package app.client.model;
 
 /**
  * @author spdpr

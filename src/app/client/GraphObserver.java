@@ -3,6 +3,8 @@ package app.client;
 import java.util.Observable;
 import java.util.Observer;
 
+import app.client.model.ClientCommonData;
+
 public class GraphObserver implements Observer{
 
 	@Override

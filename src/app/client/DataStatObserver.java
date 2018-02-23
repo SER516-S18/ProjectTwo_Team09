@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import app.client.model.ClientCommonData;
+import app.client.model.DataStat;
+
 /**
  * @author Pratik Suryawanshi
  *

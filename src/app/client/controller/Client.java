@@ -1,4 +1,4 @@
-package app.client;
+package app.client.controller;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import app.client.model.ClientCommonData;
 
 public class Client implements Runnable{
 	

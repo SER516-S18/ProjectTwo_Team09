@@ -1,10 +1,13 @@
-package app.client;
+package app.client.model;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
 import javax.swing.JFrame;
+
+import app.client.controller.ClientController;
+import app.client.gui.CoordinatesModel;
 
 /**
  * @author Manish Tandon This class is responsible for providing data to various

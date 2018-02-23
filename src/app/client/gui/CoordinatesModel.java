@@ -1,4 +1,4 @@
-package app.client;
+package app.client.gui;
 
 public class CoordinatesModel {
 	public CoordinatesModel(int xCoordinate, int yCoordinate) {

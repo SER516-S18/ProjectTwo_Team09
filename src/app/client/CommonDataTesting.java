@@ -2,6 +2,8 @@ package app.client;
 
 import java.util.ArrayList;
 
+import app.client.model.ClientCommonData;
+
 public class CommonDataTesting {
 	public static void main(String[] args) {
 		ArrayList<ArrayList<Integer>> listOLists = new ArrayList<ArrayList<Integer>>();

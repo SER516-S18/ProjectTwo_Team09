@@ -1,9 +1,12 @@
-package app.client;
+package app.client.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import app.client.gui.CoordinatesModel;
+import app.client.model.ClientCommonData;
 
 public class ClientDataHandler extends Thread {
 	private ArrayList<String> dataSetFromServer;

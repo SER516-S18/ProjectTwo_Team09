@@ -1,4 +1,4 @@
-package app.client;
+package app.client.gui;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -15,6 +15,8 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+
+import app.client.model.ClientCommonData;
 
 @SuppressWarnings("serial")
 public class Graph extends JPanel {
