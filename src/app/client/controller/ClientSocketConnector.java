@@ -1,6 +1,5 @@
 package app.client.controller;
 
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -13,11 +12,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import app.client.gui.CoordinatesModel;
+import app.client.model.ClientCommonData;
 import app.server.ServerSocketImpl;
 
 public class ClientSocketConnector implements Runnable {
 
 	private boolean clientStatus = false;
+
 	public boolean isClientStatus() {
 		return clientStatus;
 	}
@@ -48,7 +50,6 @@ public class ClientSocketConnector implements Runnable {
 		this.channelNumber = channelNumber.toString();
 
 	}
-	
 
 	@Override
 	public void run() {
@@ -72,14 +73,23 @@ public class ClientSocketConnector implements Runnable {
 		while (clientStatus) {
 			System.out.println("here");
 			String inputLine = null;
+			int currentXCoordinate = 0;
 			try {
 				while ((inputLine = inputReader.readLine()) != null) {
 					this.serverData.add(inputLine);
-					System.out.println(clientStatus);
-					 System.out.println(inputLine);
-					 if(!clientStatus) {
-						 break;
-					 }
+					ArrayList<CoordinatesModel> coordinatesArray = new ArrayList<CoordinatesModel>();
+					String[] arrayOfValues = inputLine.split(",");
+					int clientFrequency = ClientCommonData.getInstance().getFrequency();
+					int frequencyOffset = 1000 / clientFrequency;
+					for (String eachArrayValue : arrayOfValues) {
+						coordinatesArray
+								.add(new CoordinatesModel(currentXCoordinate, Integer.parseInt(eachArrayValue)));
+					}
+					currentXCoordinate = currentXCoordinate + frequencyOffset;
+					ClientCommonData.getInstance().getDataFromServer().add(coordinatesArray);
+					if (!clientStatus) {
+						break;
+					}
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -97,9 +107,9 @@ public class ClientSocketConnector implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		ClientSocketConnector cc=new ClientSocketConnector("localhost", 1516, 3);
+		ClientSocketConnector cc = new ClientSocketConnector("localhost", 1516, 3);
 		new Thread(cc).start();
-		
+
 	}
 
 	/*
