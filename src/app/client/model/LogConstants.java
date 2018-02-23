@@ -10,7 +10,6 @@ public class LogConstants {
 	public static final String STOPCLIENT = "Client Stopped";
 	public static final String ERRORSTOPCLIENT = "Error in Stopping Client";
 	public static final String SERVERDISCONNECT = "Server Disconnected";
-	
 	public static final	String HOSTERROR = "Unknown host ";
 	public static final String CONNECTIONERROR = "Connection Exception ";
 	public static final String IOERROR = "IO Exception ";
