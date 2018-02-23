@@ -33,7 +33,6 @@ public class ServerNetworkThread extends Thread {
         try {
             // Accept a connection from the client and begin generating
             // and sending values to the server.
-            this.serverSocket = new ServerSocket(this.port);
             this.clientSocket = serverSocket.accept();
             this.clientSocket.setSoTimeout(2);
             System.out.println("Info: The client has connected to the server.");
