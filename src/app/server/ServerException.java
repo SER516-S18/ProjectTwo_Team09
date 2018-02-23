@@ -13,11 +13,11 @@ public class ServerException {
 		if(view == null) {
 			getView();
 		}
-		if(exception == "NumberFormatException")
+		else if(exception == "NumberFormatException")
 		{
 			view.log("Exception: Please enter valid number in the textbox");
 		}
-		if(exception == "Min higher than Max")
+		else if(exception == "Min higher than Max")
 		{
 			view.log("Exception:The highest value must be greater than or equal to the lowest value.");
 		}
