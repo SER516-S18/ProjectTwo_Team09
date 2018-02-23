@@ -2,14 +2,8 @@ package app.client;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JPanel;
-//import javax.swing.SwingUtilities;
-//import javax.swing.Timer;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -25,41 +19,61 @@ import org.jfree.data.xy.XYSeriesCollection;
 @SuppressWarnings("serial")
 public class Graph extends JPanel {
 	
-	public static int Time = 1;
+	XYDataset dataset;
+	JFreeChart chart;
+	ChartPanel chartPanel;
 	
-	public Graph(ClientCommonData data) {
-		//startTimer();
-		CreateGraph(data.getDataFromServer());
-    }
-
-    private void CreateGraph(List<ArrayList<Integer>> dataFromServer) {
-        XYDataset dataset = createDataset(dataFromServer);
-        JFreeChart chart = createChart(dataset, dataFromServer.size());
-        ChartPanel chartPanel = new ChartPanel(chart);
+	public Graph() {
+		initializeGraph();
         add(chartPanel);
         setVisible(true);
     }
+	
+	public void initializeGraph()
+	{
+		XYSeriesCollection dataset = new XYSeriesCollection();
+		chart = createChart(dataset);
+        chartPanel = new ChartPanel(chart);
+	}
+	
+	public void updateGraph()
+	{
+		remove(chartPanel);
+		dataset = createDataset();
+		chart = createChart(dataset);
+        chartPanel = new ChartPanel(chart);
+        add(chartPanel);
+        setVisible(true);
+	}
 
-    private XYDataset createDataset(List<ArrayList<Integer>> dataFromServer) {
+    private XYDataset createDataset() {
         
-    	XYSeries series[] = new XYSeries[dataFromServer.size()];
+    	XYSeries series[] = new XYSeries[ClientCommonData.getInstance().getDataFromServer().size()];
     	XYSeriesCollection dataset = new XYSeriesCollection();
     	
-    	for(int i = 0; i < dataFromServer.size(); i++)
+    	for(int i = 0; i < ClientCommonData.getInstance().getChannels(); i++)
     	{
     		series[i] = new XYSeries("Channel " + (i+1));
-    		int x = Time;
-    		for(int j = 0; j < dataFromServer.get(i).size(); j++)
+    	}
+    	
+    	for(int i = 0; i < ClientCommonData.getInstance().getDataFromServer().size(); i++)
+    	{
+    		for(int j = 0; j < ClientCommonData.getInstance().getDataFromServer().get(i).size(); j++)
     		{
-    			series[i].add(x, dataFromServer.get(i).get(j));
+    			series[j].add(ClientCommonData.getInstance().getDataFromServer().get(i).get(j).xCoordinate,
+    					ClientCommonData.getInstance().getDataFromServer().get(i).get(j).yCoordinate);
     		}
-            dataset.addSeries(series[i]);
+    	}
+    	
+    	for(int i = 0; i < ClientCommonData.getInstance().getChannels(); i++)
+    	{
+    		dataset.addSeries(series[i]);
     	}
 
         return dataset;
     }
 
-    private JFreeChart createChart(final XYDataset dataset, int NumberOfChannels) {
+    private JFreeChart createChart(final XYDataset dataset) {
     	
     	Color colorList[] = new Color[] {Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE};
     	
@@ -78,7 +92,7 @@ public class Graph extends JPanel {
         
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         
-        for(int i = 0; i < NumberOfChannels; i++)
+        for(int i = 0; i < ClientCommonData.getInstance().getChannels(); i++)
         {
         	renderer.setSeriesPaint(i, colorList[i]);
             renderer.setSeriesStroke(i, new BasicStroke(2.0f));
@@ -94,34 +108,5 @@ public class Graph extends JPanel {
 
         return chart;
     }
-    
-    /**
-	* Starts a timer at intervals of 1 second.
-	* @param Nothing
-	* @return Nothing
-	* @exception Exception
-	*/
-    /*
-	private void startTimer()
-	{
-		try
-		{
-			Timer timer = new Timer(1000, new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					Time++;
-					List<ArrayList<Integer>> dataFromServer = ClientCommonData.getInstance().getDataFromServer();
-					CreateGraph(dataFromServer);
-				}
-			});
-			timer.start();
-		}
-		catch(Exception e)
-		{
-			System.out.println("Exception: " + e.getMessage());
-		}
-	}
-	*/
 }
 
