@@ -71,7 +71,6 @@ public class ClientSocketConnector implements Runnable {
 		}
 		clientStatus = true;
 		while (clientStatus) {
-			System.out.println("here");
 			String inputLine = null;
 			int currentXCoordinate = 0;
 			try {
