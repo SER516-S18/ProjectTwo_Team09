@@ -8,8 +8,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
-import app.client.gui.ClientGui;
-
 public class ClientController {
 
 	public ArrayList<String> dataSetFromServer;
@@ -19,7 +17,6 @@ public class ClientController {
 	private PrintWriter outputStream;
 	private BufferedReader inputReader;
 	private ClientDataHandler clientDataHandlerObj;
-	private ClientGui client;
 
 	public ClientController(int portNo) {
 		this.portNo = portNo;

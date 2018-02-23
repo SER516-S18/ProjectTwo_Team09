@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Observable;
 
 import javax.swing.JFrame;
+import javax.swing.JTextArea;
 
 import app.client.controller.ClientController;
 import app.client.gui.CoordinatesModel;
@@ -26,10 +27,10 @@ public class ClientCommonData extends Observable {
 	private int channels;
 	private JFrame clientFrame;
 	private boolean started;
-	private int portNo;
 	
-	private ClientController clientControllerObj;
 	static Thread clientThread = null;
+	
+	private JTextArea consoleArea;
 
 	private static ClientCommonData instance;
 
@@ -89,25 +90,21 @@ public class ClientCommonData extends Observable {
 	public void setStarted(boolean started) {
 		this.started = started;
 	}
-	
-	public void setPortNo(int portNo) {
-		this.portNo = portNo;
-		this.clientControllerObj = new ClientController(portNo);
+
+	public JTextArea getConsoleArea() {
+		return consoleArea;
+	}
+
+	public void setConsoleArea(JTextArea consoleArea) {
+		this.consoleArea = consoleArea;
 	}
 	
-	public void toggleClientStatus() {
-		
-		if(this.isStarted()) {
-			this.setStarted(false);
-			clientThread.interrupt();
-			this.clientControllerObj.stopClient();
-			
-		} else {
-			ClientCommonData.getInstance().setStarted(true);
-			//clientThread = new Thread(this.clientControllerObj);
-			//clientThread.start();
-			this.clientControllerObj.startClient(channels);
-		}
+	public void logInfo(String logs) {
+		consoleArea.append("INFO: "+logs+"\n");
+	}
+	
+	public void logError(String logs) {
+		consoleArea.append("Error: "+logs+"\n");
 	}
 	
 }

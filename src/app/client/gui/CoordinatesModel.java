@@ -21,6 +21,10 @@ public class CoordinatesModel {
 	public void setyCoordinate(int yCoordinate) {
 		this.yCoordinate = yCoordinate;
 	}
+	@Override
+	public String toString() {
+		return "CoordinatesModel [xCoordinate=" + xCoordinate + ", yCoordinate=" + yCoordinate + "]";
+	}
 	
 	
 	

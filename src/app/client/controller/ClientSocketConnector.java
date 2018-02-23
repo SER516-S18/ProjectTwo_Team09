@@ -60,7 +60,7 @@ public class ClientSocketConnector implements Runnable {
 			inputReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			outputStream = new PrintWriter(this.clientSocket.getOutputStream(), true);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			ClientCommonData.getInstance().logError("Connection Issue");
 			e.printStackTrace();
 		}
 		try {
@@ -82,8 +82,10 @@ public class ClientSocketConnector implements Runnable {
 					int clientFrequency = ClientCommonData.getInstance().getFrequency();
 					int frequencyOffset = 1000 / clientFrequency;
 					for (String eachArrayValue : arrayOfValues) {
-						coordinatesArray
-								.add(new CoordinatesModel(currentXCoordinate, Integer.parseInt(eachArrayValue)));
+						CoordinatesModel coordinatesModel = new CoordinatesModel(currentXCoordinate,
+								Integer.parseInt(eachArrayValue));
+						coordinatesArray.add(coordinatesModel);
+						ClientCommonData.getInstance().logInfo("Received: "+coordinatesModel);
 					}
 					currentXCoordinate = currentXCoordinate + frequencyOffset;
 					ClientCommonData.getInstance().getDataFromServer().add(coordinatesArray);
