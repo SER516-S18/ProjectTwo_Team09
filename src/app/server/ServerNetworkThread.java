@@ -80,7 +80,7 @@ public class ServerNetworkThread extends Thread {
 	    	
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			 new ServerException(e.toString());
+			 ServerException.printErrorMessage(e.toString());
 		}
     }
 
