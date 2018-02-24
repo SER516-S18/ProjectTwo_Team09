@@ -24,13 +24,24 @@ public class ServerController {
 	private static ServerView view;
 	private boolean status;
 	private int port;
-
+	
+       /**
+	* Constructor to set port and ServerView object
+	* 
+	* @param port - port number
+	* @param view - object for ServerView
+	*/
 	public ServerController(int port, ServerView view) {
 		this.status = false;
 		this.port = port;
 		this.view = view;
 	}
-
+	
+	/**
+	 * Method to start the server and establish a socket connection
+	 * 
+	 * @param none
+	 */
 	public void startServer() {
 		view.log("Info: The server has been started.");
 		view.setStatus(true);
@@ -38,11 +49,22 @@ public class ServerController {
 				this.clientSocket, this.port, this);
 		this.networkThread.start();
 	}
-
+	
+	/**
+	 * Method to get the ServerView object  
+	 * 
+	 * @param none
+	 */
 	public static ServerView getView() {
 		return view;
 	}
 
+		
+       /**
+	* Method to stop the server and close the connection
+	* 
+	* @param none
+	*/
 	public void stopServer() {
 		view.log("Info: The server has been stopped.");
 		view.setStatus(false);
