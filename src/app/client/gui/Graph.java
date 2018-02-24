@@ -35,9 +35,11 @@ import app.client.model.ClientCommonData;
 @SuppressWarnings("serial")
 public class Graph extends JPanel {
 
-	XYDataset dataset;
-	JFreeChart chart;
-	ChartPanel chartPanel;
+	private XYDataset dataset;
+	private JFreeChart chart;
+	private ChartPanel chartPanel;
+	
+	private static final Color channelColors[] = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE };
 	
 	/**
 	 * This constructor initializes a graph instance and creates a default empty graph.
@@ -74,6 +76,7 @@ public class Graph extends JPanel {
 
 		XYSeries series[] = new XYSeries[ClientCommonData.getInstance().getChannels()];
 		XYSeriesCollection dataset = new XYSeriesCollection();
+		//int clientFrequency = ClientCommonData.getInstance().getFrequency();
 
 		for (int i = 0; i < ClientCommonData.getInstance().getChannels(); i++) {
 			series[i] = new XYSeries("Channel " + (i + 1));
@@ -81,8 +84,9 @@ public class Graph extends JPanel {
 
 		for (int i = 0; i < ClientCommonData.getInstance().getDataFromServer().size(); i++) {
 			for (int j = 0; j < ClientCommonData.getInstance().getChannels(); j++) {
-				series[j].add(ClientCommonData.getInstance().getDataFromServer().get(i).get(j).getxCoordinate(),
-						ClientCommonData.getInstance().getDataFromServer().get(i).get(j).getyCoordinate());
+				double xCoordinate = ClientCommonData.getInstance().getDataFromServer().get(i).get(j).getxCoordinate();
+				double yCoordinate = ClientCommonData.getInstance().getDataFromServer().get(i).get(j).getyCoordinate();
+				series[j].add(xCoordinate/1000, yCoordinate);
 			}
 		}
 
@@ -95,9 +99,7 @@ public class Graph extends JPanel {
 
 	private JFreeChart createChart(final XYDataset dataset) {
 
-		Color colorList[] = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE };
-
-		JFreeChart chart = ChartFactory.createXYLineChart("", "Time (milliseconds)", "Numbers", dataset, PlotOrientation.VERTICAL,
+		JFreeChart chart = ChartFactory.createXYLineChart("", "Time (seconds)", "Numbers", dataset, PlotOrientation.VERTICAL,
 				true, true, false);
 
 		XYPlot plot = chart.getXYPlot();
@@ -105,8 +107,7 @@ public class Graph extends JPanel {
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
 
 		for (int i = 0; i < ClientCommonData.getInstance().getChannels(); i++) {
-			renderer.setSeriesPaint(i, colorList[i]);
-			renderer.setSeriesStroke(i, new BasicStroke(2.0f));
+			renderer.setSeriesPaint(i, channelColors[i]);
 		}
 
 		plot.setRenderer(renderer);
