@@ -6,6 +6,7 @@ import java.util.Observable;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import app.client.gui.ClientView;
 import app.client.gui.CoordinatesModel;
@@ -20,6 +21,9 @@ public class ClientCommonData extends Observable {
 	// [[channel_num_1,channel_num_2,...],[channel2_num1,chnnale2_num2...],...]
 
 	private List<ArrayList<CoordinatesModel>> dataFromServer;
+	private ArrayList<Integer> listOfAllValues;
+	
+
 	private List<String> logs;
 	private int frequency;
 	private int channels;
@@ -29,11 +33,43 @@ public class ClientCommonData extends Observable {
 	static Thread clientThread = null;
 	
 	private JTextArea consoleArea;
-	private static ClientCommonData instance;
+private JTextField minField;
 	
+
+	public JTextField getMinField() {
+	return minField;
+}
+
+public void setMinField(JTextField minField) {
+	this.minField = minField;
+}
+
+public JTextField getMaxField() {
+	return maxField;
+}
+
+public void setMaxField(JTextField maxField) {
+	this.maxField = maxField;
+}
+
+public JTextField getAverageValue() {
+	return averageValue;
+}
+
+public void setAverageValue(JTextField averageValue) {
+	this.averageValue = averageValue;
+}
+
+	private JTextField maxField;
+	private JTextField averageValue;
+
+	private static ClientCommonData instance;
+
 	private ClientCommonData() {
+		// so only one instance of this object exists.
 		logs = new ArrayList<String>();
 		dataFromServer = new ArrayList<ArrayList<CoordinatesModel>>();
+		listOfAllValues=new ArrayList<Integer>();
 	}
 
 	public static ClientCommonData getInstance() {
@@ -110,6 +146,21 @@ public class ClientCommonData extends Observable {
 	
 	public JFrame getParentFrame() {
 		return clientFrame;
+	}
+	public void updateAverage(Float averageVal) {
+		this.averageValue.setText(String.format("%.02f",averageVal));
+		
+	}
+	public void updateMaxValue(Integer maxValue) {
+		this.maxField.setText(maxValue.toString());
+	}
+	public void updateMinvalue(Integer minValue) {
+		this.minField.setText(minValue.toString());
+	}
+	public void addToListValues(Integer valueToBeAdded) {
+		this.listOfAllValues.add(valueToBeAdded);
+		setChanged();
+		this.notifyObservers();
 	}
 	
 }
