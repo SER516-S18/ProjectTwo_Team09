@@ -9,7 +9,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import app.client.gui.ClientView;
-import app.client.gui.CoordinatesModel;
 
 /**
  * @author Manish Tandon This class is responsible for providing data to various

@@ -3,7 +3,7 @@ package app.client.controller;
 import app.client.gui.Graph;
 import app.client.model.ClientCommonData;
 
-/*
+/**
  * This class performs as an interface between the 
  * ClientSocketConnector class, Graph Thread
  * and the UI classes to connect to the socket.
@@ -57,16 +57,6 @@ public class ClientSocketController {
 	 */
 	public void stopServer() {
 		this.getClientSocketConnector().setClientStatus(false);
-	}
-	
-	
-	public static void main(String[] args) throws InterruptedException {
-		// TODO Auto-generated method stub
-		
-		ClientSocketController csc=new ClientSocketController();
-		csc.startServer(2);
-		Thread.sleep(10000);
-		csc.stopServer();
 	}
 
 }

@@ -26,7 +26,7 @@ public class DataStatObserver implements Observer{
 		this.stat = stat;
 	}
 
-	/*
+	/**
 	 * This method calculates the highest, lowest values received from 
 	 * the server and calculates the average from them. After this it 
 	 * returns the DataStat Model containing all the information.
@@ -52,14 +52,15 @@ public class DataStatObserver implements Observer{
 		}
 		
 		DataStat stat = new DataStat();
-		stat.setHighest(maxValue);
-		stat.setLowest(minValue);
-		stat.setAverage(sum/list.size());
+		stat.setHighestValueFromServer(maxValue);
+		stat.setLowestValueFromServer(minValue);
+		stat.setAverageOfValuesFromServer(sum/list.size());
 		
 		return stat;
 	}
 	
-	/* (non-Javadoc)
+	/**
+	 *  (non-Javadoc)
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
@@ -72,9 +73,9 @@ public class DataStatObserver implements Observer{
 		//List<Integer> list = new ArrayList<Integer>();
 		//setStat(findStats(list));
 		DataStat finalStats=findStats(listOfValuesFromServer);
-		ClientCommonData.getInstance().updateAverage(finalStats.getAverage());
-		ClientCommonData.getInstance().updateMaxValue(finalStats.getHighest());
-		ClientCommonData.getInstance().updateMinvalue(finalStats.getLowest());
+		ClientCommonData.getInstance().updateAverage(finalStats.getAverageOfValuesFromServer());
+		ClientCommonData.getInstance().updateMaxValue(finalStats.getHighestValueFromServer());
+		ClientCommonData.getInstance().updateMinvalue(finalStats.getLowestValueFromServer());
 		
 		
 		

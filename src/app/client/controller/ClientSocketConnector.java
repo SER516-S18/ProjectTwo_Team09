@@ -8,8 +8,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import app.client.DataStatObserver;
-import app.client.gui.CoordinatesModel;
 import app.client.model.ClientCommonData;
+import app.client.model.CoordinatesModel;
 import app.client.model.LogConstants;
 
 /**
@@ -27,14 +27,12 @@ public class ClientSocketConnector implements Runnable {
 	private PrintWriter outputStream = null;
 	private ArrayList<String> serverData = new ArrayList<String>();
 
-	/*
+	/**
 	 * Class constructor
 	 * 
 	 * @param hostname: Pass the hostname to which you wish to connect to the
 	 * server.
-	 * 
 	 * @param port: Pass the port number to establish socket connection.
-	 * 
 	 * @param channelNumber: The number of channels for which the data is needed
 	 * from the socket server
 	 * 
@@ -47,21 +45,39 @@ public class ClientSocketConnector implements Runnable {
 
 	}
 
+	
+	/**
+	 * @return the clientStatus
+	 */
 	public boolean isClientStatus() {
 		return clientStatus;
 	}
 
+
+	/**
+	 * @param clientStatus the clientStatus to set
+	 */
 	public void setClientStatus(boolean clientStatus) {
 		this.clientStatus = clientStatus;
 	}
 
+	/**
+	 * @return the serverData
+	 */
 	public ArrayList<String> getServerData() {
 		return serverData;
 	}
 
+	/**
+	 * @param serverData the serverData to set
+	 */
 	public void setServerData(ArrayList<String> serverData) {
 		this.serverData = serverData;
 	}
+
+	/**
+	 * @see 
+	 */
 
 	@Override
 	public void run() {

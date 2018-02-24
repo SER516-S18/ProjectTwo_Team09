@@ -6,7 +6,6 @@
  */
 package app.client.gui;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 
 import javax.swing.JPanel;
@@ -27,6 +26,7 @@ import app.client.model.ClientCommonData;
 /**
  * This class Graph consists of methods to help with initializing, updating and creating a graph 
  * based on the data residing in ClientCommonData.
+ * 
  * @author Adhiraj Tikku
  * @version 1.0
  * @since 2018-02-23
