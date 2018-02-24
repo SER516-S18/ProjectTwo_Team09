@@ -14,7 +14,8 @@ import app.client.model.DataStat;
  *  Interface.
  *
  */
-public class DataStatObserver implements Observer{
+@SuppressWarnings("deprecation")
+public class DataStatObserver implements Observer {
 
 	private DataStat stat;
 	
@@ -65,7 +66,6 @@ public class DataStatObserver implements Observer{
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
 		
 		ClientCommonData data=(ClientCommonData) o;
 		// list = data.getMyData();

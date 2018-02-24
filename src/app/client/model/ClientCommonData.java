@@ -15,6 +15,7 @@ import app.client.gui.ClientView;
  *         UI elements of the client application. Eg. Graphs etc. Follows
  *         observer pattern.
  */
+@SuppressWarnings("deprecation")
 public class ClientCommonData extends Observable {
 	// data structure for various channels, Format eg.:
 	// [[channel_num_1,channel_num_2,...],[channel2_num1,chnnale2_num2...],...]
