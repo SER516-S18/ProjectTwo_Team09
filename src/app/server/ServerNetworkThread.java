@@ -33,6 +33,7 @@ public class ServerNetworkThread extends Thread {
         try {
             // Accept a connection from the client and begin generating
             // and sending values to the server.
+	    this.serverSocket = new ServerSocket(port);
             this.clientSocket = serverSocket.accept();
             this.clientSocket.setSoTimeout(2);
             System.out.println("Info: The client has connected to the server.");
@@ -69,6 +70,19 @@ public class ServerNetworkThread extends Thread {
         	ServerException.printErrorMessage(e.toString());
         }
     }
+	
+	    public void closeConnection() {
+    	try {
+			serverSocket.close();
+			if(outputStream != null) {
+				outputStream.close();
+			}
+	    	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			 new ServerException(e.toString());
+		}
+    }
 
     private void getNumberOfChannels() {
         try {
@@ -85,6 +99,7 @@ public class ServerNetworkThread extends Thread {
         }
     }
 
+	
     private void sendValuesToClient() {
         // Generate a comma-delimited string of random integer values.
         // e.g. "14,64,67,"
