@@ -40,9 +40,9 @@ import app.client.model.LogConstants;
  * @see 2018-02-23
  * 
  */
-@SuppressWarnings("serial")
 public class ClientView extends JFrame {
 
+	private static final long serialVersionUID = 7062671298597794421L;
 	private static final Color PINK = new Color(242, 208, 238);
 	private static final Color LIGHTGREY = new Color(245, 245, 245);
 	private static final Color BLUE = new Color(222, 235, 252);
@@ -65,7 +65,6 @@ public class ClientView extends JFrame {
 	private JButton buttonToggle;
 	private Graph graphPanel;
 	private JTextField frequencyNumber;
-
 
 	private ClientSocketController clientSocketController;
 
@@ -235,7 +234,7 @@ public class ClientView extends JFrame {
 
 				});
 		sidePanel.add(frequencyNumber);
-		return sidePanel;
+		return sidePanel;	
 	}
 
 	private JPanel generateGraphView() {
@@ -244,6 +243,7 @@ public class ClientView extends JFrame {
 		graphPanel.setOpaque(false);
 		graphPanel.setBorder(new TitledBorder(null, GRAPH_TITLE,
 				TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
+		clientSocketController.startGraph(graphPanel);
 
 		return graphPanel;
 	}
