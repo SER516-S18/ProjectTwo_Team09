@@ -18,6 +18,7 @@ import javax.swing.JTextField;
  * @version 1.0
  * @since February, 2018
  */
+@SuppressWarnings("deprecation")
 public class ClientCommonData extends Observable {
 
 	private List<ArrayList<CoordinatesModel>> dataFromServer;
