@@ -72,6 +72,7 @@ public class ServerView {
 
 		if (minimum > maximum) {
 			ServerException.printErrorMessage("MinMaxException");
+			return null;
 		}
 
 		return new ServerOptions(minimum, maximum, frequency);
