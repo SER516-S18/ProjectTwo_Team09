@@ -27,12 +27,6 @@ public class ServerController {
         // Update the view.
         view.log("Info: The server has been started.");
         view.setStatus(true);
-        try {
-			this.serverSocket = new ServerSocket(port);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			ServerException.printErrorMessage(e.toString());
-		}
         this.networkThread = new ServerNetworkThread(this.serverSocket, this.clientSocket, this.port, this);
         this.networkThread.start();
     }
