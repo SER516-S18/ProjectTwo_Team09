@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import app.client.gui.ClientView;
 import app.client.gui.CoordinatesModel;
 
 /**
@@ -24,41 +23,25 @@ public class ClientCommonData extends Observable {
 	private ArrayList<Integer> listOfAllValues;
 	
 
+	public ArrayList<Integer> getListOfAllValues() {
+		return listOfAllValues;
+	}
+
+	public void setListOfAllValues(ArrayList<Integer> listOfAllValues) {
+		this.listOfAllValues = listOfAllValues;
+		
+	}
+
 	private List<String> logs;
 	private int frequency;
 	private int channels;
 	private JFrame clientFrame;
 	private boolean started;
 	
-	static Thread clientThread = null;
 	
 	private JTextArea consoleArea;
-private JTextField minField;
+	private JTextField minField;
 	
-
-	public JTextField getMinField() {
-	return minField;
-}
-
-public void setMinField(JTextField minField) {
-	this.minField = minField;
-}
-
-public JTextField getMaxField() {
-	return maxField;
-}
-
-public void setMaxField(JTextField maxField) {
-	this.maxField = maxField;
-}
-
-public JTextField getAverageValue() {
-	return averageValue;
-}
-
-public void setAverageValue(JTextField averageValue) {
-	this.averageValue = averageValue;
-}
 
 	private JTextField maxField;
 	private JTextField averageValue;
@@ -138,14 +121,28 @@ public void setAverageValue(JTextField averageValue) {
 	public void logError(String logs) {
 		consoleArea.append("Error: "+logs+"\n");
 	}
-
-	public void setParentFrame(ClientView client) {
-		this.clientFrame = client;
-		
+	public JTextField getMinField() {
+		return minField;
 	}
-	
-	public JFrame getParentFrame() {
-		return clientFrame;
+
+	public void setMinField(JTextField minField) {
+		this.minField = minField;
+	}
+
+	public JTextField getMaxField() {
+		return maxField;
+	}
+
+	public void setMaxField(JTextField maxField) {
+		this.maxField = maxField;
+	}
+
+	public JTextField getAverageValue() {
+		return averageValue;
+	}
+
+	public void setAverageValue(JTextField averageValue) {
+		this.averageValue = averageValue;
 	}
 	public void updateAverage(Float averageVal) {
 		this.averageValue.setText(String.format("%.02f",averageVal));
