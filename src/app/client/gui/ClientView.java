@@ -276,8 +276,6 @@ public class ClientView extends JFrame {
 			clientSocketController.stopServer();
 			clientSocketController.stopGraph();
 			ClientCommonData.getInstance().logInfo(LogConstants.STOPCLIENT);
-			channelChoice.setEnabled(true);
-			frequencyNumber.setEnabled(true);
 		} else {
 			if (isFrequencyValid()
 					&& Integer.parseInt(frequencyNumber.getText()) > 0) {
@@ -288,8 +286,6 @@ public class ClientView extends JFrame {
 						ClientCommonData.getInstance().getChannels());
 				clientSocketController.startGraph(graphPanel);
 				buttonToggle.setBackground(BLUE);
-				channelChoice.setEnabled(false);
-				frequencyNumber.setEnabled(false);
 			} else {
 				ClientCommonData.getInstance()
 						.logInfo(LogConstants.FREQUENCYERROR);

@@ -143,14 +143,11 @@ public class ClientSocketConnector implements Runnable {
 						break;
 					}
 				}
-				ClientCommonData.getInstance()
-						.logError(LogConstants.GENRICERROR);
 				ClientCommonData.getInstance().setStarted(false);
 
 			} catch (IOException e) {
 				ClientCommonData.getInstance().logError(LogConstants.IOERROR);
 			}
-
 		}
 		try {
 			clientSocket.close();
