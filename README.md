@@ -29,5 +29,5 @@ javac -Xlint:deprecation -cp .:../lib/jcommon-1.0.23.jar:../lib/jfreechart-1.0.1
 
 ```
 java -cp .:../lib/jcommon-1.0.23.jar:../lib/jfreechart-1.0.19.jar app/client/ClientMain &
-java app/server/Server &
+java app/server/Server 
 ```
