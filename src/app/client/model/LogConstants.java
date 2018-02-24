@@ -10,7 +10,7 @@ package app.client.model;
  */
 public class LogConstants {
 
-	public static final String STARTCLIENT = "Client STARTED";
+	public static final String STARTCLIENT = "Client Started";
 	public static final String STOPCLIENT = "Client Stopped";
 	public static final String ERRORSTOPCLIENT = "Error in Stopping Client";
 	public static final String SERVERDISCONNECT = "Server Disconnected";
@@ -19,5 +19,6 @@ public class LogConstants {
 	public static final String IOERROR = "IO Exception ";
 	public static final String GENRICERROR = "Cannot proceed with process";
 	public static final String SERVER_CONN_FAIL = "Server connection failed.";
+	public static final String FREQUENCYERROR = "Frequency should be more than 0";
 
 }

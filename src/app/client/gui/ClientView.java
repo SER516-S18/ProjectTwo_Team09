@@ -32,7 +32,9 @@ import app.client.model.ClientCommonData;
 import app.client.model.LogConstants;
 
 /**
- * This class ClientView contains methods to initialize the UI components and their listeners.
+ * This class ClientView contains methods to initialize the UI components and
+ * their listeners.
+ * 
  * @author Varun Srivastav, Adhiraj Tikku
  * @version 1.0
  * @see 2018-02-23
@@ -40,16 +42,16 @@ import app.client.model.LogConstants;
  */
 @SuppressWarnings("serial")
 public class ClientView extends JFrame {
-	
+
 	private static final Color PINK = new Color(242, 208, 238);
 	private static final Color LIGHTGREY = new Color(245, 245, 245);
 	private static final Color BLUE = new Color(222, 235, 252);
-	
+
 	private static final Font FONT = new Font("Courier New", Font.BOLD, 17);
-	
+
 	private static final int DEFAULT_CLIENT_WIDTH = 800;
 	private static final int DEFAULT_CLIENT_HEIGHT = 600;
-	
+
 	private static final String START_STOP_BUTTON_LABEL = "Start / Stop";
 	private static final String HIGHEST_VALUE_LABEL = "Highest value:";
 	private static final String LOWEST_VALUE_LABEL = "Lowest value:";
@@ -59,14 +61,15 @@ public class ClientView extends JFrame {
 	private static final String GRAPH_TITLE = "Graph";
 	private static final String CONSOLE_TITLE = "Console";
 	private static final String SETTINGS_TITLE = "Settings";
-	
+
 	private JButton buttonToggle;
 	private Graph graphPanel;
-	
+	private JTextField frequencyNumber;
+
 	private ClientSocketController clientSocketController;
 
 	/**
-	 * Initializes and creates the Client window. 
+	 * Initializes and creates the Client window.
 	 * 
 	 * @param None
 	 */
@@ -74,7 +77,8 @@ public class ClientView extends JFrame {
 		clientSocketController = new ClientSocketController();
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setTitle("Client");
-		setMinimumSize(new Dimension(DEFAULT_CLIENT_WIDTH, DEFAULT_CLIENT_HEIGHT));
+		setMinimumSize(
+				new Dimension(DEFAULT_CLIENT_WIDTH, DEFAULT_CLIENT_HEIGHT));
 		setLayout(new BorderLayout(8, 8));
 		setBackground(BLUE);
 		createToolBar();
@@ -95,7 +99,7 @@ public class ClientView extends JFrame {
 		mainToolbar.add(buttonToggle);
 
 		buttonToggle.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				invokeButtonListener(e);
@@ -126,7 +130,8 @@ public class ClientView extends JFrame {
 	private JPanel generateSideView() {
 		JPanel sidePanel = new JPanel();
 		sidePanel.setLayout(new GridLayout(5, 2, 8, 8));
-		sidePanel.setBorder(new TitledBorder(null, SETTINGS_TITLE, TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
+		sidePanel.setBorder(new TitledBorder(null, SETTINGS_TITLE,
+				TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
 		sidePanel.setOpaque(false);
 
 		JLabel highestValue = new JLabel(HIGHEST_VALUE_LABEL);
@@ -186,7 +191,8 @@ public class ClientView extends JFrame {
 		channelChoice.setVisible(true);
 		channelChoice.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		channelChoice.setBackground(BLUE);
-		ClientCommonData.getInstance().setChannels(Integer.parseInt(channelList[0]));
+		ClientCommonData.getInstance()
+				.setChannels(Integer.parseInt(channelList[0]));
 		channelChoice.addActionListener(new ActionListener() {
 
 			@Override
@@ -204,29 +210,30 @@ public class ClientView extends JFrame {
 		freqLabel.setOpaque(true);
 		sidePanel.add(freqLabel);
 
-		JTextField freqNumber = new JTextField();
-		freqNumber.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		freqNumber.setHorizontalAlignment(SwingConstants.CENTER);
-		freqNumber.setBackground(PINK);
-		freqNumber.getDocument().addDocumentListener(new DocumentListener() {
-			
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				updateFrequencyValue(freqNumber);
-			}
+		frequencyNumber = new JTextField();
+		frequencyNumber.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		frequencyNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		frequencyNumber.setBackground(PINK);
+		frequencyNumber.getDocument()
+				.addDocumentListener(new DocumentListener() {
 
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				updateFrequencyValue(freqNumber);
-			}
+					@Override
+					public void removeUpdate(DocumentEvent e) {
+						updateFrequencyValue(frequencyNumber);
+					}
 
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				updateFrequencyValue(freqNumber);
-			}
+					@Override
+					public void insertUpdate(DocumentEvent e) {
+						updateFrequencyValue(frequencyNumber);
+					}
 
-		});
-		sidePanel.add(freqNumber);
+					@Override
+					public void changedUpdate(DocumentEvent e) {
+						updateFrequencyValue(frequencyNumber);
+					}
+
+				});
+		sidePanel.add(frequencyNumber);
 		return sidePanel;
 	}
 
@@ -234,7 +241,8 @@ public class ClientView extends JFrame {
 		graphPanel = new Graph();
 		graphPanel.setLayout(new BorderLayout());
 		graphPanel.setOpaque(false);
-		graphPanel.setBorder(new TitledBorder(null, GRAPH_TITLE, TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
+		graphPanel.setBorder(new TitledBorder(null, GRAPH_TITLE,
+				TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
 
 		return graphPanel;
 	}
@@ -247,45 +255,67 @@ public class ClientView extends JFrame {
 		ClientCommonData.getInstance().setConsoleArea(consoleView);
 
 		JScrollPane consolePane = new JScrollPane(consoleView);
-		consolePane.setBorder(new TitledBorder(null, CONSOLE_TITLE, TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
+		consolePane.setBorder(new TitledBorder(null, CONSOLE_TITLE,
+				TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
 		consolePane.setBackground(LIGHTGREY);
 		consolePane.setBounds(10, 445, 758, 50);
 		add(consolePane, BorderLayout.PAGE_END);
 	}
-	
+
 	private void invokeButtonListener(ActionEvent e) {
 
-		ClientCommonData.getInstance().logInfo("Channels: " + ClientCommonData.getInstance().getChannels());
+		ClientCommonData.getInstance().logInfo(
+				"Channels: " + ClientCommonData.getInstance().getChannels());
 
 		if (ClientCommonData.getInstance().isStarted()) {
-			ClientCommonData.getInstance().logInfo("Clicked stopped");
+			ClientCommonData.getInstance().logInfo(LogConstants.STOPCLIENT);
 			ClientCommonData.getInstance().setStarted(false);
 			buttonToggle.setBackground(PINK);
 			clientSocketController.stopServer();
 			clientSocketController.stopGraph();
 			ClientCommonData.getInstance().logInfo(LogConstants.STOPCLIENT);
 		} else {
-			ClientCommonData.getInstance().setStarted(true);
-			ClientCommonData.getInstance().logInfo(LogConstants.STARTCLIENT);
-			clientSocketController.startServer(ClientCommonData.getInstance().getChannels());
-			clientSocketController.startGraph(graphPanel);
-			buttonToggle.setBackground(BLUE);
+			if (isFrequencyValid()
+					&& Integer.parseInt(frequencyNumber.getText()) > 0) {
+				ClientCommonData.getInstance().setStarted(true);
+				ClientCommonData.getInstance()
+						.logInfo(LogConstants.STARTCLIENT);
+				clientSocketController.startServer(
+						ClientCommonData.getInstance().getChannels());
+				clientSocketController.startGraph(graphPanel);
+				buttonToggle.setBackground(BLUE);
+			} else {
+				ClientCommonData.getInstance()
+						.logInfo(LogConstants.FREQUENCYERROR);
+			}
 		}
 	}
-	
-	private void invokeChannelListener(JComboBox<String> channelChoice, ActionEvent e) {
+
+	private void invokeChannelListener(JComboBox<String> channelChoice,
+			ActionEvent e) {
 		String channelValue = (String) channelChoice.getSelectedItem();
-		ClientCommonData.getInstance().setChannels(Integer.parseInt(channelValue));
+		ClientCommonData.getInstance()
+				.setChannels(Integer.parseInt(channelValue));
 	}
-	
+
 	private void updateFrequencyValue(JTextField freqNumber) {
 		if (freqNumber.getText() != null && freqNumber.getText() != "") {
-			if (!freqNumber.getText().matches(".*[a-z].*") && !freqNumber.getText().equals("")) {
+			if (!freqNumber.getText().matches(".*[a-z].*")
+					&& !freqNumber.getText().equals("")) {
 				int freq = Integer.parseInt(freqNumber.getText());
 				ClientCommonData.getInstance().setFrequency(freq);
 			} else {
 				ClientCommonData.getInstance().setFrequency(1);
 			}
+		}
+	}
+
+	public boolean isFrequencyValid() {
+		try {
+			Integer.parseInt(frequencyNumber.getText());
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
 		}
 	}
 }
