@@ -35,12 +35,12 @@ public class ClientSocketConnector implements Runnable {
 	 * This constructor initializes the port, host name and number of channels
 	 * to connect to the server.
 	 * 
-	 * @param hostname -
-	 *            Host name to which you wish to connect to the server.
-	 * @param port -
-	 *            Port number to establish socket connection.
-	 * @param channelNumber -
-	 *            The number of channels for which the data is needed from the
+	 * @param hostname
+	 *            - Host name to which you wish to connect to the server.
+	 * @param port
+	 *            - Port number to establish socket connection.
+	 * @param channelNumber
+	 *            - The number of channels for which the data is needed from the
 	 *            socket server
 	 * 
 	 */
@@ -106,11 +106,17 @@ public class ClientSocketConnector implements Runnable {
 			outputStream = new PrintWriter(this.clientSocket.getOutputStream(),
 					true);
 			outputStream.println(channelNumber);
-			clientStatus = true;
-			while (clientStatus) {
-				String inputLine = null;
-				int currentXCoordinate = 0;
-
+		} catch (IOException e) {
+			ClientCommonData.getInstance()
+					.logError(LogConstants.CONNECTIONERROR);
+		} catch (Exception e) {
+			ClientCommonData.getInstance().logError(LogConstants.GENRICERROR);
+		}
+		clientStatus = true;
+		while (clientStatus) {
+			String inputLine = null;
+			int currentXCoordinate = 0;
+			try {
 				while ((inputLine = inputReader.readLine()) != null) {
 					this.serverData.add(inputLine);
 					ArrayList<CoordinatesModel> coordinatesArray = new ArrayList<CoordinatesModel>();
@@ -138,18 +144,20 @@ public class ClientSocketConnector implements Runnable {
 					}
 				}
 				ClientCommonData.getInstance()
-						.logError(LogConstants.CONNECTIONERROR);
+						.logError(LogConstants.GENRICERROR);
 				ClientCommonData.getInstance().setStarted(false);
 
+			} catch (IOException e) {
+				ClientCommonData.getInstance().logError(LogConstants.IOERROR);
 			}
+
+		}
+		try {
 			clientSocket.close();
 			ClientCommonData.getInstance()
 					.logInfo(LogConstants.SERVERDISCONNECT);
 		} catch (IOException e) {
-			ClientCommonData.getInstance()
-					.logError(LogConstants.CONNECTIONERROR);
-		} catch (Exception e) {
-			ClientCommonData.getInstance().logError(LogConstants.GENRICERROR);
+			ClientCommonData.getInstance().logError(LogConstants.IOERROR);
 		}
 
 	}
