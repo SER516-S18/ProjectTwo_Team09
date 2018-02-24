@@ -18,7 +18,7 @@ Team Members:
 ## Compiling
 
 ```
-git clone https://github.com/SER516/ProjectTwo_Team09.git && cd src/
+git clone https://github.com/SER516/ProjectTwo_Team09.git && cd ProjectTwo_Team09/src/
 javac -Xlint:deprecation -cp .:../lib/jcommon-1.0.23.jar:../lib/jfreechart-1.0.19.jar \
     app/client/*.java \
     app/client/*/*.java \
