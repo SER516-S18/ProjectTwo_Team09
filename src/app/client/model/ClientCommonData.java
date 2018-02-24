@@ -20,8 +20,6 @@ public class ClientCommonData extends Observable {
 	// [[channel_num_1,channel_num_2,...],[channel2_num1,chnnale2_num2...],...]
 
 	private List<ArrayList<CoordinatesModel>> dataFromServer;
-	
-
 	private List<String> logs;
 	private int frequency;
 	private int channels;
@@ -31,11 +29,9 @@ public class ClientCommonData extends Observable {
 	static Thread clientThread = null;
 	
 	private JTextArea consoleArea;
-
 	private static ClientCommonData instance;
-
+	
 	private ClientCommonData() {
-		// so only one instance of this object exists.
 		logs = new ArrayList<String>();
 		dataFromServer = new ArrayList<ArrayList<CoordinatesModel>>();
 	}
