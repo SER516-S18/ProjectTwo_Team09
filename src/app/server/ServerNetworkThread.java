@@ -44,6 +44,14 @@ public class ServerNetworkThread extends Thread {
 		this.port = port;
 	}
 
+    /*
+     * 
+     * Thread runner function that listens to the client socket for getting the number of channels
+     * After receiving parsing the number of channels, the function starts writing the stream of computed values to its output stream
+     * @param None
+     * 
+     * @see java.lang.Thread#run()
+     */
 	@Override
 	public void run() {
 		try {
@@ -86,6 +94,7 @@ public class ServerNetworkThread extends Thread {
 	/**
 	 * Close the socket connection between the client and the server
 	 * and any associated IO streams.
+	 * @param None
 	 */
 	public void closeConnection() {
 		try {
