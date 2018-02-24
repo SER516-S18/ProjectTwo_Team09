@@ -26,6 +26,9 @@ public class ServerException {
 
 	/**
 	 * Returns the Server View Object
+	 *
+	 * @param none
+	 *
 	 */
 	public static void getView() {
 		view = ServerController.getView();
