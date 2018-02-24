@@ -2,12 +2,19 @@ package app.server;
 
 import java.util.HashMap;
 
-/* Entire exception from server is handled here */
+/**
+ * Server Exception Handler
+ * 
+ * @author Mohan Vsantrao Yadav
+ * @author Sangeetha Swaminathan
+ * @author Ganesh Kumar
+ * @version 1.0
+ */
 public class ServerException {
 	
 	private static ServerView view = null;
 	private static HashMap<String, String> errorDescriptionHash = new HashMap<String, String>();
-	// Error with error codes
+	
 
 	static {
 		errorDescriptionHash.put("NumberFormatException", "INFO: Please enter a valid number");
