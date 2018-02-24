@@ -7,33 +7,32 @@ import app.client.model.LogConstants;
 /**
  * Creates a thread for updating the graph on UI after 1000 milliseconds.
  *
- *	@author Manish Tandon
- *  @version 1.0
- *  @since	 February, 2018
- *  
+ * @author Manish Tandon
+ * @version 1.0
+ * @since February, 2018
+ * 
  */
-public class GraphUpdateThread implements Runnable{
-	Graph graphObj;
-	
+public class GraphUpdateThread implements Runnable {
+	private Graph graphInstance;
+
 	private static final int DELAY = 1000;
-	
+
 	/**
 	 * Class constructor
-	 *  
-	 * @param graphObj	graph panel object to be updated on thread
+	 * 
+	 * @param graphObj
+	 *            graph panel object to be updated on thread
 	 */
-	public GraphUpdateThread(Graph graphObj) {
-		// TODO Auto-generated constructor stub
-		this.graphObj=graphObj;
+	public GraphUpdateThread(Graph graphInstance) {
+		this.graphInstance = graphInstance;
 	}
-	
-	
+
 	@Override
 	public void run() {
-		while(true) {
+		while (true) {
 			try {
 				Thread.sleep(DELAY);
-				graphObj.updateGraph();
+				graphInstance.updateGraph();
 				ClientCommonData.getInstance().getClientFrame().revalidate();
 				ClientCommonData.getInstance().getClientFrame().repaint();
 
@@ -43,6 +42,5 @@ public class GraphUpdateThread implements Runnable{
 
 		}
 	}
-
 
 }
