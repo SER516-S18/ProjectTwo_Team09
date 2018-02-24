@@ -57,15 +57,21 @@ public class ClientCommonData extends Observable {
 	}
 
 	/**
-	 * @return the dataFromServer
+	 * Returns the data from the server in the form of list of a list containing
+	 * coordinate information for the graph.
+	 * 
+	 * @return data from server
 	 */
 	public List<ArrayList<CoordinatesModel>> getDataFromServer() {
 		return dataFromServer;
 	}
 
 	/**
+	 * Sets the coordinate data.
+	 * 
 	 * @param dataFromServer
-	 *            the dataFromServer to set
+	 *            - list of a list containing coordinate information for the
+	 *            graph.
 	 */
 	public void setDataFromServer(
 			List<ArrayList<CoordinatesModel>> dataFromServer) {
@@ -73,66 +79,83 @@ public class ClientCommonData extends Observable {
 	}
 
 	/**
-	 * @return the listOfAllValues
+	 * Returns a list of numbers from server.
+	 * 
+	 * @return list of numbers from server
 	 */
 	public ArrayList<Integer> getListOfAllValues() {
 		return listOfAllValues;
 	}
 
 	/**
+	 * Sets the list of values received from the server
+	 * 
 	 * @param listOfAllValues
-	 *            the listOfAllValues to set
+	 *            - listOfAllValues to set for calculating stats.
 	 */
 	public void setListOfAllValues(ArrayList<Integer> listOfAllValues) {
 		this.listOfAllValues = listOfAllValues;
 	}
 
 	/**
-	 * @return the logs
+	 * Gets the logs to be printed on the console.
+	 * 
+	 * @return logs - list of String values
 	 */
 	public List<String> getLogs() {
 		return logs;
 	}
 
 	/**
+	 * Sets the logs to that need to be displayed on the console
+	 * 
 	 * @param logs
-	 *            the logs to set
+	 *            - list of String values
 	 */
 	public void setLogs(List<String> logs) {
 		this.logs = logs;
 	}
 
 	/**
-	 * @return the frequency
+	 * Returns the frequency to be used at client side.
+	 * 
+	 * @return frequency
 	 */
 	public int getFrequency() {
 		return frequency;
 	}
 
 	/**
+	 * Sets the frequency to be used at client side.
+	 * 
 	 * @param frequency
-	 *            the frequency to set
+	 *            - the frequency to set
 	 */
 	public void setFrequency(int frequency) {
 		this.frequency = frequency;
 	}
 
 	/**
-	 * @return the channels
+	 * Returns the no of channels set by the user.
+	 * 
+	 * @return no of channels
 	 */
 	public int getChannels() {
 		return channels;
 	}
 
 	/**
+	 * Sets the no of channels set by the user.
+	 * 
 	 * @param channels
-	 *            the channels to set
+	 *            - the channels to set
 	 */
 	public void setChannels(int channels) {
 		this.channels = channels;
 	}
 
 	/**
+	 * 
 	 * @return the clientFrame
 	 */
 	public JFrame getClientFrame() {

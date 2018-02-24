@@ -56,7 +56,10 @@ public class CoordinatesModel {
 	public void setyCoordinate(double yCoordinate) {
 		this.yCoordinate = yCoordinate;
 	}
-
+	
+	/**
+	 * Overriding the toString method to return a coordinate model.
+	 */
 	@Override
 	public String toString() {
 		return "CoordinatesModel [xCoordinate=" + xCoordinate + ", yCoordinate="

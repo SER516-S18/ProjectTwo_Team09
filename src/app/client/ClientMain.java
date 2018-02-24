@@ -8,9 +8,9 @@ import app.client.model.ClientCommonData;
  * window and displays the UI for user communication. Also, the port number
  * specified is used to connect to the server.
  * 
- * @author vishakhasingal
+ * @author Vishakha Singal
  * @version 1.0
- * @since February, 2018
+ * @since 2018-02-23
  *
  */
 public class ClientMain {

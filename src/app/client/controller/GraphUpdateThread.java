@@ -18,15 +18,18 @@ public class GraphUpdateThread implements Runnable {
 	private static final int DELAY = 1000;
 
 	/**
-	 * Class constructor
+	 * This constructor initializes an instance of the graph thread.
 	 * 
-	 * @param graphObj
-	 *            graph panel object to be updated on thread
+	 * @param graphInstance
+	 *            - graph panel instance to be updated on thread.
 	 */
 	public GraphUpdateThread(Graph graphInstance) {
 		this.graphInstance = graphInstance;
 	}
 
+	/**
+	 * Overriding the run of Thread.java to update the graph at regular intervals.
+	 */
 	@Override
 	public void run() {
 		while (true) {

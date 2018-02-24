@@ -40,7 +40,12 @@ public class ClientSocketController {
 		ClientCommonData.getInstance().getDataFromServer().clear();
 		graphUpdateThread.interrupt();
 	}
-
+	
+	/**
+	 * Returns the client socket connector object to 
+	 * 
+	 * @return client socket connector
+	 */
 	public ClientSocketConnector getClientSocketConnector() {
 		return clientSocketConnector;
 	}

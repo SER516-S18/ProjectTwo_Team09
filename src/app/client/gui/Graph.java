@@ -46,7 +46,6 @@ public class Graph extends JPanel {
 	 * This constructor initializes a graph instance and creates a default empty
 	 * graph.
 	 * 
-	 * @param None
 	 */
 	public Graph() {
 		initializeGraph();
@@ -55,10 +54,8 @@ public class Graph extends JPanel {
 	}
 
 	/**
-	 * Updates the graph using the latest data present in ClientCommonData.
 	 * 
-	 * @param None
-	 * @return Void
+	 * Updates the graph using the latest data present in ClientCommonData.
 	 */
 	public void updateGraph() {
 		remove(chartPanel);

@@ -47,11 +47,11 @@ public class DataStatObserver implements Observer {
 	 * server and calculates the average from them. After this it returns the
 	 * DataStat Model containing all the information.
 	 * 
-	 * @param: list:
-	 *             Pass the list of values for which the calculation has to be
-	 *             done.
+	 * @param list
+	 *            - Pass the list of values for which the calculation has to be
+	 *            done.
 	 * 
-	 * @return: returns the DataStat model containing the prescribed values.
+	 * @return DataStat - Model containing the prescribed values.
 	 * 
 	 */
 	public static DataStat findStats(List<Integer> list) {
@@ -77,6 +77,9 @@ public class DataStatObserver implements Observer {
 	}
 
 	/**
+	 * 
+	 * Overriding the update method in Observable class to update the data
+	 * statistics.
 	 * 
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */

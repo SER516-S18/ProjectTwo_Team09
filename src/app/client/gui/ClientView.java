@@ -315,7 +315,12 @@ public class ClientView extends JFrame {
 			}
 		}
 	}
-
+	
+	/**
+	 * Check if the frequency entered by the user is valid.
+	 * 
+	 * @return True or False
+	 */
 	public boolean isFrequencyValid() {
 		try {
 			if(Integer.parseInt(frequencyNumber.getText()) > 0)

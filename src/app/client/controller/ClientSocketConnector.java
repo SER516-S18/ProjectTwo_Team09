@@ -32,18 +32,18 @@ public class ClientSocketConnector implements Runnable {
 	private ArrayList<String> serverData = new ArrayList<String>();
 
 	/**
-	 * Class constructor
+	 * This constructor initializes the port, host name and number of channels
+	 * to connect to the server.
 	 * 
-	 * @param hostname:
-	 *            Pass the hostname to which you wish to connect to the server.
-	 * @param port:
-	 *            Pass the port number to establish socket connection.
-	 * @param channelNumber:
+	 * @param hostname -
+	 *            Host name to which you wish to connect to the server.
+	 * @param port -
+	 *            Port number to establish socket connection.
+	 * @param channelNumber -
 	 *            The number of channels for which the data is needed from the
 	 *            socket server
 	 * 
 	 */
-
 	public ClientSocketConnector(String hostName, int port,
 			Integer channelNumber) {
 		this.port = port;
@@ -53,39 +53,48 @@ public class ClientSocketConnector implements Runnable {
 	}
 
 	/**
-	 * @return the clientStatus
+	 * Returns the client status.
+	 * 
+	 * @return client status - True if running, False if not running
 	 */
 	public boolean isClientStatus() {
 		return clientStatus;
 	}
 
 	/**
+	 * Sets the client status
+	 * 
 	 * @param clientStatus
-	 *            the clientStatus to set
+	 *            - True if running, False if not running
 	 */
 	public void setClientStatus(boolean clientStatus) {
 		this.clientStatus = clientStatus;
 	}
 
 	/**
-	 * @return the serverData
+	 * Returns the data from the server in an list consisting of Strings.
+	 * 
+	 * @return serverData - ArrayList of Strings
 	 */
 	public ArrayList<String> getServerData() {
 		return serverData;
 	}
 
 	/**
+	 * Sets the data from server.
+	 * 
 	 * @param serverData
-	 *            the serverData to set
+	 *            - ArrayList of Strings
 	 */
 	public void setServerData(ArrayList<String> serverData) {
 		this.serverData = serverData;
 	}
 
 	/**
-	 * @see
+	 * Overriding the run method of Thread.java to create a connection with
+	 * server.
+	 * 
 	 */
-
 	@Override
 	public void run() {
 		DataStatObserver dataStatObserver = new DataStatObserver();
