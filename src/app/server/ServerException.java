@@ -12,7 +12,7 @@ import java.util.HashMap;
  * @since 2018-02-23
  * 
  */
-class ServerException {
+public class ServerException {
 
 	private static ServerView view = null;
 	private static HashMap<String, String> errorDescriptionHash = new HashMap<String, String>();
