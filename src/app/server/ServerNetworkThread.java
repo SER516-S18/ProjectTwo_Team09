@@ -36,7 +36,6 @@ public class ServerNetworkThread extends Thread {
 	    this.serverSocket = new ServerSocket(port);
             this.clientSocket = serverSocket.accept();
             this.clientSocket.setSoTimeout(2);
-            System.out.println("Info: The client has connected to the server.");
             
             // Create input and output streams.
             InputStream socketInputStream = clientSocket.getInputStream();
@@ -46,7 +45,6 @@ public class ServerNetworkThread extends Thread {
             this.outputStream = new PrintStream(socketOutputStream);
 
             getNumberOfChannels();
-            System.out.println("Number of channels received");
             while (true) {
                 if (clientSocket.isConnected()) {
                     sendValuesToClient();
@@ -115,7 +113,6 @@ public class ServerNetworkThread extends Thread {
 
         // Send the string to the client.
         outputStream.println(builder.toString());
-        System.out.println(builder.toString());
     }
 
     /**
