@@ -65,6 +65,7 @@ public class ClientView extends JFrame {
 	private JButton buttonToggle;
 	private Graph graphPanel;
 	private JTextField frequencyNumber;
+	private JComboBox<String> channelChoice;
 
 	private ClientSocketController clientSocketController;
 
@@ -187,7 +188,7 @@ public class ClientView extends JFrame {
 		sidePanel.add(channelLabel);
 
 		String[] channelList = new String[] { "1", "2", "3", "4", "5" };
-		JComboBox<String> channelChoice = new JComboBox<String>(channelList);
+		channelChoice = new JComboBox<String>(channelList);
 		channelChoice.setVisible(true);
 		channelChoice.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		channelChoice.setBackground(BLUE);
@@ -234,7 +235,7 @@ public class ClientView extends JFrame {
 
 				});
 		sidePanel.add(frequencyNumber);
-		return sidePanel;	
+		return sidePanel;
 	}
 
 	private JPanel generateGraphView() {
@@ -275,6 +276,8 @@ public class ClientView extends JFrame {
 			clientSocketController.stopServer();
 			clientSocketController.stopGraph();
 			ClientCommonData.getInstance().logInfo(LogConstants.STOPCLIENT);
+			channelChoice.setEnabled(true);
+			frequencyNumber.setEnabled(true);
 		} else {
 			if (isFrequencyValid()
 					&& Integer.parseInt(frequencyNumber.getText()) > 0) {
@@ -285,6 +288,8 @@ public class ClientView extends JFrame {
 						ClientCommonData.getInstance().getChannels());
 				clientSocketController.startGraph(graphPanel);
 				buttonToggle.setBackground(BLUE);
+				channelChoice.setEnabled(false);
+				frequencyNumber.setEnabled(false);
 			} else {
 				ClientCommonData.getInstance()
 						.logInfo(LogConstants.FREQUENCYERROR);
@@ -313,8 +318,10 @@ public class ClientView extends JFrame {
 
 	public boolean isFrequencyValid() {
 		try {
-			Integer.parseInt(frequencyNumber.getText());
-			return true;
+			if(Integer.parseInt(frequencyNumber.getText()) > 0)
+				return true;
+			else
+				return false;
 		} catch (NumberFormatException e) {
 			return false;
 		}

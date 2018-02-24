@@ -129,7 +129,7 @@ public class ClientSocketConnector implements Runnable {
 					}
 				}
 				ClientCommonData.getInstance()
-						.logError(LogConstants.SERVER_CONN_FAIL);
+						.logError(LogConstants.CONNECTIONERROR);
 				ClientCommonData.getInstance().setStarted(false);
 
 			}
