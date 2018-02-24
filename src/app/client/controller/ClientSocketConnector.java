@@ -1,15 +1,24 @@
 package app.client.controller;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.LinkedBlockingQueue;
 
+import app.client.DataStatObserver;
+import app.client.GraphObserver;
 import app.client.gui.CoordinatesModel;
 import app.client.model.ClientCommonData;
 import app.client.model.LogConstants;
+import app.server.ServerSocketImpl;
 
 public class ClientSocketConnector implements Runnable {
 
@@ -48,27 +57,29 @@ public class ClientSocketConnector implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-
+		DataStatObserver dataStatObserver=new DataStatObserver();
+		ClientCommonData.getInstance().addObserver(dataStatObserver);
 		try {
 			clientSocket = new Socket(hostName, port);
 			inputReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			outputStream = new PrintWriter(this.clientSocket.getOutputStream(), true);
 		} catch (IOException e) {
 			ClientCommonData.getInstance().logError(LogConstants.CONNECTIONERROR);
-			// e.printStackTrace();
+			//e.printStackTrace();
 		}
 		try {
 			outputStream.println(channelNumber);
 		} catch (Exception e) {
+
 			// TODO Auto-generated catch block
 			ClientCommonData.getInstance().logError(LogConstants.GENRICERROR);
+
 			e.printStackTrace();
 		}
 		clientStatus = true;
 		while (clientStatus) {
 			String inputLine = null;
-			double currentXCoordinate = 0.0;
+			int currentXCoordinate = 0;
 			try {
 				while ((inputLine = inputReader.readLine()) != null) {
 					this.serverData.add(inputLine);
@@ -76,12 +87,17 @@ public class ClientSocketConnector implements Runnable {
 					String[] arrayOfValues = inputLine.split(",");
 					int clientFrequency = ClientCommonData.getInstance().getFrequency();
 					int frequencyOffset = 1000 / clientFrequency;
+					ArrayList<Integer> listOfAllValues= new ArrayList<Integer>();
 					for (String eachArrayValue : arrayOfValues) {
+						int eachValueFromServer=Integer.parseInt(eachArrayValue);
+						listOfAllValues.add(eachValueFromServer);
+						ClientCommonData.getInstance().addToListValues(eachValueFromServer);
 						CoordinatesModel coordinatesModel = new CoordinatesModel(currentXCoordinate,
-								Double.parseDouble(eachArrayValue));
+								Integer.parseInt(eachArrayValue));
 						coordinatesArray.add(coordinatesModel);
-						ClientCommonData.getInstance().logInfo("Received: " + coordinatesModel);
+						ClientCommonData.getInstance().logInfo("Received: "+coordinatesModel);
 					}
+					//setListOfAllValues(listOfAllValues);
 					currentXCoordinate = currentXCoordinate + frequencyOffset;
 					ClientCommonData.getInstance().getDataFromServer().add(coordinatesArray);
 					if (!clientStatus) {
@@ -91,7 +107,7 @@ public class ClientSocketConnector implements Runnable {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				ClientCommonData.getInstance().logError(LogConstants.IOERROR);
-				// e.printStackTrace();
+				//e.printStackTrace();
 			}
 
 		}
@@ -100,7 +116,7 @@ public class ClientSocketConnector implements Runnable {
 			ClientCommonData.getInstance().logInfo(LogConstants.SERVERDISCONNECT);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			// e.printStackTrace();
+			//e.printStackTrace();
 			ClientCommonData.getInstance().logError(LogConstants.IOERROR);
 		}
 
