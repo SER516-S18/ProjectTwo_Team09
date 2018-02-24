@@ -32,26 +32,34 @@ public class ServerNetworkThread extends Thread {
 	/**
 	 * Constructs a ServerNetworkThread.
 	 * 
-	 * @param serverSocket The server socket.
-	 * @param clientSocket The socket that the client connects to.
-	 * @param port Port number of the network connection.
-	 * @param controller The server controller.
+	 * @param serverSocket
+	 *            The server socket.
+	 * @param clientSocket
+	 *            The socket that the client connects to.
+	 * @param port
+	 *            Port number of the network connection.
+	 * @param controller
+	 *            The server controller.
 	 */
-	public ServerNetworkThread(ServerSocket serverSocket, Socket clientSocket, int port, ServerController controller) {
+	public ServerNetworkThread(ServerSocket serverSocket, Socket clientSocket,
+			int port, ServerController controller) {
 		this.serverSocket = serverSocket;
 		this.clientSocket = clientSocket;
 		this.controller = controller;
 		this.port = port;
 	}
 
-    /*
-     * 
-     * Thread runner function that listens to the client socket for getting the number of channels
-     * After receiving parsing the number of channels, the function starts writing the stream of computed values to its output stream
-     * @param None
-     * 
-     * @see java.lang.Thread#run()
-     */
+	/*
+	 * 
+	 * Thread runner function that listens to the client socket for getting the
+	 * number of channels After receiving parsing the number of channels, the
+	 * function starts writing the stream of computed values to its output
+	 * stream
+	 * 
+	 * @param None
+	 * 
+	 * @see java.lang.Thread#run()
+	 */
 	@Override
 	public void run() {
 		try {
@@ -60,10 +68,11 @@ public class ServerNetworkThread extends Thread {
 			this.serverSocket = new ServerSocket(port);
 			this.clientSocket = serverSocket.accept();
 			this.clientSocket.setSoTimeout(2);
-			
+
 			// Create input and output streams.
 			InputStream socketInputStream = clientSocket.getInputStream();
-			InputStreamReader inputStreamReader = new InputStreamReader(socketInputStream);
+			InputStreamReader inputStreamReader = new InputStreamReader(
+					socketInputStream);
 			OutputStream socketOutputStream = clientSocket.getOutputStream();
 			this.inputStream = new BufferedReader(inputStreamReader);
 			this.outputStream = new PrintStream(socketOutputStream);
@@ -73,61 +82,57 @@ public class ServerNetworkThread extends Thread {
 			while (true) {
 				if (clientSocket.isConnected()) {
 					sendValuesToClient();
-					sleep(computeFrequencyTime(controller.getOptions().frequency));
-				}
-				else {
+					sleep(computeFrequencyTime(
+							controller.getOptions().frequency));
+				} else {
 					controller.stopServer();
 					break;
 				}
 			}
-		}
-		catch (IOException e) {
-			if(!(e.getMessage().equalsIgnoreCase("socket closed"))) {
+		} catch (IOException e) {
+			if (!(e.getMessage().equalsIgnoreCase("socket closed"))) {
 				ServerException.printErrorMessage(e.toString());
 			}
-		}
-		catch (InterruptedException e) {
+		} catch (InterruptedException e) {
 			ServerException.printErrorMessage(e.toString());
 		}
 	}
-	
+
 	/**
-	 * Close the socket connection between the client and the server
-	 * and any associated IO streams.
+	 * Close the socket connection between the client and the server and any
+	 * associated IO streams.
+	 * 
 	 * @param None
 	 */
 	public void closeConnection() {
 		try {
 			serverSocket.close();
-			if(outputStream != null) {
+			if (outputStream != null) {
 				outputStream.close();
 			}
-		}
-		catch (IOException e) {
-			 ServerException.printErrorMessage(e.toString());
+		} catch (IOException e) {
+			ServerException.printErrorMessage(e.toString());
 		}
 	}
 
 	/**
-	 * Read an integer value from the client that tells the server
-	 * the number of channels the client is expecting.
+	 * Read an integer value from the client that tells the server the number of
+	 * channels the client is expecting.
 	 */
 	private void getNumberOfChannels() {
 		try {
 			String line = inputStream.readLine();
 			this.numberOfChannels = Integer.parseInt(line);
-		}
-		catch (IOException e) {
-				ServerException.printErrorMessage(e.toString());
-		}
-		catch (Exception e) {
-				ServerException.printErrorMessage(e.toString());
+		} catch (IOException e) {
+			ServerException.printErrorMessage(e.toString());
+		} catch (Exception e) {
+			ServerException.printErrorMessage(e.toString());
 		}
 	}
 
 	/**
-	 * Sends a comma-delimited list of numbers to the client.
-	 * The length of the list depends on `numberOfChannels`.
+	 * Sends a comma-delimited list of numbers to the client. The length of the
+	 * list depends on `numberOfChannels`.
 	 */
 	private void sendValuesToClient() {
 		// Generate a comma-delimited string of random integer values.
@@ -147,18 +152,18 @@ public class ServerNetworkThread extends Thread {
 	}
 
 	/**
-	 * Generate a random integer between the minimum and maximum values
-	 * stored in the server options.
+	 * Generate a random integer between the minimum and maximum values stored
+	 * in the server options.
 	 */
 	private int generateValue() {
 		int minimum = controller.getOptions().minimumValue;
 		int maximum = controller.getOptions().maximumValue;
-		return minimum + (int)(Math.random() * (maximum - minimum));
+		return minimum + (int) (Math.random() * (maximum - minimum));
 	}
 
 	/**
-	 * Compute the period of time associated with a frequency (in Hz)
-	 * given by F = 1 / T.
+	 * Compute the period of time associated with a frequency (in Hz) given by F
+	 * = 1 / T.
 	 */
 	private int computeFrequencyTime(int hertz) {
 		final int MILLI_IN_SECONDS = 1000;

@@ -39,8 +39,8 @@ public class Graph extends JPanel {
 	private JFreeChart chart;
 	private ChartPanel chartPanel;
 
-	private static final Color channelColors[] = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW,
-			Color.ORANGE };
+	private static final Color channelColors[] = new Color[] { Color.RED,
+			Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE };
 
 	/**
 	 * This constructor initializes a graph instance and creates a default empty
@@ -77,7 +77,8 @@ public class Graph extends JPanel {
 
 	private XYDataset createDataset() {
 
-		XYSeries series[] = new XYSeries[ClientCommonData.getInstance().getChannels()];
+		XYSeries series[] = new XYSeries[ClientCommonData.getInstance()
+				.getChannels()];
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		// int clientFrequency = ClientCommonData.getInstance().getFrequency();
 
@@ -85,10 +86,14 @@ public class Graph extends JPanel {
 			series[i] = new XYSeries("Channel " + (i + 1));
 		}
 
-		for (int i = 0; i < ClientCommonData.getInstance().getDataFromServer().size(); i++) {
-			for (int j = 0; j < ClientCommonData.getInstance().getChannels(); j++) {
-				double xCoordinate = ClientCommonData.getInstance().getDataFromServer().get(i).get(j).getxCoordinate();
-				double yCoordinate = ClientCommonData.getInstance().getDataFromServer().get(i).get(j).getyCoordinate();
+		for (int i = 0; i < ClientCommonData.getInstance().getDataFromServer()
+				.size(); i++) {
+			for (int j = 0; j < ClientCommonData.getInstance()
+					.getChannels(); j++) {
+				double xCoordinate = ClientCommonData.getInstance()
+						.getDataFromServer().get(i).get(j).getxCoordinate();
+				double yCoordinate = ClientCommonData.getInstance()
+						.getDataFromServer().get(i).get(j).getyCoordinate();
 				series[j].add(xCoordinate / 1000, yCoordinate);
 			}
 		}
@@ -102,8 +107,9 @@ public class Graph extends JPanel {
 
 	private JFreeChart createChart(final XYDataset dataset) {
 
-		JFreeChart chart = ChartFactory.createXYLineChart("", "Time (seconds)", "Numbers", dataset,
-				PlotOrientation.VERTICAL, true, true, false);
+		JFreeChart chart = ChartFactory.createXYLineChart("", "Time (seconds)",
+				"Numbers", dataset, PlotOrientation.VERTICAL, true, true,
+				false);
 
 		XYPlot plot = chart.getXYPlot();
 

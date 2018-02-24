@@ -37,7 +37,8 @@ public class GraphUpdateThread implements Runnable {
 				ClientCommonData.getInstance().getClientFrame().repaint();
 
 			} catch (InterruptedException e) {
-				ClientCommonData.getInstance().logError(LogConstants.GENRICERROR);
+				ClientCommonData.getInstance()
+						.logError(LogConstants.GENRICERROR);
 			}
 
 		}

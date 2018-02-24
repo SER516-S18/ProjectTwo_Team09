@@ -45,8 +45,8 @@ public class ClientCommonData extends Observable {
 	}
 
 	/**
-	 * Creates a singleton instance of the clientCommonData file If exists, returns
-	 * it, else creates it.
+	 * Creates a singleton instance of the clientCommonData file If exists,
+	 * returns it, else creates it.
 	 * 
 	 * @return instance of the ClientCommonData
 	 */
@@ -68,7 +68,8 @@ public class ClientCommonData extends Observable {
 	 * @param dataFromServer
 	 *            the dataFromServer to set
 	 */
-	public void setDataFromServer(List<ArrayList<CoordinatesModel>> dataFromServer) {
+	public void setDataFromServer(
+			List<ArrayList<CoordinatesModel>> dataFromServer) {
 		this.dataFromServer = dataFromServer;
 	}
 
@@ -273,8 +274,8 @@ public class ClientCommonData extends Observable {
 	}
 
 	/**
-	 * On receiving of new data from server, this method inserts them to the common
-	 * list and notifies the observers
+	 * On receiving of new data from server, this method inserts them to the
+	 * common list and notifies the observers
 	 * 
 	 * @param valueToBeAdded
 	 *            - the new value received from server.

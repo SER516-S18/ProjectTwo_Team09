@@ -17,9 +17,9 @@ public class ServerException {
 	private static ServerView view = null;
 	private static HashMap<String, String> errorDescriptionHash = new HashMap<String, String>();
 
-	
 	static {
-		errorDescriptionHash.put("NumberFormatException", "INFO: Please enter a valid number");
+		errorDescriptionHash.put("NumberFormatException",
+				"INFO: Please enter a valid number");
 		errorDescriptionHash.put("MinMaxException",
 				"INFO: The highest value must be greater than or equal to the lowest value.");
 	}

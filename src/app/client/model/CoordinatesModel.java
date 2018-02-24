@@ -4,6 +4,8 @@ package app.client.model;
  * Model class to represent X and Y coordinate for the graph.
  * 
  * @author vishakhasingal
+ * @version 1.0
+ * @since February,2018
  *
  */
 public class CoordinatesModel {
@@ -57,7 +59,8 @@ public class CoordinatesModel {
 
 	@Override
 	public String toString() {
-		return "CoordinatesModel [xCoordinate=" + xCoordinate + ", yCoordinate=" + yCoordinate + "]";
+		return "CoordinatesModel [xCoordinate=" + xCoordinate + ", yCoordinate="
+				+ yCoordinate + "]";
 	}
 
 }
