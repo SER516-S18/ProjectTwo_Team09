@@ -8,6 +8,10 @@ import app.client.model.ClientCommonData;
  * ClientSocketConnector class, Graph Thread
  * and the UI classes to connect to the socket.
  * 
+ *	@author Manish Tandon
+ *	@version 1.0
+ *  @since	 February, 2018
+ * 
  */
 public class ClientSocketController {
 	

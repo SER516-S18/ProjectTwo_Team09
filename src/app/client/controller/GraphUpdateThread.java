@@ -7,6 +7,10 @@ import app.client.model.LogConstants;
 /**
  * Creates a thread for updating the graph on UI after 1000 milliseconds.
  *
+ *	@author Manish Tandon
+ *  @version 1.0
+ *  @since	 February, 2018
+ *  
  */
 public class GraphUpdateThread implements Runnable{
 	Graph graphObj;
@@ -30,8 +34,8 @@ public class GraphUpdateThread implements Runnable{
 			try {
 				Thread.sleep(DELAY);
 				graphObj.updateGraph();
-				ClientCommonData.getInstance().getParentFrame().revalidate();
-				ClientCommonData.getInstance().getParentFrame().repaint();
+				ClientCommonData.getInstance().getClientFrame().revalidate();
+				ClientCommonData.getInstance().getClientFrame().repaint();
 
 			} catch (InterruptedException e) {
 				ClientCommonData.getInstance().logError(LogConstants.GENRICERROR);

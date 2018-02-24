@@ -14,6 +14,11 @@ import app.client.model.LogConstants;
 /**
  * This class extends Runnable and connects the client side to the socket with
  * the given PortNo and hostname. It also reads and writes to the socket.
+ * 
+ *	@author Manish Tandon
+ *	@version 1.0
+ *  @since	 February, 2018
+ *  
  */
 public class ClientSocketConnector implements Runnable {
 

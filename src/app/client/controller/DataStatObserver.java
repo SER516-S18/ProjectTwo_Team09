@@ -13,15 +13,25 @@ import app.client.model.DataStat;
  *  it informes the dataStat class to perform the changes on the User
  *  Interface.
  *
+ *	@author Pratik Suryavanshi
+ *	@version 1.0
+ *  @since	 February, 2018
+ *
  */
 public class DataStatObserver implements Observer{
 
 	private DataStat stat;
-	
+
+	/**
+	 * @return the stat
+	 */
 	public DataStat getStat() {
 		return stat;
 	}
 
+	/**
+	 * @param stat the stat to set
+	 */
 	public void setStat(DataStat stat) {
 		this.stat = stat;
 	}
