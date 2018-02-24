@@ -146,8 +146,7 @@ public class ClientCommonData extends Observable {
 	}
 
 	public void updateAverage(Float averageVal) {
-		this.averageValue.setText(String.format("%.02f", averageVal));
-
+		this.averageValue.setText(String.format("%.2f", averageVal));
 	}
 
 	public void updateMaxValue(Integer maxValue) {

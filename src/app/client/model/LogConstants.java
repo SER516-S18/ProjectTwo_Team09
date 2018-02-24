@@ -14,6 +14,7 @@ public class LogConstants {
 	public static final String CONNECTIONERROR = "Connection Exception ";
 	public static final String IOERROR = "IO Exception ";
 	public static final String GENRICERROR = "Cannot proceed with process";
+	public static final String SERVER_CONN_FAIL = "Server connection failed.";
 	
 	
 
