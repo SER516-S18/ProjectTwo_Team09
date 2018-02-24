@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import app.client.gui.ClientView;
 import app.client.gui.CoordinatesModel;
 
 /**
@@ -21,7 +22,6 @@ public class ClientCommonData extends Observable {
 
 	private List<ArrayList<CoordinatesModel>> dataFromServer;
 	private ArrayList<Integer> listOfAllValues;
-	
 
 	public ArrayList<Integer> getListOfAllValues() {
 		return listOfAllValues;
@@ -29,7 +29,7 @@ public class ClientCommonData extends Observable {
 
 	public void setListOfAllValues(ArrayList<Integer> listOfAllValues) {
 		this.listOfAllValues = listOfAllValues;
-		
+
 	}
 
 	private List<String> logs;
@@ -37,11 +37,9 @@ public class ClientCommonData extends Observable {
 	private int channels;
 	private JFrame clientFrame;
 	private boolean started;
-	
-	
+
 	private JTextArea consoleArea;
 	private JTextField minField;
-	
 
 	private JTextField maxField;
 	private JTextField averageValue;
@@ -52,7 +50,7 @@ public class ClientCommonData extends Observable {
 		// so only one instance of this object exists.
 		logs = new ArrayList<String>();
 		dataFromServer = new ArrayList<ArrayList<CoordinatesModel>>();
-		listOfAllValues=new ArrayList<Integer>();
+		listOfAllValues = new ArrayList<Integer>();
 	}
 
 	public static ClientCommonData getInstance() {
@@ -61,14 +59,14 @@ public class ClientCommonData extends Observable {
 		}
 		return instance;
 	}
-	
+
 	public void setDataFromServer(List<ArrayList<CoordinatesModel>> dataFromServer) {
 		this.dataFromServer = dataFromServer;
 	}
+
 	public List<ArrayList<CoordinatesModel>> getDataFromServer() {
 		return dataFromServer;
 	}
-
 
 	public List<String> getLogs() {
 		return logs;
@@ -90,12 +88,13 @@ public class ClientCommonData extends Observable {
 		this.channels = channels;
 	}
 
-	public JFrame getClientFrame() {
-		return clientFrame;
+	public void setParentFrame(ClientView client) {
+		this.clientFrame = client;
+
 	}
 
-	public void setClientFrame(JFrame clientFrame) {
-		this.clientFrame = clientFrame;
+	public JFrame getParentFrame() {
+		return clientFrame;
 	}
 
 	public boolean isStarted() {
@@ -113,14 +112,15 @@ public class ClientCommonData extends Observable {
 	public void setConsoleArea(JTextArea consoleArea) {
 		this.consoleArea = consoleArea;
 	}
-	
+
 	public void logInfo(String logs) {
-		consoleArea.append("INFO: "+logs+"\n");
+		consoleArea.append("INFO: " + logs + "\n");
 	}
-	
+
 	public void logError(String logs) {
-		consoleArea.append("Error: "+logs+"\n");
+		consoleArea.append("Error: " + logs + "\n");
 	}
+
 	public JTextField getMinField() {
 		return minField;
 	}
@@ -144,20 +144,24 @@ public class ClientCommonData extends Observable {
 	public void setAverageValue(JTextField averageValue) {
 		this.averageValue = averageValue;
 	}
+
 	public void updateAverage(Float averageVal) {
-		this.averageValue.setText(String.format("%.02f",averageVal));
-		
+		this.averageValue.setText(String.format("%.02f", averageVal));
+
 	}
+
 	public void updateMaxValue(Integer maxValue) {
 		this.maxField.setText(maxValue.toString());
 	}
+
 	public void updateMinvalue(Integer minValue) {
 		this.minField.setText(minValue.toString());
 	}
+
 	public void addToListValues(Integer valueToBeAdded) {
 		this.listOfAllValues.add(valueToBeAdded);
 		setChanged();
 		this.notifyObservers();
 	}
-	
+
 }
