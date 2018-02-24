@@ -97,17 +97,11 @@ public class ClientSocketConnector implements Runnable {
 			outputStream = new PrintWriter(this.clientSocket.getOutputStream(),
 					true);
 			outputStream.println(channelNumber);
-		} catch (IOException e) {
-			ClientCommonData.getInstance()
-					.logError(LogConstants.CONNECTIONERROR);
-		} catch (Exception e) {
-			ClientCommonData.getInstance().logError(LogConstants.GENRICERROR);
-		}
-		clientStatus = true;
-		while (clientStatus) {
-			String inputLine = null;
-			int currentXCoordinate = 0;
-			try {
+			clientStatus = true;
+			while (clientStatus) {
+				String inputLine = null;
+				int currentXCoordinate = 0;
+
 				while ((inputLine = inputReader.readLine()) != null) {
 					this.serverData.add(inputLine);
 					ArrayList<CoordinatesModel> coordinatesArray = new ArrayList<CoordinatesModel>();
@@ -126,8 +120,6 @@ public class ClientSocketConnector implements Runnable {
 								currentXCoordinate,
 								Integer.parseInt(eachArrayValue));
 						coordinatesArray.add(coordinatesModel);
-						ClientCommonData.getInstance()
-								.logInfo("Received: " + coordinatesModel);
 					}
 					currentXCoordinate = currentXCoordinate + frequencyOffset;
 					ClientCommonData.getInstance().getDataFromServer()
@@ -140,17 +132,15 @@ public class ClientSocketConnector implements Runnable {
 						.logError(LogConstants.SERVER_CONN_FAIL);
 				ClientCommonData.getInstance().setStarted(false);
 
-			} catch (IOException e) {
-				ClientCommonData.getInstance().logError(LogConstants.IOERROR);
 			}
-
-		}
-		try {
 			clientSocket.close();
 			ClientCommonData.getInstance()
 					.logInfo(LogConstants.SERVERDISCONNECT);
 		} catch (IOException e) {
-			ClientCommonData.getInstance().logError(LogConstants.IOERROR);
+			ClientCommonData.getInstance()
+					.logError(LogConstants.CONNECTIONERROR);
+		} catch (Exception e) {
+			ClientCommonData.getInstance().logError(LogConstants.GENRICERROR);
 		}
 
 	}
