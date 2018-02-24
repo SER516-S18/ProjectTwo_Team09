@@ -55,8 +55,11 @@ public class ServerController {
         if (!this.status) {
             try {
                 this.options = view.getOptions();
-                this.status = true;
-                startServer();
+                if(this.options!=null)
+                {
+                		this.status = true;
+                		startServer();
+                }
             }
             catch (NumberFormatException e) {
                 // This exception is thrown if the text fields do not
