@@ -9,12 +9,12 @@ import app.client.model.DataStat;
 
 /**
  * This class observes data changes for statistics like highest value, lowest
- * value and the average. When any data changes are observed, it informes the
+ * value and the average. When any data changes are observed, it informs the
  * dataStat class to perform the changes on the User Interface.
  *
  * @author Pratik Suryavanshi
  * @version 1.0
- * @since February, 2018
+ * @since 2018-02-23
  *
  */
 public class DataStatObserver implements Observer {
@@ -22,15 +22,21 @@ public class DataStatObserver implements Observer {
 	private DataStat stat;
 
 	/**
-	 * @return the stat
+	 * Return the data statistics which consist of highest, lowest and average
+	 * values.
+	 * 
+	 * @return DataStat - Data statistics object
 	 */
 	public DataStat getStat() {
 		return stat;
 	}
 
 	/**
+	 * Set the data statistics consisting of highest, lowest and average values.
+	 * 
 	 * @param stat
-	 *            the stat to set
+	 *            - Data statistics object
+	 * 
 	 */
 	public void setStat(DataStat stat) {
 		this.stat = stat;
@@ -71,18 +77,14 @@ public class DataStatObserver implements Observer {
 	}
 
 	/**
-	 * (non-Javadoc)
 	 * 
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update(Observable observable, Object observerInstance) {
 
-		ClientCommonData data = (ClientCommonData) o;
-		// list = data.getMyData();
+		ClientCommonData data = (ClientCommonData) observable;
 		List<Integer> listOfValuesFromServer = data.getListOfAllValues();
-		// List<Integer> list = new ArrayList<Integer>();
-		// setStat(findStats(list));
 		DataStat finalStats = findStats(listOfValuesFromServer);
 		ClientCommonData.getInstance()
 				.updateAverage(finalStats.getAverageOfValuesFromServer());

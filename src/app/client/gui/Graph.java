@@ -80,7 +80,6 @@ public class Graph extends JPanel {
 		XYSeries series[] = new XYSeries[ClientCommonData.getInstance()
 				.getChannels()];
 		XYSeriesCollection dataset = new XYSeriesCollection();
-		// int clientFrequency = ClientCommonData.getInstance().getFrequency();
 
 		for (int i = 0; i < ClientCommonData.getInstance().getChannels(); i++) {
 			series[i] = new XYSeries("Channel " + (i + 1));

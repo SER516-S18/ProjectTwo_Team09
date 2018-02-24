@@ -63,13 +63,10 @@ public class ServerNetworkThread extends Thread {
 	@Override
 	public void run() {
 		try {
-			// Accept a connection from the client and begin generating
-			// and sending values to the server.
 			this.serverSocket = new ServerSocket(port);
 			this.clientSocket = serverSocket.accept();
 			this.clientSocket.setSoTimeout(2);
 
-			// Create input and output streams.
 			InputStream socketInputStream = clientSocket.getInputStream();
 			InputStreamReader inputStreamReader = new InputStreamReader(
 					socketInputStream);
@@ -77,7 +74,6 @@ public class ServerNetworkThread extends Thread {
 			this.inputStream = new BufferedReader(inputStreamReader);
 			this.outputStream = new PrintStream(socketOutputStream);
 
-			// Repeatedly send values to the client.
 			getNumberOfChannels();
 			while (true) {
 				if (clientSocket.isConnected()) {
@@ -135,19 +131,14 @@ public class ServerNetworkThread extends Thread {
 	 * list depends on `numberOfChannels`.
 	 */
 	private void sendValuesToClient() {
-		// Generate a comma-delimited string of random integer values.
-		// e.g. "14,64,67,"
 		StringBuilder builder = new StringBuilder();
+		
 		for (int i = 0; i < this.numberOfChannels; i++) {
 			builder.append(generateValue());
 			builder.append(',');
 		}
 
-		// Remove the last comma character.
-		// e.g. "14,64,67," -> "14,64,67"
 		builder.setLength(builder.length() - 1);
-
-		// Send the string to the client.
 		outputStream.println(builder.toString());
 	}
 

@@ -32,7 +32,6 @@ public class ServerController {
 	}
 
 	public void startServer() {
-		// Update the view.
 		view.log("Info: The server has been started.");
 		view.setStatus(true);
 		this.networkThread = new ServerNetworkThread(this.serverSocket,
@@ -45,7 +44,6 @@ public class ServerController {
 	}
 
 	public void stopServer() {
-		// Update the view.
 		view.log("Info: The server has been stopped.");
 		view.setStatus(false);
 
@@ -59,6 +57,8 @@ public class ServerController {
 	 * Event handler for the Start/Stop button. If the server has not been
 	 * started, request for the server options (lowest value, highest value, and
 	 * frequency) and start the server. Otherwise, stop the server.
+	 * 
+	 * @param None
 	 */
 	public void toggleButtonClickHandler() {
 		if (!this.status) {
@@ -69,8 +69,6 @@ public class ServerController {
 					startServer();
 				}
 			} catch (NumberFormatException e) {
-				// This exception is thrown if the text fields do not
-				// contain valid integer values.
 				ServerException.printErrorMessage("NumberFormatException");
 				this.status = false;
 			} catch (Exception e) {
@@ -82,7 +80,12 @@ public class ServerController {
 			stopServer();
 		}
 	}
-
+	
+	/**
+	 * 
+	 * Returns the options for server.
+	 * @return ServerOptions - Options for server
+	 */
 	public ServerOptions getOptions() {
 		return this.options;
 	}
