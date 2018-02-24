@@ -1,24 +1,17 @@
 package app.client.controller;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import app.client.DataStatObserver;
-import app.client.GraphObserver;
 import app.client.gui.CoordinatesModel;
 import app.client.model.ClientCommonData;
 import app.client.model.LogConstants;
-import app.server.ServerSocketImpl;
+
 
 public class ClientSocketConnector implements Runnable {
 
