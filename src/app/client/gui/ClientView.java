@@ -66,6 +66,7 @@ public class ClientView extends JFrame {
 	private Graph graphPanel;
 	private JTextField frequencyNumber;
 
+
 	private ClientSocketController clientSocketController;
 
 	/**
