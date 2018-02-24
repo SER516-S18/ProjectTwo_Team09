@@ -1,9 +1,3 @@
-/**
- * Provides the classes for initializing and rendering the
- * client window to configure and receive data from server.
- *
- * @since 1.0
- */
 package app.client;
 
 import app.client.gui.ClientView;

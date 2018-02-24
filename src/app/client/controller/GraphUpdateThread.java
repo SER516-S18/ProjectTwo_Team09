@@ -6,12 +6,15 @@ import app.client.model.LogConstants;
 
 public class GraphUpdateThread implements Runnable{
 	Graph graphObj;
-public GraphUpdateThread(Graph graphObj) {
-	// TODO Auto-generated constructor stub
-	this.graphObj=graphObj;
-	
 
-}
+	public GraphUpdateThread(Graph graphObj) {
+		// TODO Auto-generated constructor stub
+		this.graphObj=graphObj;
+
+
+	}
+	
+	
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -21,15 +24,15 @@ public GraphUpdateThread(Graph graphObj) {
 				graphObj.updateGraph();
 				ClientCommonData.getInstance().getParentFrame().revalidate();
 				ClientCommonData.getInstance().getParentFrame().repaint();
-				
+
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
 				ClientCommonData.getInstance().logError(LogConstants.GENRICERROR);
 			}
-			
+
 		}
 	}
-	
+
 
 }

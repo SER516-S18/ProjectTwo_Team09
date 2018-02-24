@@ -1,9 +1,3 @@
-/**
- * Provides the classes for controlling the connection 
- * to the server.
- *
- * @since 1.0
- */
 package app.client.controller;
 
 import java.io.BufferedReader;

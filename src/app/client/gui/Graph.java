@@ -1,3 +1,9 @@
+/**
+ * Provides the classes for controlling the rendering 
+ * of the client window.
+ *
+ * @since 1.0
+ */
 package app.client.gui;
 
 import java.awt.BasicStroke;
