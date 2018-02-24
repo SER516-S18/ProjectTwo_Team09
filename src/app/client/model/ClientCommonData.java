@@ -7,7 +7,6 @@ import java.util.Observable;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
-import app.client.controller.ClientController;
 import app.client.gui.ClientView;
 import app.client.gui.CoordinatesModel;
 
