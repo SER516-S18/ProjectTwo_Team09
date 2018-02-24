@@ -1,9 +1,11 @@
 /**
- * 
+ * Provides the classes for initializing and rendering the
+ * client window to configure and receive data from server.
+ *
+ * @since 1.0
  */
 package app.client;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -12,27 +14,35 @@ import app.client.model.ClientCommonData;
 import app.client.model.DataStat;
 
 /**
- * @author Pratik Suryawanshi
+ *  This class observes data changes for statistics like highest value,
+ *  lowest value and the average. When any data changes are observed, 
+ *  it informes the dataStat class to perform the changes on the User
+ *  Interface.
  *
  */
 public class DataStatObserver implements Observer{
 
 	private DataStat stat;
 	
-	/**
-	 * @return the stat
-	 */
 	public DataStat getStat() {
 		return stat;
 	}
 
-	/**
-	 * @param stat the stat to set
-	 */
 	public void setStat(DataStat stat) {
 		this.stat = stat;
 	}
 
+	/*
+	 * This method calculates the highest, lowest values received from 
+	 * the server and calculates the average from them. After this it 
+	 * returns the DataStat Model containing all the information.
+	 * 
+	 * @param: list: Pass the list of values for which the
+	 * calculation has to be done.
+	 * 
+	 * @return: returns the DataStat model containing the prescribed values.
+	 *  
+	 */
 	public static DataStat findStats(List<Integer> list) {
 		
 		int maxValue = Integer.MIN_VALUE;
