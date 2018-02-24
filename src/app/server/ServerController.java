@@ -27,12 +27,6 @@ public class ServerController {
         // Update the view.
         view.log("Info: The server has been started.");
         view.setStatus(true);
-        try {
-			this.serverSocket = new ServerSocket(port);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			ServerException.printErrorMessage(e.toString());
-		}
         this.networkThread = new ServerNetworkThread(this.serverSocket, this.clientSocket, this.port, this);
         this.networkThread.start();
     }
@@ -46,19 +40,10 @@ public class ServerController {
         view.log("Info: The server has been stopped.");
         view.setStatus(false);
         
-        try {
-            if (networkThread != null) {
-                networkThread.interrupt();
-            }
-    
-            if (serverSocket != null) {
-                serverSocket.close();
-            }
-        }
-        catch (IOException e) {
-            // TODO: Log this error in the console.
-            ServerException.printErrorMessage(e.toString());
-        }
+        if (networkThread != null) {
+		    networkThread.interrupt();
+		    networkThread.closeConnection();
+		}
     }
 
     /**
