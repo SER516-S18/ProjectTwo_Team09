@@ -6,7 +6,6 @@
  */
 package app.client.gui;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 
 import javax.swing.JPanel;
@@ -25,8 +24,9 @@ import org.jfree.data.xy.XYSeriesCollection;
 import app.client.model.ClientCommonData;
 
 /**
- * This class Graph consists of methods to help with initializing, updating and creating a graph 
- * based on the data residing in ClientCommonData.
+ * This class Graph consists of methods to help with initializing, updating and
+ * creating a graph based on the data residing in ClientCommonData.
+ * 
  * @author Adhiraj Tikku
  * @version 1.0
  * @since 2018-02-23
@@ -38,11 +38,14 @@ public class Graph extends JPanel {
 	private XYDataset dataset;
 	private JFreeChart chart;
 	private ChartPanel chartPanel;
-	
-	private static final Color channelColors[] = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE };
-	
+
+	private static final Color channelColors[] = new Color[] { Color.RED,
+			Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE };
+
 	/**
-	 * This constructor initializes a graph instance and creates a default empty graph.
+	 * This constructor initializes a graph instance and creates a default empty
+	 * graph.
+	 * 
 	 * @param None
 	 */
 	public Graph() {
@@ -50,9 +53,10 @@ public class Graph extends JPanel {
 		add(chartPanel);
 		setVisible(true);
 	}
-	
+
 	/**
 	 * Updates the graph using the latest data present in ClientCommonData.
+	 * 
 	 * @param None
 	 * @return Void
 	 */
@@ -64,29 +68,33 @@ public class Graph extends JPanel {
 		add(chartPanel);
 		setVisible(true);
 	}
-	
 
 	private void initializeGraph() {
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		chart = createChart(dataset);
 		chartPanel = new ChartPanel(chart);
 	}
-	
+
 	private XYDataset createDataset() {
 
-		XYSeries series[] = new XYSeries[ClientCommonData.getInstance().getChannels()];
+		XYSeries series[] = new XYSeries[ClientCommonData.getInstance()
+				.getChannels()];
 		XYSeriesCollection dataset = new XYSeriesCollection();
-		//int clientFrequency = ClientCommonData.getInstance().getFrequency();
+		// int clientFrequency = ClientCommonData.getInstance().getFrequency();
 
 		for (int i = 0; i < ClientCommonData.getInstance().getChannels(); i++) {
 			series[i] = new XYSeries("Channel " + (i + 1));
 		}
 
-		for (int i = 0; i < ClientCommonData.getInstance().getDataFromServer().size(); i++) {
-			for (int j = 0; j < ClientCommonData.getInstance().getChannels(); j++) {
-				double xCoordinate = ClientCommonData.getInstance().getDataFromServer().get(i).get(j).getxCoordinate();
-				double yCoordinate = ClientCommonData.getInstance().getDataFromServer().get(i).get(j).getyCoordinate();
-				series[j].add(xCoordinate/1000, yCoordinate);
+		for (int i = 0; i < ClientCommonData.getInstance().getDataFromServer()
+				.size(); i++) {
+			for (int j = 0; j < ClientCommonData.getInstance()
+					.getChannels(); j++) {
+				double xCoordinate = ClientCommonData.getInstance()
+						.getDataFromServer().get(i).get(j).getxCoordinate();
+				double yCoordinate = ClientCommonData.getInstance()
+						.getDataFromServer().get(i).get(j).getyCoordinate();
+				series[j].add(xCoordinate / 1000, yCoordinate);
 			}
 		}
 
@@ -99,8 +107,9 @@ public class Graph extends JPanel {
 
 	private JFreeChart createChart(final XYDataset dataset) {
 
-		JFreeChart chart = ChartFactory.createXYLineChart("", "Time (seconds)", "Numbers", dataset, PlotOrientation.VERTICAL,
-				true, true, false);
+		JFreeChart chart = ChartFactory.createXYLineChart("", "Time (seconds)",
+				"Numbers", dataset, PlotOrientation.VERTICAL, true, true,
+				false);
 
 		XYPlot plot = chart.getXYPlot();
 

@@ -2,87 +2,63 @@
 package app.client.model;
 
 /**
- * @author Pratik Suryawanshi
+ * Model for storing the calculated minimum, maximum and average values sent
+ * from the server for displaying on the UI
+ *
+ * @author Pratik Suryavanshi
+ * @version 1.0
+ * @since February, 2018
  * 
  */
 public class DataStat {
 
-
-	private int highest;
-	private int lowest;
-	private float average;
-	private int frequency;
-	
-	
-	/**
-	 * @return the frequency
-	 */
-	public int getFrequency() {
-		return frequency;
-	}
-
-
+	private int highestValueFromServer;
+	private int lowestValueFromServer;
+	private float averageOfValuesFromServer;
 
 	/**
-	 * @param frequency the frequency to set
+	 * @return the highestValueFromServer
 	 */
-	public void setFrequency(int frequency) {
-		this.frequency = frequency;
+	public int getHighestValueFromServer() {
+		return highestValueFromServer;
 	}
-
-
 
 	/**
-	 * @return the highest
+	 * @param highestValueFromServer
+	 *            the highestValueFromServer to set
 	 */
-	public int getHighest() {
-		return highest;
+	public void setHighestValueFromServer(int highestValueFromServer) {
+		this.highestValueFromServer = highestValueFromServer;
 	}
-
-
 
 	/**
-	 * @param highest the highest to set
+	 * @return the lowestValueFromServer
 	 */
-	public void setHighest(int highest) {
-		this.highest = highest;
+	public int getLowestValueFromServer() {
+		return lowestValueFromServer;
 	}
-
-
 
 	/**
-	 * @return the lowest
+	 * @param lowestValueFromServer
+	 *            the lowestValueFromServer to set
 	 */
-	public int getLowest() {
-		return lowest;
+	public void setLowestValueFromServer(int lowestValueFromServer) {
+		this.lowestValueFromServer = lowestValueFromServer;
 	}
-
-
 
 	/**
-	 * @param lowest the lowest to set
+	 * @return the averageOfValuesFromServer
 	 */
-	public void setLowest(int lowest) {
-		this.lowest = lowest;
+	public float getAverageOfValuesFromServer() {
+		return averageOfValuesFromServer;
 	}
-
-
 
 	/**
-	 * @return the average
+	 * @param averageOfValuesFromServer
+	 *            the averageOfValuesFromServer to set
 	 */
-	public float getAverage() {
-		return average;
+	public void setAverageOfValuesFromServer(float averageOfValuesFromServer) {
+		this.averageOfValuesFromServer = averageOfValuesFromServer;
 	}
-
-
-
-	/**
-	 * @param average the average to set
-	 */
-	public void setAverage(float average) {
-		this.average = average;
-	}
-
 
 }

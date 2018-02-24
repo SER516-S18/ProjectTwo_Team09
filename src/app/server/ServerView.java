@@ -52,8 +52,9 @@ public class ServerView {
 	private static final Color BLACK = new Color(0, 0, 0);
 
 	/**
-	 * Constructor to initialize & display window contents
-	 * and register event handlers.
+	 * Constructor to initialize & display window contents and register event
+	 * handlers.
+	 * 
 	 * @param None
 	 */
 	public ServerView() {
@@ -63,6 +64,7 @@ public class ServerView {
 
 	/**
 	 * Parse the server option text fields and return the options.
+	 * 
 	 * @param None
 	 */
 	public ServerOptions getOptions() throws Exception {
@@ -80,8 +82,9 @@ public class ServerView {
 
 	/**
 	 * Appends a message to the console output TextArea.
-	 * @param message - status/error message that should
-	 * 				    printed in the console
+	 * 
+	 * @param message
+	 *            - status/error message that should printed in the console
 	 */
 	public void log(String message) {
 		consoleOutput.append(message);
@@ -90,7 +93,9 @@ public class ServerView {
 
 	/**
 	 * Set the server status indicator.
-	 * @param status - status of the server
+	 * 
+	 * @param status
+	 *            - status of the server
 	 */
 	public void setStatus(boolean status) {
 		statusPanel.setBlinking(status);
@@ -98,7 +103,9 @@ public class ServerView {
 
 	/**
 	 * Set the reference to the ServerController.
-	 * @param controller - ServerController object 
+	 * 
+	 * @param controller
+	 *            - ServerController object
 	 */
 	public void setController(ServerController controller) {
 		this.controller = controller;
@@ -107,7 +114,8 @@ public class ServerView {
 	private void initialize() {
 		mainFrame = new JFrame();
 		mainFrame.setFont(new Font("Courier New", Font.PLAIN, 17));
-		mainFrame.getContentPane().setFont(new Font("Courier New", Font.PLAIN, 10));
+		mainFrame.getContentPane()
+				.setFont(new Font("Courier New", Font.PLAIN, 10));
 		mainFrame.getContentPane().setBackground(LIGHTBLUE);
 		mainFrame.getContentPane().setLayout(null);
 		mainFrame.setResizable(false);
@@ -195,8 +203,8 @@ public class ServerView {
 		toggleButton.setBackground(LIGHTPINK);
 
 		consolePane = new JScrollPane(consoleOutput);
-		consolePane.setBorder(new TitledBorder(null, "Console", 
-			TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
+		consolePane.setBorder(new TitledBorder(null, "Console",
+				TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
 		consolePane.setBackground(LIGHTGREY);
 		consolePane.setBounds(10, 445, 758, 138);
 		mainFrame.getContentPane().add(consolePane);
@@ -207,21 +215,24 @@ public class ServerView {
 		mainFrame.setVisible(true);
 		mainFrame.addWindowListener(new WindowAdapter() {
 			/**
-			 *  Stop server when window is closed
-			 *  @param windowEvent - Event handler to handle window close
+			 * Stop server when window is closed
+			 * 
+			 * @param windowEvent
+			 *            - Event handler to handle window close
 			 */
-			public void windowClosing(WindowEvent windowEvent){
-				controller.stopServer();				
+			public void windowClosing(WindowEvent windowEvent) {
+				controller.stopServer();
 			}
-			public void windowClosed(WindowEvent windowEvent){
-			}			
+
+			public void windowClosed(WindowEvent windowEvent) {
+			}
 		});
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
-	
+
 	/**
 	 * Register the event handlers.
+	 * 
 	 * @param None
 	 */
 	private void register() {
