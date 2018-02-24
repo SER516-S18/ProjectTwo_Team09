@@ -65,18 +65,18 @@ public class ServerController {
                 this.options = view.getOptions();
                 if(this.options!=null)
                 {
-                		this.status = true;
-                		startServer();
+                	this.status = true;
+                	startServer();
                 }
             }
             catch (NumberFormatException e) {
                 // This exception is thrown if the text fields do not
                 // contain valid integer values.
-            		ServerException.printErrorMessage("NumberFormatException");
+            	ServerException.printErrorMessage("NumberFormatException");
                 this.status = false;
             }
             catch (Exception e) {
-            		ServerException.printErrorMessage(e.getMessage());
+            	ServerException.printErrorMessage(e.getMessage());
                 this.status = false;
             }
         }
