@@ -7,6 +7,14 @@ import java.net.Socket;
 import app.server.ServerNetworkThread;
 import app.server.ServerView;
 
+/**
+ * Centralized server controller to start/stop the server and to send stream of data to the client
+ * 
+ * @author Nelson Tran
+ * @author Ganesh Kumar
+ * @version 1.0
+ */
+
 public class ServerController {
 
     private ServerNetworkThread networkThread;
