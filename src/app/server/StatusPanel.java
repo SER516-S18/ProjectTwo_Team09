@@ -16,8 +16,6 @@ import javax.swing.Timer;
  * 
  */
 public class StatusPanel extends JPanel {
-	
-	private static final long serialVersionUID = 1L;
 	private final Color GREEN = new Color(0, 128, 0);
 	private final Color RED = new Color(255, 0, 0);
 	private final int BLINK_INTERVAL = 500;

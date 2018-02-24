@@ -17,6 +17,7 @@ import app.client.model.DataStat;
  * @since February, 2018
  *
  */
+@SuppressWarnings("deprecation")
 public class DataStatObserver implements Observer {
 
 	private DataStat stat;

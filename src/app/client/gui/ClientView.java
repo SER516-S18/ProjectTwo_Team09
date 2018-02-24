@@ -64,6 +64,8 @@ public class ClientView extends JFrame {
 
 	private JButton buttonToggle;
 	private Graph graphPanel;
+	private JTextField frequencyNumber;
+
 
 	private ClientSocketController clientSocketController;
 
@@ -209,29 +211,30 @@ public class ClientView extends JFrame {
 		freqLabel.setOpaque(true);
 		sidePanel.add(freqLabel);
 
-		JTextField freqNumber = new JTextField();
-		freqNumber.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		freqNumber.setHorizontalAlignment(SwingConstants.CENTER);
-		freqNumber.setBackground(PINK);
-		freqNumber.getDocument().addDocumentListener(new DocumentListener() {
+		frequencyNumber = new JTextField();
+		frequencyNumber.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		frequencyNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		frequencyNumber.setBackground(PINK);
+		frequencyNumber.getDocument()
+				.addDocumentListener(new DocumentListener() {
 
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				updateFrequencyValue(freqNumber);
-			}
+					@Override
+					public void removeUpdate(DocumentEvent e) {
+						updateFrequencyValue(frequencyNumber);
+					}
 
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				updateFrequencyValue(freqNumber);
-			}
+					@Override
+					public void insertUpdate(DocumentEvent e) {
+						updateFrequencyValue(frequencyNumber);
+					}
 
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				updateFrequencyValue(freqNumber);
-			}
+					@Override
+					public void changedUpdate(DocumentEvent e) {
+						updateFrequencyValue(frequencyNumber);
+					}
 
-		});
-		sidePanel.add(freqNumber);
+				});
+		sidePanel.add(frequencyNumber);
 		return sidePanel;
 	}
 
@@ -266,19 +269,26 @@ public class ClientView extends JFrame {
 				"Channels: " + ClientCommonData.getInstance().getChannels());
 
 		if (ClientCommonData.getInstance().isStarted()) {
-			ClientCommonData.getInstance().logInfo("Clicked stopped");
+			ClientCommonData.getInstance().logInfo(LogConstants.STOPCLIENT);
 			ClientCommonData.getInstance().setStarted(false);
 			buttonToggle.setBackground(PINK);
 			clientSocketController.stopServer();
 			clientSocketController.stopGraph();
 			ClientCommonData.getInstance().logInfo(LogConstants.STOPCLIENT);
 		} else {
-			ClientCommonData.getInstance().setStarted(true);
-			ClientCommonData.getInstance().logInfo(LogConstants.STARTCLIENT);
-			clientSocketController
-					.startServer(ClientCommonData.getInstance().getChannels());
-			clientSocketController.startGraph(graphPanel);
-			buttonToggle.setBackground(BLUE);
+			if (isFrequencyValid()
+					&& Integer.parseInt(frequencyNumber.getText()) > 0) {
+				ClientCommonData.getInstance().setStarted(true);
+				ClientCommonData.getInstance()
+						.logInfo(LogConstants.STARTCLIENT);
+				clientSocketController.startServer(
+						ClientCommonData.getInstance().getChannels());
+				clientSocketController.startGraph(graphPanel);
+				buttonToggle.setBackground(BLUE);
+			} else {
+				ClientCommonData.getInstance()
+						.logInfo(LogConstants.FREQUENCYERROR);
+			}
 		}
 	}
 
@@ -298,6 +308,15 @@ public class ClientView extends JFrame {
 			} else {
 				ClientCommonData.getInstance().setFrequency(1);
 			}
+		}
+	}
+
+	public boolean isFrequencyValid() {
+		try {
+			Integer.parseInt(frequencyNumber.getText());
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
 		}
 	}
 }
