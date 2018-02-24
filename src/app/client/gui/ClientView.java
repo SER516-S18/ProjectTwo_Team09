@@ -31,27 +31,50 @@ import app.client.controller.ClientSocketController;
 import app.client.model.ClientCommonData;
 import app.client.model.LogConstants;
 
+/**
+ * This class ClientView contains methods to initialize the UI components and their listeners.
+ * @author Varun Srivastav, Adhiraj Tikku
+ * @version 1.0
+ * @see 2018-02-23
+ * 
+ */
+@SuppressWarnings("serial")
 public class ClientView extends JFrame {
-
-	private static final long serialVersionUID = 1L;
-	public static final Color PINK = new Color(242, 208, 238);
-	public static final Color LIGHTPINK = new Color(235, 218, 239);
+	
+	private static final Color PINK = new Color(242, 208, 238);
 	private static final Color LIGHTGREY = new Color(245, 245, 245);
-	public static final Color BLUE = new Color(222, 235, 252);
+	private static final Color BLUE = new Color(222, 235, 252);
+	
 	private static final Font FONT = new Font("Courier New", Font.BOLD, 17);
-	private static final Color BLACK = new Color(0, 0, 0);
-	JButton buttonToggle;
-	Graph graphPanel;
-	ClientSocketController clientSocketController;
+	
+	private static final int DEFAULT_CLIENT_WIDTH = 800;
+	private static final int DEFAULT_CLIENT_HEIGHT = 600;
+	
+	private static final String START_STOP_BUTTON_LABEL = "Start / Stop";
+	private static final String HIGHEST_VALUE_LABEL = "Highest value:";
+	private static final String LOWEST_VALUE_LABEL = "Lowest value:";
+	private static final String AVERAGE_LABEL = "Average:";
+	private static final String CHANNEL_LABEL = "Channels:";
+	private static final String FREQUENCY_LABEL = "Frequency (Hz):";
+	private static final String GRAPH_TITLE = "Graph";
+	private static final String CONSOLE_TITLE = "Console";
+	private static final String SETTINGS_TITLE = "Settings";
+	
+	private JButton buttonToggle;
+	private Graph graphPanel;
+	
+	private ClientSocketController clientSocketController;
 
 	/**
-	 * GUI constructor for client. Adds all components
+	 * Initializes and creates the Client window. 
+	 * 
+	 * @param None
 	 */
 	public ClientView() {
 		clientSocketController = new ClientSocketController();
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setTitle("Client");
-		setMinimumSize(new Dimension(800, 600));
+		setMinimumSize(new Dimension(DEFAULT_CLIENT_WIDTH, DEFAULT_CLIENT_HEIGHT));
 		setLayout(new BorderLayout(8, 8));
 		setBackground(BLUE);
 		createToolBar();
@@ -66,32 +89,16 @@ public class ClientView extends JFrame {
 		mainToolbar.setBorder(new EmptyBorder(8, 8, 8, 8));
 		mainToolbar.setFloatable(false);
 		mainToolbar.add(Box.createHorizontalGlue());
-		buttonToggle = new JButton("Start / Stop");
+		buttonToggle = new JButton(START_STOP_BUTTON_LABEL);
 		buttonToggle.setFont(FONT);
-		buttonToggle.setBorder(new LineBorder(BLACK));
+		buttonToggle.setBorder(new LineBorder(Color.BLACK));
 		mainToolbar.add(buttonToggle);
 
 		buttonToggle.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				ClientCommonData.getInstance().logInfo("Channels: " + ClientCommonData.getInstance().getChannels());
-
-				if (ClientCommonData.getInstance().isStarted()) {
-					ClientCommonData.getInstance().logInfo("Clicked stopped");
-					ClientCommonData.getInstance().setStarted(false);
-					buttonToggle.setBackground(PINK);
-					clientSocketController.stopServer();
-					clientSocketController.stopGraph();
-					ClientCommonData.getInstance().logInfo(LogConstants.STOPCLIENT);
-				} else {
-					ClientCommonData.getInstance().setStarted(true);
-					ClientCommonData.getInstance().logInfo(LogConstants.STARTCLIENT);
-					clientSocketController.startServer(ClientCommonData.getInstance().getChannels());
-					clientSocketController.startGraph(graphPanel);
-					buttonToggle.setBackground(BLUE);
-				}
+				invokeButtonListener(e);
 			}
 		});
 		add(mainToolbar, BorderLayout.PAGE_START);
@@ -119,80 +126,78 @@ public class ClientView extends JFrame {
 	private JPanel generateSideView() {
 		JPanel sidePanel = new JPanel();
 		sidePanel.setLayout(new GridLayout(5, 2, 8, 8));
-		sidePanel.setBorder(new TitledBorder(null, "Settings", TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
+		sidePanel.setBorder(new TitledBorder(null, SETTINGS_TITLE, TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
 		sidePanel.setOpaque(false);
 
-		JLabel highestValue = new JLabel("<html>Highest<br>value:</html>");
-		highestValue.setBorder(BorderFactory.createLineBorder(Color.black));
+		JLabel highestValue = new JLabel(HIGHEST_VALUE_LABEL);
+		highestValue.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		highestValue.setBackground(BLUE);
 		highestValue.setHorizontalAlignment(SwingConstants.CENTER);
 		highestValue.setOpaque(true);
 		sidePanel.add(highestValue);
 
 		JTextField highestNumber = new JTextField();
-		highestNumber.setBorder(BorderFactory.createLineBorder(Color.black));
+		highestNumber.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		highestNumber.setHorizontalAlignment(SwingConstants.CENTER);
 		highestNumber.setBackground(PINK);
 		highestNumber.setEditable(false);
 		sidePanel.add(highestNumber);
 		ClientCommonData.getInstance().setMaxField(highestNumber);
 
-		JLabel lowestValue = new JLabel("<html>Lowest<br>value:</html>");
-		lowestValue.setBorder(BorderFactory.createLineBorder(Color.black));
+		JLabel lowestValue = new JLabel(LOWEST_VALUE_LABEL);
+		lowestValue.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		lowestValue.setBackground(PINK);
 		lowestValue.setHorizontalAlignment(SwingConstants.CENTER);
 		lowestValue.setOpaque(true);
 		sidePanel.add(lowestValue);
 
 		JTextField lowestNumber = new JTextField();
-		lowestNumber.setBorder(BorderFactory.createLineBorder(Color.black));
+		lowestNumber.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		lowestNumber.setHorizontalAlignment(SwingConstants.CENTER);
 		lowestNumber.setBackground(BLUE);
 		lowestNumber.setEditable(false);
 		sidePanel.add(lowestNumber);
 		ClientCommonData.getInstance().setMinField(lowestNumber);
 
-		JLabel averageLabel = new JLabel("<html>Average</html>");
-		averageLabel.setBorder(BorderFactory.createLineBorder(Color.black));
+		JLabel averageLabel = new JLabel(AVERAGE_LABEL);
+		averageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		averageLabel.setBackground(BLUE);
 		averageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		averageLabel.setOpaque(true);
 		sidePanel.add(averageLabel);
 
 		JTextField averageNumber = new JTextField();
-		averageNumber.setBorder(BorderFactory.createLineBorder(Color.black));
+		averageNumber.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		averageNumber.setHorizontalAlignment(SwingConstants.CENTER);
 		averageNumber.setBackground(PINK);
 		averageNumber.setEditable(false);
 		sidePanel.add(averageNumber);
 		ClientCommonData.getInstance().setAverageValue(averageNumber);
 
-		JLabel channels = new JLabel("<html>Channels:</html>");
-		channels.setBorder(BorderFactory.createLineBorder(Color.black));
-		channels.setBackground(PINK);
-		channels.setHorizontalAlignment(SwingConstants.CENTER);
-		channels.setOpaque(true);
-		sidePanel.add(channels);
+		JLabel channelLabel = new JLabel(CHANNEL_LABEL);
+		channelLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		channelLabel.setBackground(PINK);
+		channelLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		channelLabel.setOpaque(true);
+		sidePanel.add(channelLabel);
 
-		String[] channelSize = new String[] { "1", "2", "3", "4", "5" };
-		JComboBox<String> channelChoice = new JComboBox<String>(channelSize);
+		String[] channelList = new String[] { "1", "2", "3", "4", "5" };
+		JComboBox<String> channelChoice = new JComboBox<String>(channelList);
 		channelChoice.setVisible(true);
-		channelChoice.setBorder(BorderFactory.createLineBorder(Color.black));
+		channelChoice.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		channelChoice.setBackground(BLUE);
-		ClientCommonData.getInstance().setChannels(Integer.parseInt("1"));
+		ClientCommonData.getInstance().setChannels(Integer.parseInt(channelList[0]));
 		channelChoice.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				String channelValue = (String) channelChoice.getSelectedItem();
-				ClientCommonData.getInstance().setChannels(Integer.parseInt(channelValue));
+			public void actionPerformed(ActionEvent e) {
+				invokeChannelListener(channelChoice, e);
 			}
 		});
 		sidePanel.add(channelChoice);
 
-		JLabel freqLabel = new JLabel("<html>Frequency<br>(Hz):</html>");
-		freqLabel.setBorder(BorderFactory.createLineBorder(Color.black));
+		JLabel freqLabel = new JLabel(FREQUENCY_LABEL);
+		freqLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		freqLabel.setBackground(BLUE);
 		freqLabel.setBounds(560, 325, 85, 60);
 		freqLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -200,40 +205,26 @@ public class ClientView extends JFrame {
 		sidePanel.add(freqLabel);
 
 		JTextField freqNumber = new JTextField();
-		freqNumber.setBorder(BorderFactory.createLineBorder(Color.black));
+		freqNumber.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		freqNumber.setHorizontalAlignment(SwingConstants.CENTER);
 		freqNumber.setBackground(PINK);
 		freqNumber.getDocument().addDocumentListener(new DocumentListener() {
-
+			
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
-				updateFrequencyValue();
-
+				updateFrequencyValue(freqNumber);
 			}
 
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
-				updateFrequencyValue();
+				updateFrequencyValue(freqNumber);
 			}
 
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
-				updateFrequencyValue();
+				updateFrequencyValue(freqNumber);
 			}
 
-			private void updateFrequencyValue() {
-				if (freqNumber.getText() != null && freqNumber.getText() != "") {
-					if (!freqNumber.getText().matches(".*[a-z].*") && !freqNumber.getText().equals("")) {
-						int freq = Integer.parseInt(freqNumber.getText());
-						ClientCommonData.getInstance().setFrequency(freq);
-					} else {
-						ClientCommonData.getInstance().setFrequency(1);
-					}
-				}
-			}
 		});
 		sidePanel.add(freqNumber);
 		return sidePanel;
@@ -243,7 +234,7 @@ public class ClientView extends JFrame {
 		graphPanel = new Graph();
 		graphPanel.setLayout(new BorderLayout());
 		graphPanel.setOpaque(false);
-		graphPanel.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
+		graphPanel.setBorder(new TitledBorder(null, GRAPH_TITLE, TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
 
 		return graphPanel;
 	}
@@ -256,14 +247,45 @@ public class ClientView extends JFrame {
 		ClientCommonData.getInstance().setConsoleArea(consoleView);
 
 		JScrollPane consolePane = new JScrollPane(consoleView);
-		consolePane.setBorder(new TitledBorder(null, "Console", TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
+		consolePane.setBorder(new TitledBorder(null, CONSOLE_TITLE, TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
 		consolePane.setBackground(LIGHTGREY);
 		consolePane.setBounds(10, 445, 758, 50);
 		add(consolePane, BorderLayout.PAGE_END);
 	}
+	
+	private void invokeButtonListener(ActionEvent e) {
 
-	public static void main(String args[]) {
-		new ClientView();
+		ClientCommonData.getInstance().logInfo("Channels: " + ClientCommonData.getInstance().getChannels());
+
+		if (ClientCommonData.getInstance().isStarted()) {
+			ClientCommonData.getInstance().logInfo("Clicked stopped");
+			ClientCommonData.getInstance().setStarted(false);
+			buttonToggle.setBackground(PINK);
+			clientSocketController.stopServer();
+			clientSocketController.stopGraph();
+			ClientCommonData.getInstance().logInfo(LogConstants.STOPCLIENT);
+		} else {
+			ClientCommonData.getInstance().setStarted(true);
+			ClientCommonData.getInstance().logInfo(LogConstants.STARTCLIENT);
+			clientSocketController.startServer(ClientCommonData.getInstance().getChannels());
+			clientSocketController.startGraph(graphPanel);
+			buttonToggle.setBackground(BLUE);
+		}
 	}
-
+	
+	private void invokeChannelListener(JComboBox<String> channelChoice, ActionEvent e) {
+		String channelValue = (String) channelChoice.getSelectedItem();
+		ClientCommonData.getInstance().setChannels(Integer.parseInt(channelValue));
+	}
+	
+	private void updateFrequencyValue(JTextField freqNumber) {
+		if (freqNumber.getText() != null && freqNumber.getText() != "") {
+			if (!freqNumber.getText().matches(".*[a-z].*") && !freqNumber.getText().equals("")) {
+				int freq = Integer.parseInt(freqNumber.getText());
+				ClientCommonData.getInstance().setFrequency(freq);
+			} else {
+				ClientCommonData.getInstance().setFrequency(1);
+			}
+		}
+	}
 }
