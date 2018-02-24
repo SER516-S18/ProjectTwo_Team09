@@ -135,6 +135,7 @@ public class ClientView extends JFrame {
 		highestNumber.setBackground(PINK);
 		highestNumber.setEditable(false);
 		sidePanel.add(highestNumber);
+		ClientCommonData.getInstance().setMaxField(highestNumber);
 
 		JLabel lowestValue = new JLabel("<html>Lowest<br>value:</html>");
 		lowestValue.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -149,6 +150,7 @@ public class ClientView extends JFrame {
 		lowestNumber.setBackground(BLUE);
 		lowestNumber.setEditable(false);
 		sidePanel.add(lowestNumber);
+		ClientCommonData.getInstance().setMaxField(highestNumber);
 
 		JLabel averageLabel = new JLabel("<html>Average</html>");
 		averageLabel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -163,6 +165,7 @@ public class ClientView extends JFrame {
 		averageNumber.setBackground(PINK);
 		averageNumber.setEditable(false);
 		sidePanel.add(averageNumber);
+		ClientCommonData.getInstance().setMaxField(highestNumber);
 
 		JLabel channels = new JLabel("<html>Channels:</html>");
 		channels.setBorder(BorderFactory.createLineBorder(Color.black));
