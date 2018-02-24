@@ -8,6 +8,9 @@ public class Server {
     /**
      * Define the network connection port according to the port
      * number defined in the PowerPoint slides.
+     * 
+     * @author Nelson Tran
+     * @version 1.0
      */
     private static int PORT = 1516;
 

@@ -11,6 +11,14 @@ import java.net.Socket;
 
 import app.server.ServerController;
 
+/**
+ * Handles sending stream of random values to the client in a separate thread
+ * 
+ * @author Nelson Tran
+ * @author Ganesh Kumar
+ * @version 1.0
+ */
+
 public class ServerNetworkThread extends Thread {
 
 	private ServerController controller;

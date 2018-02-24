@@ -12,10 +12,40 @@ import app.client.gui.CoordinatesModel;
 import app.client.model.ClientCommonData;
 import app.client.model.LogConstants;
 
-
+/**
+ * This class extends Runnable and connects the client side to the socket with
+ * the given PortNo and hostname. It also reads and writes to the socket.
+ */
 public class ClientSocketConnector implements Runnable {
 
 	private boolean clientStatus = false;
+	private int port;
+	private String hostName;
+	private Socket clientSocket;
+	private String channelNumber;
+	private BufferedReader inputReader = null;
+	private PrintWriter outputStream = null;
+	private ArrayList<String> serverData = new ArrayList<String>();
+
+	/*
+	 * Class constructor
+	 * 
+	 * @param hostname: Pass the hostname to which you wish to connect to the
+	 * server.
+	 * 
+	 * @param port: Pass the port number to establish socket connection.
+	 * 
+	 * @param channelNumber: The number of channels for which the data is needed
+	 * from the socket server
+	 * 
+	 */
+
+	public ClientSocketConnector(String hostName, int port, Integer channelNumber) {
+		this.port = port;
+		this.hostName = hostName;
+		this.channelNumber = channelNumber.toString();
+
+	}
 
 	public boolean isClientStatus() {
 		return clientStatus;
@@ -25,14 +55,6 @@ public class ClientSocketConnector implements Runnable {
 		this.clientStatus = clientStatus;
 	}
 
-	private int port;
-	private String hostName;
-	private Socket clientSocket;
-	private String channelNumber;
-	private BufferedReader inputReader = null;
-	private PrintWriter outputStream = null;
-	private ArrayList<String> serverData = new ArrayList<String>();
-
 	public ArrayList<String> getServerData() {
 		return serverData;
 	}
@@ -41,16 +63,9 @@ public class ClientSocketConnector implements Runnable {
 		this.serverData = serverData;
 	}
 
-	public ClientSocketConnector(String hostName, int port, Integer channelNumber) {
-		this.port = port;
-		this.hostName = hostName;
-		this.channelNumber = channelNumber.toString();
-
-	}
-
 	@Override
 	public void run() {
-		DataStatObserver dataStatObserver=new DataStatObserver();
+		DataStatObserver dataStatObserver = new DataStatObserver();
 		ClientCommonData.getInstance().addObserver(dataStatObserver);
 		try {
 			clientSocket = new Socket(hostName, port);
@@ -73,15 +88,15 @@ public class ClientSocketConnector implements Runnable {
 					String[] arrayOfValues = inputLine.split(",");
 					int clientFrequency = ClientCommonData.getInstance().getFrequency();
 					int frequencyOffset = 1000 / clientFrequency;
-					ArrayList<Integer> listOfAllValues= new ArrayList<Integer>();
+					ArrayList<Integer> listOfAllValues = new ArrayList<Integer>();
 					for (String eachArrayValue : arrayOfValues) {
-						int eachValueFromServer=Integer.parseInt(eachArrayValue);
+						int eachValueFromServer = Integer.parseInt(eachArrayValue);
 						listOfAllValues.add(eachValueFromServer);
 						ClientCommonData.getInstance().addToListValues(eachValueFromServer);
 						CoordinatesModel coordinatesModel = new CoordinatesModel(currentXCoordinate,
 								Integer.parseInt(eachArrayValue));
 						coordinatesArray.add(coordinatesModel);
-						ClientCommonData.getInstance().logInfo("Received: "+coordinatesModel);
+						ClientCommonData.getInstance().logInfo("Received: " + coordinatesModel);
 					}
 					currentXCoordinate = currentXCoordinate + frequencyOffset;
 					ClientCommonData.getInstance().getDataFromServer().add(coordinatesArray);
@@ -91,7 +106,7 @@ public class ClientSocketConnector implements Runnable {
 				}
 				ClientCommonData.getInstance().logError(LogConstants.SERVER_CONN_FAIL);
 				ClientCommonData.getInstance().setStarted(false);
-				
+
 			} catch (IOException e) {
 				ClientCommonData.getInstance().logError(LogConstants.IOERROR);
 			}
@@ -106,9 +121,4 @@ public class ClientSocketConnector implements Runnable {
 
 	}
 
-	public static void main(String[] args) {
-		ClientSocketConnector cc = new ClientSocketConnector("localhost", 1516, 3);
-		new Thread(cc).start();
-
-	}
 }

@@ -19,18 +19,15 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 /**
- * Class to create a Server UI as per the user requirements - User story 2.1.1
- * 
- * @author Janani Thiagarajan
+ * Class to create a Server UI as per the user requirements
+ *
+ * @author Janani Thiagarajan, Maitreyi Thakkar
  * @author Nelson Tran
  * @version 1.0
+ * @since 2018-02-23
+ * 
  */
 public class ServerView {
-
-	/*
-	 * The view needs a reference to the controller in order to attach controller
-	 * event handlers to GUI events.
-	 */
 	private ServerController controller;
 
 	private JFrame mainFrame;
@@ -55,15 +52,18 @@ public class ServerView {
 	private static final Color BLACK = new Color(0, 0, 0);
 
 	/**
-	 * ServerView constructor.
+	 * Constructor to initialize & display window contents
+	 * and register event handlers.
+	 * @param None
 	 */
 	public ServerView() {
 		initialize();
 		register();
 	}
 
-	/*
+	/**
 	 * Parse the server option text fields and return the options.
+	 * @param None
 	 */
 	public ServerOptions getOptions() throws Exception {
 		int minimum = Integer.parseInt(minValueField.getText());
@@ -80,14 +80,17 @@ public class ServerView {
 
 	/**
 	 * Appends a message to the console output TextArea.
+	 * @param message - status/error message that should
+	 * 				    printed in the console
 	 */
 	public void log(String message) {
 		consoleOutput.append(message);
 		consoleOutput.append("\n");
 	}
 
-	/*
+	/**
 	 * Set the server status indicator.
+	 * @param status - status of the server
 	 */
 	public void setStatus(boolean status) {
 		statusPanel.setBlinking(status);
@@ -95,14 +98,12 @@ public class ServerView {
 
 	/**
 	 * Set the reference to the ServerController.
+	 * @param controller - ServerController object 
 	 */
 	public void setController(ServerController controller) {
 		this.controller = controller;
 	}
 
-	/**
-	 * Initialize and display the contents of the ServerView.
-	 */
 	private void initialize() {
 		mainFrame = new JFrame();
 		mainFrame.setFont(new Font("Courier New", Font.PLAIN, 17));
@@ -194,7 +195,8 @@ public class ServerView {
 		toggleButton.setBackground(LIGHTPINK);
 
 		consolePane = new JScrollPane(consoleOutput);
-		consolePane.setBorder(new TitledBorder(null, "Console", TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
+		consolePane.setBorder(new TitledBorder(null, "Console", 
+			TitledBorder.LEADING, TitledBorder.TOP, FONT, null));
 		consolePane.setBackground(LIGHTGREY);
 		consolePane.setBounds(10, 445, 758, 138);
 		mainFrame.getContentPane().add(consolePane);
@@ -204,20 +206,23 @@ public class ServerView {
 		mainFrame.getContentPane().add(toggleButton);
 		mainFrame.setVisible(true);
 		mainFrame.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e){
+			/**
+			 *  Stop server when window is closed
+			 *  @param windowEvent - Event handler to handle window close
+			 */
+			public void windowClosing(WindowEvent windowEvent){
 				controller.stopServer();				
 			}
-			public void windowClosed(WindowEvent we){
-				System.out.println("Closed");
+			public void windowClosed(WindowEvent windowEvent){
 			}			
 		});
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 	}
 	
 	
-
 	/**
 	 * Register the event handlers.
+	 * @param None
 	 */
 	private void register() {
 		toggleButton.addActionListener(event -> {
