@@ -17,6 +17,8 @@ Team Members:
 
 ## Compiling
 
+For Windows replace `:` with `;` in the classpath argument.
+
 ```
 git clone https://github.com/SER516/ProjectTwo_Team09.git && cd ProjectTwo_Team09/src/
 javac -Xlint:deprecation -cp .:../lib/jcommon-1.0.23.jar:../lib/jfreechart-1.0.19.jar \
